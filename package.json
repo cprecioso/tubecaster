@@ -1,0 +1,33 @@
+{
+  "name": "yt-play",
+  "version": "0.0.1",
+  "description": "Turn YouTube playlists into video podcasts",
+  "license": "ISC",
+  "author": {
+    "name": "Carlos Precioso",
+    "email": "kalprestito@gmail.com"
+  },
+  "files": [
+    "lib",
+    "public"
+  ],
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "@types/node": "^9.3.0",
+    "axios": "^0.17.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "rss": "^1.2.2",
+    "tslib": "^1.8.1",
+    "ytdl-core": "^0.18.7"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^4.0.2",
+    "@types/express": "^4.11.0",
+    "@types/rss": "^0.0.28",
+    "typescript": "^2.6.2"
+  }
+}
