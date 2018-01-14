@@ -15,6 +15,11 @@
   "directories": {
     "lib": "lib"
   },
+  "scripts": {
+    "build": "npm run clean && tsc -p .",
+    "clean": "rm -rf lib",
+    "watch": "npm run clean && tsc --watch -p ."
+  },
   "dependencies": {
     "@types/node": "^9.3.0",
     "axios": "^0.17.1",
