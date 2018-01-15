@@ -13,6 +13,16 @@ export namespace Thumbnail {
   }
 }
 
+export interface PaginatedResponse<T> {
+  nextPageToken?: string;
+  prevPageToken?: string;
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
+  };
+  items: T[];
+}
+
 export interface Playlist {
   kind: "youtube#playlist";
   etag: string;
@@ -48,16 +58,9 @@ export namespace Playlist {
         pageToken?: string;
       }
     }
-    export interface Response {
+    export interface Response extends PaginatedResponse<Playlist> {
       kind: "youtube#playlistListResponse";
       etag: string;
-      nextPageToken?: string;
-      prevPageToken?: string;
-      pageInfo: {
-        totalResults: number;
-        resultsPerPage: number;
-      };
-      items: Playlist[];
     }
   }
 
@@ -97,16 +100,9 @@ export namespace Playlist {
           pageToken?: string;
         }
       }
-      export interface Response {
+      export interface Response extends PaginatedResponse<Item> {
         kind: "youtube#playlistItemListResponse";
         etag: string;
-        nextPageToken?: string;
-        prevPageToken?: string;
-        pageInfo: {
-          totalResults: number;
-          resultsPerPage: number;
-        };
-        items: Item[];
       }
     }
   }
