@@ -1,6 +1,6 @@
 {
   "name": "tubecaster",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Turn YouTube playlists into video podcasts",
   "homepage": "https://github.com/cprecioso/tubecaster#readme",
   "bugs": {
@@ -10,7 +10,8 @@
   "author": "Carlos Precioso <kalprestito@gmail.com>",
   "files": [
     "lib",
-    "public"
+    "public",
+    "views"
   ],
   "main": "lib/index.js",
   "directories": {
