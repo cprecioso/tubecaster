@@ -1,0 +1,10 @@
+extends layout
+
+block body
+  h1 Tubecaster
+  h2 Turn YouTube playlists into video podcasts
+
+  form(method="GET" action=formAction)
+    input(type="text" name="playlist" placeholder="Paste the Playlist ID or URL")
+    button(type="submit" name="get" value="podcast") Get podcast
+    button.link(type="submit" name="get" value="raw") Having problems?

@@ -1,0 +1,77 @@
+bg-color = rgb(37, 34, 38)
+fg-color = white
+
+a
+  color inherit
+
+body
+  margin 0 1em
+  min-height 100vh
+
+  background-color bg-color
+  background-image linear-gradient(to bottom, bg-color, black)
+  background-repeat no-repeat
+  background-size cover
+  background-position bottom
+
+  font-family sans-serif
+  color fg-color
+
+  display flex
+  flex-flow column nowrap
+  justify-content flex-start
+  align-items flex-start
+
+  font-size 2em
+
+form
+  margin-top 1em
+  width 100%
+  max-width 600px
+
+  display flex
+  flex-flow column nowrap
+  justify-content center
+  align-items flex-end
+
+input, button
+  background-color transparent
+  border 0
+  color inherit
+  border-bottom 3px solid fg-color
+  font-size .8em
+
+input
+  width 100%
+
+  &::placeholder
+    color inherit
+
+  &:focus
+    outline none
+
+button
+  width fit-content
+
+  &.link
+    border 0
+    text-decoration underline
+    text-align right
+    font-size .5em
+
+  &:hover
+    cursor pointer
+
+h1
+  margin 0
+  margin-top 1em
+  font-size 2em
+
+h2
+  margin 0
+  font-size .5em
+  font-weight lighter
+
+.footer
+  margin-top 3em
+  font-size .5em
