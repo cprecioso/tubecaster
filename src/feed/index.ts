@@ -25,7 +25,6 @@ export default async function createFeed(
     site_url: `https://www.youtube.com/playlist?list=${playlist.id}`,
     image_url: chooseBiggestThumbnail(playlist.snippet!.thumbnails).url,
     pubDate: new Date(playlist.snippet!.publishedAt),
-    managingEditor: playlist.snippet!.channelTitle,
     webMaster: pkg.author,
     custom_namespaces: {
       itunes: "http://www.itunes.com/dtds/podcast-1.0.dtd"
@@ -39,6 +38,8 @@ export default async function createFeed(
           { "itunes:email": parseAuthor(pkg.author).email }
         ]
       },
+      { "itunes:block": "yes" },
+      { "itunes:category": { _attr: { text: "TV & Film" } } },
       {
         "itunes:image": {
           _attr: {
@@ -69,7 +70,8 @@ export default async function createFeed(
               href: chooseBiggestThumbnail(item.snippet!.thumbnails).url
             }
           }
-        }
+        },
+        { "itunes:episodeType": "full" }
       ]
     });
   }
