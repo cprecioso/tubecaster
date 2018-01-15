@@ -19,7 +19,7 @@ export default async function createFeed(
   const feed = new RSS({
     title: playlist.snippet!.title,
     description: playlist.snippet!.description,
-    generator: pkg.name,
+    generator: `${pkg.name} ${pkg.version}`,
     feed_url,
     ttl: 60,
     site_url: `https://www.youtube.com/playlist?list=${playlist.id}`,
