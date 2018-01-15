@@ -2,7 +2,7 @@ import axios from "axios";
 import { Types } from ".";
 import { joinWithCommas } from "./_util";
 
-const PlaylistURL = "https://www.googleapis.com/youtube/v3/playlists";
+const PlaylistUrl = "https://www.googleapis.com/youtube/v3/playlists";
 
 async function playlist(playlistId: string, options: playlist.Options) {
   const params: Types.Playlist.List.Request.Params = {
@@ -12,7 +12,7 @@ async function playlist(playlistId: string, options: playlist.Options) {
     part: joinWithCommas(options.parts, playlist.Options.Part.Snippet)
   };
 
-  const response = await axios.get(PlaylistURL, {
+  const response = await axios.get(PlaylistUrl, {
     responseType: "json",
     params
   });

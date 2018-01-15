@@ -3,7 +3,7 @@ import { isArray } from "util";
 import { Types } from ".";
 import { joinWithCommas } from "./_util";
 
-const PlaylistItemsURL = "https://www.googleapis.com/youtube/v3/playlistItems";
+const PlaylistItemsUrl = "https://www.googleapis.com/youtube/v3/playlistItems";
 
 async function* playlistItems(
   playlistId: string,
@@ -17,7 +17,7 @@ async function* playlistItems(
   };
 
   do {
-    const response = await axios.get(PlaylistItemsURL, {
+    const response = await axios.get(PlaylistItemsUrl, {
       responseType: "json",
       params
     });
