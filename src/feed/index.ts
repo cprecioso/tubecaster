@@ -1,5 +1,6 @@
 import * as RSS from "rss";
 import { Types as YT } from "../youtube";
+import { chooseBiggestThumbnail } from "./_util";
 const pkg = require("../../package.json");
 
 interface Enclosure {
@@ -21,7 +22,7 @@ export default async function createFeed(
     feed_url,
     ttl: 60,
     site_url: `https://www.youtube.com/playlist?list=${playlist.id}`,
-    image_url: playlist.snippet!.thumbnails.default.url,
+    image_url: chooseBiggestThumbnail(playlist.snippet!.thumbnails).url,
     pubDate: new Date(playlist.snippet!.publishedAt),
     managingEditor: playlist.snippet!.channelTitle,
     webMaster: pkg.author,
@@ -39,7 +40,9 @@ export default async function createFeed(
       },
       {
         "itunes:image": {
-          _attr: { href: playlist.snippet!.thumbnails.default.url }
+          _attr: {
+            href: chooseBiggestThumbnail(playlist.snippet!.thumbnails).url
+          }
         }
       }
     ]
@@ -61,7 +64,9 @@ export default async function createFeed(
         { "itunes:author": item.snippet!.channelTitle },
         {
           "itunes:image": {
-            _attr: { href: item.snippet!.thumbnails.default.url }
+            _attr: {
+              href: chooseBiggestThumbnail(item.snippet!.thumbnails).url
+            }
           }
         }
       ]
