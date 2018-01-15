@@ -22,7 +22,6 @@ app.get("/" + routes.playlistPodcast(), async (req, res) => {
   });
   const items = playlistItems(req.params.playlistId, {
     key: process.env.YOUTUBE_API_KEY as string,
-    batch: 50,
     parts: [
       playlistItems.Options.Part.Snippet,
       playlistItems.Options.Part.Status

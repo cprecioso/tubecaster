@@ -2,31 +2,22 @@ import axios from "axios";
 import { isArray } from "util";
 import { Types } from ".";
 import { joinWithCommas } from "./_util";
+import { unpaginatedRequest } from "./_request";
 
 const PlaylistItemsUrl = "https://www.googleapis.com/youtube/v3/playlistItems";
 
 async function* playlistItems(
   playlistId: string,
   options: playlistItems.Options
-): AsyncIterableIterator<Types.Playlist.Item> {
+) {
   const params: Types.Playlist.Item.List.Request.Params = {
     key: options.key,
-    maxResults: options.batch,
     part: joinWithCommas(options.parts, playlistItems.Options.Part.Snippet),
     playlistId
   };
 
-  do {
-    const response = await axios.get(PlaylistItemsUrl, {
-      responseType: "json",
-      params
-    });
-
-    const data = response.data as Types.Playlist.Item.List.Response;
-    yield* data.items;
-
-    params.pageToken = data.nextPageToken;
-  } while (params.pageToken != null);
+  const { items } = await unpaginatedRequest<Types.Playlist.Item>(PlaylistItemsUrl, params, options.limit);
+  yield* items
 }
 
 namespace playlistItems {
@@ -42,7 +33,7 @@ namespace playlistItems {
   export interface Options {
     key: string;
     parts?: Options.Part | Options.Part[];
-    batch?: number;
+    limit?: number;
   }
 }
 
