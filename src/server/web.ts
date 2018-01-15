@@ -1,6 +1,6 @@
 import * as express from "express";
 import podcastApp from "./podcast";
-import * as routes from "./routes";
+import * as routes from "./_routes";
 import * as url from "url";
 
 const app = express();
