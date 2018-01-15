@@ -11,6 +11,10 @@ block body
     p.small
       | If it doesn't work, try copy-pasting this address into your podcast app:
       input#podcastCopyUrl(type="text" readonly value=podcastCopyUrl)
+      br
+      | Or
+      |
+      a(href=podcastCopyUrl onclick=";return false;") copy the address of this link
       script.
         var element = window.document.getElementById("podcastCopyUrl")
 
