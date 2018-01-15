@@ -1,12 +1,13 @@
 {
-  "name": "yt-play",
-  "version": "0.0.1",
+  "name": "tubecaster",
+  "version": "0.0.2",
   "description": "Turn YouTube playlists into video podcasts",
-  "license": "ISC",
-  "author": {
-    "name": "Carlos Precioso",
-    "email": "kalprestito@gmail.com"
+  "homepage": "https://github.com/cprecioso/tubecaster#readme",
+  "bugs": {
+    "url": "https://github.com/cprecioso/tubecaster/issues"
   },
+  "license": "ISC",
+  "author": "Carlos Precioso <kalprestito@gmail.com>",
   "files": [
     "lib",
     "public"
@@ -15,9 +16,14 @@
   "directories": {
     "lib": "lib"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://cprecioso@github.com/cprecioso/tubecaster.git"
+  },
   "scripts": {
-    "build": "npm run clean && tsc -p .",
     "clean": "rm -rf lib",
+    "prepublish": "npm run clean && tsc -p .",
+    "start": "node lib/index.js",
     "watch": "npm run clean && tsc --watch -p ."
   },
   "dependencies": {
