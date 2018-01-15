@@ -1,6 +1,7 @@
 import * as RSS from "rss";
 import { Types as YT } from "../youtube";
 import { chooseBiggestThumbnail } from "./_util";
+import * as parseAuthor from "parse-author";
 const pkg = require("../../package.json");
 
 interface Enclosure {
@@ -34,8 +35,8 @@ export default async function createFeed(
       { "itunes:summary": playlist.snippet!.description },
       {
         "itunes:owner": [
-          { "itunes:name": pkg.author.name },
-          { "itunes:email": pkg.author.email }
+          { "itunes:name": parseAuthor(pkg.author).name },
+          { "itunes:email": parseAuthor(pkg.author).email }
         ]
       },
       {
