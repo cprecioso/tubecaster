@@ -4,6 +4,9 @@ fg-color = white
 a
   color inherit
 
+.action::after
+  content "→"
+
 body
   margin 0 1em
   min-height 100vh
@@ -24,7 +27,7 @@ body
 
   font-size 2em
 
-form
+.center-square
   margin-top 1em
   width 100%
   max-width 600px
@@ -32,7 +35,13 @@ form
   display flex
   flex-flow column nowrap
   justify-content center
-  align-items flex-end
+  align-items flex-start
+
+  .small
+    font-size .5em
+
+    input
+      text-overflow ellipsis
 
 input, button
   background-color transparent

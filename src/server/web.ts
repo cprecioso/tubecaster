@@ -23,16 +23,22 @@ app.get("/" + routes.formAction(), async (req, res) => {
     id = passedUrl.query.list;
   } catch (_) {}
 
-  const redirectUrl = url.resolve(
+  const podcastCopyUrl = url.resolve(
     url.format({
-      protocol: req.query.get === "raw" ? req.protocol : "itpc",
-      slashes: req.query.get !== "raw" ? true : undefined,
+      protocol: req.protocol,
       host: req.hostname,
       pathname: req.baseUrl || "/"
     }),
     routes.playlistPodcast(id)
   );
-  res.redirect(redirectUrl);
+
+  const podcastClickUrl = url.format({
+    ...url.parse(podcastCopyUrl),
+    protocol: "itpc",
+    href: undefined
+  });
+
+  res.render("playlist", { podcastCopyUrl, podcastClickUrl });
 });
 
 app.use(podcastApp);

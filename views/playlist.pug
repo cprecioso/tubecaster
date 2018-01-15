@@ -1,0 +1,23 @@
+extends layout
+
+block body
+  h1 Tubecaster
+  h2 Podcast created!
+
+  .center-square
+    p
+      a.action(href=podcastClickUrl) Subscribe
+
+    p.small
+      | If it doesn't work, try copy-pasting this address into your podcast app:
+      input#podcastCopyUrl(type="text" readonly value=podcastCopyUrl)
+      script.
+        var element = window.document.getElementById("podcastCopyUrl")
+
+        function selectAndCopy() {
+          element.select()
+          document.execCommand("copy")
+        }
+
+        element.addEventListener("click", selectAndCopy)
+        element.addEventListener("select", selectAndCopy)
