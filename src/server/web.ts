@@ -36,10 +36,12 @@ app.get("/" + routes.formAction(), async (req, res) => {
 });
 
 app.use(podcastApp);
-app.use(require("stylus").middleware({
-  src: routes.publicDir,
-  compress: true
-}));
+app.use(
+  require("stylus").middleware({
+    src: routes.publicDir,
+    compress: true
+  })
+);
 app.use(express.static(routes.publicDir));
 
 app.use((req, res) => {

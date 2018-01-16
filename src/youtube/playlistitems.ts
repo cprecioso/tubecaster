@@ -16,8 +16,12 @@ async function* playlistItems(
     playlistId
   };
 
-  const { items } = await unpaginatedRequest<Types.Playlist.Item>(PlaylistItemsUrl, params, options.limit);
-  yield* items
+  const { items } = await unpaginatedRequest<Types.Playlist.Item>(
+    PlaylistItemsUrl,
+    params,
+    options.limit
+  );
+  yield* items;
 }
 
 namespace playlistItems {

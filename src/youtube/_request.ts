@@ -10,27 +10,27 @@ export async function unpaginatedRequest<T = any>(
   params: any = {},
   limit = 0
 ) {
-  const perPage = (limit > 0 && limit <= 50) ? limit : 50;
-  const reqParams = { ...params, maxResults: perPage }
-  const firstResponsePromise = request<PaginatedResponse<T>>(url, reqParams)
-  const firstResponse = await firstResponsePromise
-  const numberOfItems = limit || firstResponse.data.pageInfo.totalResults
-  const numberOfPages = Math.ceil(numberOfItems / perPage)
-  const allPages = requestAllPages(firstResponsePromise, numberOfPages)
-  return { firstResponse, items: getAllItems(allPages, numberOfItems) }
+  const perPage = limit > 0 && limit <= 50 ? limit : 50;
+  const reqParams = { ...params, maxResults: perPage };
+  const firstResponsePromise = request<PaginatedResponse<T>>(url, reqParams);
+  const firstResponse = await firstResponsePromise;
+  const numberOfItems = limit || firstResponse.data.pageInfo.totalResults;
+  const numberOfPages = Math.ceil(numberOfItems / perPage);
+  const allPages = requestAllPages(firstResponsePromise, numberOfPages);
+  return { firstResponse, items: getAllItems(allPages, numberOfItems) };
 }
 
 async function* getAllItems<T>(
   responsePromises: Promise<AxiosResponse<PaginatedResponse<T>> | null>[],
   n: number
 ) {
-  let i = 0
+  let i = 0;
   for (const responsePromise of responsePromises) {
-    const response = await responsePromise
-    if (response == null) break
+    const response = await responsePromise;
+    if (response == null) break;
     for (const item of response.data.items) {
-      yield item
-      if (++i >= n) return
+      yield item;
+      if (++i >= n) return;
     }
   }
 }
