@@ -5,17 +5,17 @@ html(lang="en")
     block head
       meta(charset="utf-8")
       meta(name="viewport" content="width=device-width, initial-scale=1.0")
+      link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picnic/6.4.0/picnic.min.css" integrity="sha256-59Y0eLe+JFOJbj+FVi6kFJRqUETkQmgocx2b4tqD9G0=" crossorigin="anonymous")
       link(href="/style.css" type="text/css" rel="stylesheet")
 
     block title
       title Tubecaster
 
   body
-    block body
-    block footer
-      .footer
-        | Made by
-        |
-        a(href="https://carlosprecioso.com") Carlos Precioso
-        br
-        a(href="https://github.com/cprecioso/tubecaster") Source
+    header
+      h1.full: a(href="/") Tubecaster
+      h2.full Turn YouTube playlists into video podcasts
+    main: block body
+    footer.flex.one.two-500
+      span Made by #[a(href="https://carlosprecioso.com") Carlos Precioso]
+      span: a(href="https://github.com/cprecioso/tubecaster") Source

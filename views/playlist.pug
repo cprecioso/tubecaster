@@ -1,27 +1,10 @@
 extends layout
 
 block body
-  h1 Tubecaster
-  h2 Podcast created!
+  .card.flex.one.center
+    pre.full
+      a(href=podcastUrl onclick="return false")
+        = podcastUrl
 
-  .center-square
-    p
-      a.action(href=podcastClickUrl) Subscribe
-
-    p.small
-      | If it doesn't work, try copy-pasting this address into your podcast app:
-      input#podcastCopyUrl(type="text" readonly value=podcastCopyUrl)
-      br
-      | Or
-      |
-      a(href=podcastCopyUrl onclick=";return false;") copy the address of this link
-      script.
-        var element = window.document.getElementById("podcastCopyUrl")
-
-        function selectAndCopy() {
-          element.select()
-          document.execCommand("copy")
-        }
-
-        element.addEventListener("click", selectAndCopy)
-        element.addEventListener("select", selectAndCopy)
+    p.full.
+      Copy the link and paste it into your podcast app. You can press and hold (or right-click) the link in order to copy it more easily.

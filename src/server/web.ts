@@ -23,7 +23,7 @@ app.get("/" + routes.formAction(), async (req, res) => {
     id = passedUrl.query.list;
   } catch (_) {}
 
-  const podcastCopyUrl = url.resolve(
+  const podcastUrl = url.resolve(
     url.format({
       protocol: req.protocol,
       host: req.hostname,
@@ -32,13 +32,7 @@ app.get("/" + routes.formAction(), async (req, res) => {
     routes.playlistPodcast(id)
   );
 
-  const podcastClickUrl = url.format({
-    ...url.parse(podcastCopyUrl),
-    protocol: "itpc",
-    href: undefined
-  });
-
-  res.render("playlist", { podcastCopyUrl, podcastClickUrl });
+  res.render("playlist", { podcastUrl });
 });
 
 app.use(podcastApp);

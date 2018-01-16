@@ -1,86 +1,130 @@
-bg-color = rgb(37, 34, 38)
-fg-color = white
-
-a
-  color inherit
-
-.action::after
-  content "→"
+@charset "utf-8"
 
 body
-  margin 0 1em
-  min-height 100vh
+  width 90vw
+  max-width 700px
+  height auto
+  margin 30px auto 0
 
-  background-color bg-color
-  background-image linear-gradient(to bottom, bg-color, black)
-  background-repeat no-repeat
-  background-size cover
-  background-position bottom
+h1, h2
+  margin 0
+  padding 0
 
-  font-family sans-serif
-  color fg-color
+.card
+  margin-top 20px
+  padding 10px
 
-  display flex
-  flex-flow column nowrap
-  justify-content flex-start
-  align-items flex-start
+  > div
+    padding-bottom 0
 
-  font-size 2em
+    &:last-child
+      padding-right 0
 
-.center-square
-  margin-top 1em
-  width 100%
-  max-width 600px
+  &.flex
+    position relative
+    left .6em
 
-  display flex
-  flex-flow column nowrap
-  justify-content center
-  align-items flex-start
+pre
+  margin-bottom 0
 
-  .small
-    font-size .5em
+@media (max-width: 500px)
+  .card.flex.one > *
+    padding-left 0
 
-    input
-      text-overflow ellipsis
+@media (min-width: 500px)
+  button
+    margin-top 0 !important
 
-input, button
-  background-color transparent
-  border 0
-  color inherit
-  border-bottom 3px solid fg-color
-  font-size .8em
+  .card.flex.two-500 > :first-child
+    padding-left 0
 
-input
-  width 100%
+  footer span:last-child
+    text-align right
 
-  &::placeholder
+@import "./_theme"
+
+/*
+  a
     color inherit
 
-  &:focus
-    outline none
+  .action::after
+    content "→"
 
-button
-  width fit-content
+  body
+    margin 0 1em
+    min-height 100vh
 
-  &.link
+    background-color bg-color
+    background-image linear-gradient(to bottom, bg-color, black)
+    background-repeat no-repeat
+    background-size cover
+    background-position bottom
+
+    font-family sans-serif
+    color fg-color
+
+    display flex
+    flex-flow column nowrap
+    justify-content flex-start
+    align-items flex-start
+
+    font-size 2em
+
+  .center-square
+    margin-top 1em
+    width 100%
+    max-width 600px
+
+    display flex
+    flex-flow column nowrap
+    justify-content center
+    align-items flex-start
+
+    .small
+      font-size .5em
+
+      input
+        text-overflow ellipsis
+
+  input, button
+    background-color transparent
     border 0
-    text-decoration underline
-    text-align right
+    color inherit
+    border-bottom 3px solid fg-color
+    font-size .8em
+
+  input
+    width 100%
+
+    &::placeholder
+      color inherit
+
+    &:focus
+      outline none
+
+  button
+    width fit-content
+
+    &.link
+      border 0
+      text-decoration underline
+      text-align right
+      font-size .5em
+
+    &:hover
+      cursor pointer
+
+  h1
+    margin 0
+    margin-top 1em
+    font-size 2em
+
+  h2
+    margin 0
     font-size .5em
+    font-weight lighter
 
-  &:hover
-    cursor pointer
-
-h1
-  margin 0
-  margin-top 1em
-  font-size 2em
-
-h2
-  margin 0
-  font-size .5em
-  font-weight lighter
-
-.footer
-  margin-top 3em
-  font-size .5em
+  .footer
+    margin-top 3em
+    font-size .5em
+*/
