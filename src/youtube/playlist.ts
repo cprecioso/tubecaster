@@ -1,6 +1,6 @@
-import axios from "axios";
 import { Types } from ".";
 import { joinWithCommas } from "./_util";
+import request from "./_request";
 
 const PlaylistUrl = "https://www.googleapis.com/youtube/v3/playlists";
 
@@ -12,10 +12,7 @@ async function playlist(playlistId: string, options: playlist.Options) {
     part: joinWithCommas(options.parts, playlist.Options.Part.Snippet)
   };
 
-  const response = await axios.get(PlaylistUrl, {
-    responseType: "json",
-    params
-  });
+  const response = await request(PlaylistUrl, params);
 
   const data = response.data as Types.Playlist.List.Response;
   return data.items[0];
