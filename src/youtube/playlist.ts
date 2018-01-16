@@ -1,8 +1,8 @@
-import { Types } from ".";
-import { joinWithCommas } from "./_util";
-import request from "./_request";
+import { Types } from "."
+import { joinWithCommas } from "./_util"
+import request from "./_request"
 
-const PlaylistUrl = "https://www.googleapis.com/youtube/v3/playlists";
+const PlaylistUrl = "https://www.googleapis.com/youtube/v3/playlists"
 
 async function playlist(playlistId: string, options: playlist.Options) {
   const params: Types.Playlist.List.Request.Params = {
@@ -10,12 +10,12 @@ async function playlist(playlistId: string, options: playlist.Options) {
     id: playlistId,
     maxResults: 1,
     part: joinWithCommas(options.parts, playlist.Options.Part.Snippet)
-  };
+  }
 
-  const response = await request(PlaylistUrl, params);
+  const response = await request(PlaylistUrl, params)
 
-  const data = response.data as Types.Playlist.List.Response;
-  return data.items[0];
+  const data = response.data as Types.Playlist.List.Response
+  return data.items[0]
 }
 
 namespace playlist {
@@ -27,9 +27,9 @@ namespace playlist {
   }
 
   export interface Options {
-    key: string;
-    parts?: Options.Part | Options.Part[];
+    key: string
+    parts?: Options.Part | Options.Part[]
   }
 }
 
-export default playlist;
+export default playlist

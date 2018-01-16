@@ -1,8 +1,8 @@
-import { Types } from ".";
-import { joinWithCommas } from "./_util";
-import { unpaginatedRequest } from "./_request";
+import { Types } from "."
+import { joinWithCommas } from "./_util"
+import { unpaginatedRequest } from "./_request"
 
-const PlaylistItemsUrl = "https://www.googleapis.com/youtube/v3/playlistItems";
+const PlaylistItemsUrl = "https://www.googleapis.com/youtube/v3/playlistItems"
 
 async function* playlistItems(
   playlistId: string,
@@ -12,14 +12,14 @@ async function* playlistItems(
     key: options.key,
     part: joinWithCommas(options.parts, playlistItems.Options.Part.Snippet),
     playlistId
-  };
+  }
 
   const { items } = await unpaginatedRequest<Types.Playlist.Item>(
     PlaylistItemsUrl,
     params,
     options.limit
-  );
-  yield* items;
+  )
+  yield* items
 }
 
 namespace playlistItems {
@@ -33,10 +33,10 @@ namespace playlistItems {
   }
 
   export interface Options {
-    key: string;
-    parts?: Options.Part | Options.Part[];
-    limit?: number;
+    key: string
+    parts?: Options.Part | Options.Part[]
+    limit?: number
   }
 }
 
-export default playlistItems;
+export default playlistItems

@@ -1,13 +1,13 @@
-import * as RSS from "rss";
-import { Types as YT } from "../youtube";
-import { chooseBiggestThumbnail } from "./_util";
-import * as parseAuthor from "parse-author";
-const pkg = require("../../package.json");
+import * as RSS from "rss"
+import { Types as YT } from "../youtube"
+import { chooseBiggestThumbnail } from "./_util"
+import * as parseAuthor from "parse-author"
+const pkg = require("../../package.json")
 
 interface Enclosure {
-  url: string;
-  size?: number;
-  type?: string;
+  url: string
+  size?: number
+  type?: string
 }
 
 export default async function createFeed(
@@ -48,10 +48,10 @@ export default async function createFeed(
         }
       }
     ]
-  });
+  })
 
   for await (const item of items) {
-    if (item.status!.privacyStatus === "private") continue;
+    if (item.status!.privacyStatus === "private") continue
     feed.item({
       title: item.snippet!.title,
       description: item.snippet!.description,
@@ -73,8 +73,8 @@ export default async function createFeed(
         },
         { "itunes:episodeType": "full" }
       ]
-    });
+    })
   }
 
-  return feed.xml();
+  return feed.xml()
 }
