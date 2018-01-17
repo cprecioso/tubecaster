@@ -4,10 +4,14 @@ import createFeed from "../feed"
 import { playlist, playlistItems } from "../youtube"
 import * as routes from "./_routes"
 import * as url from "url"
+import { middleware as apicache } from "apicache"
 
 const app = express()
 
-app.get("/" + routes.playlistPodcast(), async (req, res) => {
+app.get(
+  "/" + routes.playlistPodcast(),
+  apicache(`${60 + 59} min`),
+  async (req, res) => {
   const baseUrl = url.format({
     protocol: req.protocol,
     host: req.hostname,

@@ -81,6 +81,10 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+apicache@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/apicache/-/apicache-1.2.0.tgz#b880b1ac7a7e2e3b14f625fb53a992b18943cb31"
+
 array-flatten@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/array-flatten/-/array-flatten-1.1.1.tgz#9a5f699051b1e7073328f2a008968b64ea2955d2"
