@@ -4,7 +4,7 @@ import createFeed from "../feed"
 import * as routes from "./_routes"
 import * as url from "url"
 import playlist from "../youtube/playlist"
-import playlistItems from "../youtube/playlistItems"
+import playlistItems, { PlaylistItems } from "../youtube/playlistItems"
 import { middleware as apicache } from "apicache"
 
 const app = express()
@@ -28,8 +28,8 @@ app.get(
   const items = playlistItems(req.params.playlistId, {
     key: process.env.YOUTUBE_API_KEY as string,
     parts: [
-      playlistItems.Options.Part.Snippet,
-      playlistItems.Options.Part.Status
+      PlaylistItems.Options.Part.Snippet,
+      PlaylistItems.Options.Part.Status
     ]
   })
 
@@ -45,7 +45,8 @@ app.get(
 
   res.contentType("text/xml")
   res.send(feed)
-})
+}
+)
 
 app.get("/" + routes.videoPlay(), async (req, res) => {
   // @ts-ignore
