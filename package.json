@@ -29,7 +29,7 @@
     "format": "prettier --write \"src/**/*\" \"types/**/*\"",
     "prepublish": "npm run clean && tsc -p .",
     "start": "node lib/start.js",
-    "start:nocache": "CACHE=no node lib/start.js",
+    "start:nocache": "TUBECASTER_CACHE=no node lib/start.js",
     "watch": "npm run clean && tsc --watch -p ."
   },
   "dependencies": {
