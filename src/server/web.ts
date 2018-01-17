@@ -10,6 +10,7 @@ const app = express()
 
 app.set("views", routes.viewsDir)
 app.set("view engine", "pug")
+app.enable("trust proxy")
 
 app.get(
   "/",
