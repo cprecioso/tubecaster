@@ -25,8 +25,8 @@
     "clean": "rm -rf lib",
     "format": "prettier --write \"src/**/*\" \"types/**/*\"",
     "prepublish": "npm run clean && tsc -p .",
-    "start": "node lib/index.js",
-    "start:nocache": "CACHE=no node lib/index.js",
+    "start": "node lib/start.js",
+    "start:nocache": "CACHE=no node lib/start.js",
     "watch": "npm run clean && tsc --watch -p ."
   },
   "dependencies": {
@@ -51,8 +51,8 @@
     "prettier": "^1.10.2",
     "typescript": "^2.6.2"
   },
-  "engineStrict": true,
   "engines": {
     "node": ">=8"
-  }
+  },
+  "engineStrict": true
 }
