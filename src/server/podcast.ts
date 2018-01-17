@@ -1,11 +1,11 @@
 import * as express from "express"
-import * as ytdl from "ytdl-core"
-import createFeed from "../feed"
+import { middleware as apicache } from "apicache"
 import * as routes from "./_routes"
 import * as url from "url"
+import * as ytdl from "ytdl-core"
+import createFeed from "../feed"
 import playlist from "../youtube/playlist"
 import playlistItems, { PlaylistItems } from "../youtube/playlistItems"
-import { middleware as apicache } from "apicache"
 
 const app = express()
 

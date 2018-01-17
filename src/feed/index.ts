@@ -1,7 +1,7 @@
-import * as RSS from "rss"
-import * as Types from "../youtube/types"
 import { chooseBiggestThumbnail } from "./_util"
 import * as parseAuthor from "parse-author"
+import * as RSS from "rss"
+import * as Types from "../youtube/types"
 const pkg = require("../../package.json")
 
 interface Enclosure {

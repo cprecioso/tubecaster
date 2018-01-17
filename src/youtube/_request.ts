@@ -1,5 +1,5 @@
-import axios, { AxiosResponse, AxiosPromise, AxiosRequestConfig } from "axios"
 import { PaginatedResponse } from "./types"
+import axios, { AxiosResponse, AxiosPromise, AxiosRequestConfig } from "axios"
 
 export default function request<T = any>(url: string, params: any = {}) {
   return axios.get<T>(url, { responseType: "json", params })

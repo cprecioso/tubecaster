@@ -1,7 +1,7 @@
-import * as Types from "./types"
 import { joinWithCommas } from "./_util"
 import { unpaginatedRequest } from "./_request"
 import * as cache from "./_cache"
+import * as Types from "./types"
 
 const PLAYLIST_ITEMS_URL = "https://www.googleapis.com/youtube/v3/playlistItems"
 

@@ -1,10 +1,10 @@
+import { chooseBiggestThumbnail } from "../feed/_util"
+import { middleware as apicache } from "apicache"
 import * as express from "express"
-import podcastApp from "./podcast"
 import * as routes from "./_routes"
 import * as url from "url"
-import { middleware as apicache } from "apicache"
 import playlist from "../youtube/playlist"
-import { chooseBiggestThumbnail } from "../feed/_util"
+import podcastApp from "./podcast"
 
 const app = express()
 
