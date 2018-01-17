@@ -25,7 +25,7 @@ app.get("/" + routes.formAction(), async (req, res) => {
   let id = req.query.playlist
   try {
     const passedUrl = url.parse(id, true)
-    id = passedUrl.query.list
+    id = passedUrl.query.list || id
   } catch (_) {}
 
   const podcastUrl = url.resolve(
