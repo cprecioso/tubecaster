@@ -1,5 +1,5 @@
 import * as RSS from "rss"
-import { Types as YT } from "../youtube"
+import * as Types from "../youtube/types"
 import { chooseBiggestThumbnail } from "./_util"
 import * as parseAuthor from "parse-author"
 const pkg = require("../../package.json")
@@ -13,8 +13,8 @@ interface Enclosure {
 export default async function createFeed(
   feed_url: string,
   enclosure_creator: (playlistId: string, itemId: string) => Enclosure,
-  playlist: YT.Playlist,
-  items: AsyncIterableIterator<YT.Playlist.Item>
+  playlist: Types.Playlist,
+  items: AsyncIterableIterator<Types.Playlist.Item>
 ) {
   const feed = new RSS({
     title: playlist.snippet!.title,

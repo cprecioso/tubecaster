@@ -1,7 +1,7 @@
-import * as YT from "../youtube/_types"
+import * as Types from "../youtube/types"
 
-export function chooseBiggestThumbnail(thumbnails: YT.Thumbnail.List) {
-  let chosen: YT.Thumbnail = {
+export function chooseBiggestThumbnail(thumbnails: Types.Thumbnail.List) {
+  let chosen: Types.Thumbnail = {
     url: "",
     width: 0,
     height: 0

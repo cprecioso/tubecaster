@@ -1,9 +1,10 @@
 import * as express from "express"
 import * as ytdl from "ytdl-core"
 import createFeed from "../feed"
-import { playlist, playlistItems } from "../youtube"
 import * as routes from "./_routes"
 import * as url from "url"
+import playlist from "../youtube/playlist"
+import playlistItems from "../youtube/playlistItems"
 import { middleware as apicache } from "apicache"
 
 const app = express()
