@@ -52,10 +52,7 @@ app.get(
 )
 
 app.get("/" + routes.videoPlay(), async (req, res) => {
-  // @ts-ignore
-  const info = await ytdl.getInfo(req.params.videoId, {
-    filter: "audioandvideo"
-  })
+  const info = await ytdl.getInfo(req.params.videoId)
   const chosenFormat = ytdl.chooseFormat(info.formats, {
     quality: "highest",
     filter: format => format.container === "mp4" && format.audioEncoding != null
