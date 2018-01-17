@@ -14,6 +14,9 @@
     "views"
   ],
   "main": "lib/index.js",
+  "bin": {
+    "tubecaster": "lib/start.js"
+  },
   "directories": {
     "lib": "lib"
   },

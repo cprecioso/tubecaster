@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { PORT } from "./_config"
 import { web } from "./index"
 
