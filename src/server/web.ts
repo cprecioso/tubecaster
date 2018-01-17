@@ -2,17 +2,22 @@ import * as express from "express"
 import podcastApp from "./podcast"
 import * as routes from "./_routes"
 import * as url from "url"
+import { middleware as apicache } from "apicache"
 
 const app = express()
 
 app.set("views", routes.viewsDir)
 app.set("view engine", "pug")
 
-app.get("/", (req, res) => {
-  res.render("index", {
-    formAction: url.resolve(req.baseUrl || "/", routes.formAction())
-  })
-})
+app.get(
+  "/",
+  apicache("24 hours", process.env.CACHE === "no" ? () => false : undefined),
+  (req, res) => {
+    res.render("index", {
+      formAction: url.resolve(req.baseUrl || "/", routes.formAction())
+    })
+  }
+)
 
 app.get("/" + routes.formAction(), async (req, res) => {
   if (!req.query.playlist) return res.redirect(req.baseUrl || "/")
