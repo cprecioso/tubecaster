@@ -19,26 +19,36 @@ app.get(
   }
 )
 
-app.get("/" + routes.formAction(), async (req, res) => {
+app.get("/" + routes.formAction(), (req, res) => {
   if (!req.query.playlist) return res.redirect(req.baseUrl || "/")
 
   let id = req.query.playlist
   try {
     const passedUrl = url.parse(id, true)
     id = passedUrl.query.list || id
-  } catch (_) {}
+  } catch (_) { }
 
-  const podcastUrl = url.resolve(
-    url.format({
-      protocol: req.protocol,
-      host: req.hostname,
-      pathname: req.baseUrl || "/"
-    }),
-    routes.playlistPodcast(id)
-  )
-
-  res.render("playlist", { podcastUrl })
+  res.redirect("/" + routes.playlistInfo(id))
 })
+
+app.get(
+  "/" + routes.playlistInfo(),
+  apicache("24 hours", process.env.CACHE === "no" ? () => false : undefined),
+  async (req, res) => {
+    const id = req.params.playlistId
+
+    const podcastUrl = url.resolve(
+      url.format({
+        protocol: req.protocol,
+        host: req.hostname,
+        pathname: req.baseUrl || "/"
+      }),
+      routes.playlistPodcast(id)
+    )
+
+    res.render("playlist", { podcastUrl })
+  }
+)
 
 app.use(podcastApp)
 app.use(

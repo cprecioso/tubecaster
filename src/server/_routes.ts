@@ -2,6 +2,9 @@ import { resolve } from "path"
 
 export const formAction = () => `get-playlist`
 
+export const playlistInfo = (playlistId = ":playlistId") =>
+  `playlist/${playlistId}`
+
 export const playlistPodcast = (playlistId = ":playlistId") =>
   `playlist/${playlistId}/podcast`
 
