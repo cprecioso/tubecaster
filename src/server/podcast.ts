@@ -11,7 +11,10 @@ const app = express()
 
 app.get(
   "/" + routes.playlistPodcast(),
-  apicache(`${60 + 59} min`),
+  apicache(
+    `${60 + 59} min`,
+    process.env.CACHE === "no" ? () => false : undefined
+  ),
   async (req, res) => {
     const baseUrl = url.format({
       protocol: req.protocol,

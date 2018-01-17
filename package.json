@@ -26,6 +26,7 @@
     "format": "prettier --write \"src/**/*\" \"types/**/*\"",
     "prepublish": "npm run clean && tsc -p .",
     "start": "node lib/index.js",
+    "start:nocache": "CACHE=no node lib/index.js",
     "watch": "npm run clean && tsc --watch -p ."
   },
   "dependencies": {
