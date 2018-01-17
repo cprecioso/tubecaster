@@ -10,7 +10,7 @@
   "author": "Carlos Precioso <kalprestito@gmail.com>",
   "files": [
     "lib",
-    "public",
+    "public/**/*.styl",
     "views"
   ],
   "main": "lib/index.js",
