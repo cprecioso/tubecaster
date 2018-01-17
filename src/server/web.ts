@@ -3,6 +3,8 @@ import podcastApp from "./podcast"
 import * as routes from "./_routes"
 import * as url from "url"
 import { middleware as apicache } from "apicache"
+import playlist from "../youtube/playlist"
+import { chooseBiggestThumbnail } from "../feed/_util"
 
 const app = express()
 
@@ -46,7 +48,23 @@ app.get(
       routes.playlistPodcast(id)
     )
 
-    res.render("playlist", { podcastUrl })
+    const info = await playlist(id, {
+      key: process.env.YOUTUBE_API_KEY as string
+    })
+    const thumbnail = chooseBiggestThumbnail(info.snippet!.thumbnails).url
+
+    res.render("playlist", {
+      podcast: { url: podcastUrl },
+      playlist: {
+        thumbnail,
+        name: info.snippet!.title,
+        link: `https://www.youtube.com/playlist?list=${id}`,
+        channel: {
+          name: info.snippet!.channelTitle,
+          link: `https://www.youtube.com/channel/${info.snippet!.channelId}`
+        }
+      }
+    })
   }
 )
 

@@ -2,9 +2,19 @@ extends layout
 
 block body
   .card.flex.one.center
-    pre.full
-      a(href=podcastUrl onclick="return false")
-        = podcastUrl
+    header.full
+      img(src=playlist.thumbnail).full
+      h3
+        a(href=playlist.link)= playlist.name
+      h4
+        | de
+        |
+        a(href=playlist.channel.link)= playlist.channel.name
 
-    p.full.
-      Copy the link and paste it into your podcast app. You can press and hold (or right-click) the link in order to copy it more easily.
+    main.full
+      pre.full
+        a(href=podcast.url onclick="return false")
+          = podcast.url
+
+      p.full.
+        Copy the link and paste it into your podcast app. You can press and hold (or right-click) the link in order to copy it more easily.

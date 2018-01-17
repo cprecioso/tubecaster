@@ -6,13 +6,22 @@ body
   height auto
   margin 30px auto 0
 
-h1, h2
+h1, h2, h3, h4
   margin 0
   padding 0
+
+h3
+  margin-right .5em !important
+
+h4
+  font-style italic
 
 .card
   margin-top 20px
   padding 10px
+
+  img
+    border-radius .2em
 
   > div
     padding-bottom 0
@@ -30,6 +39,7 @@ pre
 @media (max-width: 500px)
   .card.flex.one > *
     padding-left 0
+    padding-right 0
 
 @media (min-width: 500px)
   button
