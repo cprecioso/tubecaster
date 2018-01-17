@@ -9,7 +9,7 @@ Turn your favourite playlists into video podcasts
 **tubecatcher** creates a video podcast from a YouTube playlist. Then you can take advantage of your podcast app's abilities such as played / not played markers, downloading episodes and more.
 
 ## Installation as a server
-[![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/cprecioso/tubecaster&env=YOUTUBE_API_KEY)
+[![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/cprecioso/tubecaster&env=TUBECASTER_YOUTUBE_API_KEY)
 
 Rename `sample.env` to `.env` and fill it out. Run locally (`yarn` and `yarn start`) or deploy to a provider of your choice (recommended). Only tested in [now](https://now.sh).
 Open the address of your server and the web interface will guide you.
