@@ -1,6 +1,5 @@
+import { CACHE } from "../_config"
 import * as NodeCache from "node-cache"
-
-const disableCache = process.env.CACHE === "no"
 
 const cache = new NodeCache()
 
@@ -9,7 +8,7 @@ function createKey(domain: string, key: string) {
 }
 
 export async function set<T>(domain: string, key: string, val: T, ttl: number) {
-  if (disableCache) return val
+  if (!CACHE) return val
   await new Promise((f, r) => {
     cache.set<T>(
       createKey(domain, key),
@@ -22,7 +21,7 @@ export async function set<T>(domain: string, key: string, val: T, ttl: number) {
 }
 
 export async function get<T>(domain: string, key: string) {
-  if (disableCache) return undefined
+  if (!CACHE) return undefined
   return new Promise<T | undefined>((f, r) => {
     cache.get<T>(createKey(domain, key), (err, val) => (err ? r(err) : f(val)))
   })

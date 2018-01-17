@@ -1,3 +1,4 @@
+import { CACHE_API_PLAYLISTITEMS } from "../_config"
 import { joinWithCommas } from "./_util"
 import { unpaginatedRequest } from "./_request"
 import * as cache from "./_cache"
@@ -6,7 +7,7 @@ import * as Types from "./types"
 const PLAYLIST_ITEMS_URL = "https://www.googleapis.com/youtube/v3/playlistItems"
 
 const CACHE_DOMAIN = __filename
-const CACHE_TTL = (60 + 59) * 60
+const CACHE_TTL = CACHE_API_PLAYLISTITEMS
 
 export async function* uncached(
   playlistId: string,

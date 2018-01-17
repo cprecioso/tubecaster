@@ -1,5 +1,6 @@
 import * as express from "express"
 import { middleware as apicache } from "apicache"
+import * as config from "../_config"
 import * as routes from "./_routes"
 import * as url from "url"
 import * as ytdl from "ytdl-core"
@@ -12,8 +13,8 @@ const app = express()
 app.get(
   "/" + routes.playlistPodcast(),
   apicache(
-    `${60 + 59} min`,
-    process.env.CACHE === "no" ? () => false : undefined
+    `${config.CACHE_PODCAST_SECONDS} seconds`,
+    !config.CACHE ? () => false : undefined
   ),
   async (req, res) => {
     const baseUrl = url.format({
@@ -26,10 +27,10 @@ app.get(
       routes.playlistPodcast(req.params.playlistId)
     )
     const playlistInfo = await playlist(req.params.playlistId, {
-      key: process.env.YOUTUBE_API_KEY as string
+      key: config.API_KEY as string
     })
     const items = playlistItems(req.params.playlistId, {
-      key: process.env.YOUTUBE_API_KEY as string,
+      key: config.API_KEY as string,
       parts: [
         PlaylistItems.Options.Part.Snippet,
         PlaylistItems.Options.Part.Status

@@ -1,5 +1,6 @@
 import { chooseBiggestThumbnail } from "../feed/_util"
 import { middleware as apicache } from "apicache"
+import * as config from "../_config"
 import * as express from "express"
 import * as routes from "./_routes"
 import * as url from "url"
@@ -14,7 +15,10 @@ app.enable("trust proxy")
 
 app.get(
   "/",
-  apicache("24 hours", process.env.CACHE === "no" ? () => false : undefined),
+  apicache(
+    `${config.CACHE_FRONTEND_HOME_SECONDS} seconds`,
+    !config.CACHE ? () => false : undefined
+  ),
   (req, res) => {
     res.render("index", {
       formAction: url.resolve(req.baseUrl || "/", routes.formAction())
@@ -29,14 +33,17 @@ app.get("/" + routes.formAction(), (req, res) => {
   try {
     const passedUrl = url.parse(id, true)
     id = passedUrl.query.list || id
-  } catch (_) { }
+  } catch (_) {}
 
   res.redirect("/" + routes.playlistInfo(id))
 })
 
 app.get(
   "/" + routes.playlistInfo(),
-  apicache("24 hours", process.env.CACHE === "no" ? () => false : undefined),
+  apicache(
+    `${config.CACHE_FRONTEND_PLAYLIST_SECONDS} seconds`,
+    !config.CACHE ? () => false : undefined
+  ),
   async (req, res) => {
     const id = req.params.playlistId
 
@@ -49,9 +56,7 @@ app.get(
       routes.playlistPodcast(id)
     )
 
-    const info = await playlist(id, {
-      key: process.env.YOUTUBE_API_KEY as string
-    })
+    const info = await playlist(id, { key: config.API_KEY as string })
     const thumbnail = chooseBiggestThumbnail(info.snippet!.thumbnails).url
 
     res.render("playlist", {
