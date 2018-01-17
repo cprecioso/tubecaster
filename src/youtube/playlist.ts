@@ -1,24 +1,38 @@
 import * as Types from "./types"
 import { joinWithCommas } from "./_util"
 import request from "./_request"
+import * as cache from "./_cache"
 
-const PlaylistUrl = "https://www.googleapis.com/youtube/v3/playlists"
+const PLAYLIST_URL = "https://www.googleapis.com/youtube/v3/playlists"
 
-async function playlist(playlistId: string, options: playlist.Options) {
+const CACHE_DOMAIN = __filename
+const CACHE_TTL = (3 * 60 + 59) * 60
+
+export async function uncached(playlistId: string, options: Playlist.Options) {
   const params: Types.Playlist.List.Request.Params = {
     key: options.key,
     id: playlistId,
     maxResults: 1,
-    part: joinWithCommas(options.parts, playlist.Options.Part.Snippet)
+    part: joinWithCommas(options.parts, Playlist.Options.Part.Snippet)
   }
 
-  const response = await request(PlaylistUrl, params)
+  const response = await request(PLAYLIST_URL, params)
 
   const data = response.data as Types.Playlist.List.Response
   return data.items[0]
 }
 
-namespace playlist {
+const cached: typeof uncached = async (playlistId, options) => {
+  return cache.attempt(
+    CACHE_DOMAIN,
+    playlistId,
+    () => uncached(playlistId, options),
+    CACHE_TTL
+  )
+}
+export default cached
+
+export namespace Playlist {
   export namespace Options {
     export enum Part {
       Id = "id",
@@ -31,5 +45,3 @@ namespace playlist {
     parts?: Options.Part | Options.Part[]
   }
 }
-
-export default playlist
