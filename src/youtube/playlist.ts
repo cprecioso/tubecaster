@@ -1,48 +1,39 @@
-import { CACHE_API_PLAYLIST } from "../_config"
-import { joinWithCommas } from "./_util"
+import { get } from "./_request"
 import * as cache from "./_cache"
-import * as Types from "./types"
-import request from "./_request"
-
-const PLAYLIST_URL = "https://www.googleapis.com/youtube/v3/playlists"
+import * as config from "../_config"
+import * as t from "./types"
 
 const CACHE_DOMAIN = __filename
-const CACHE_TTL = CACHE_API_PLAYLIST
+const CACHE_TTL = config.CACHE_API_PLAYLIST_SECONDS
 
-export async function uncached(playlistId: string, options: Playlist.Options) {
-  const params: Types.Playlist.List.Request.Params = {
-    key: options.key,
-    id: playlistId,
+export default function playlist(id: string): Promise<t.Playlist> {
+  if (config.CACHE) {
+    return cacheHelper(id)
+  } else {
+    return uncached(id)
+  }
+}
+
+async function cacheHelper(id: string): Promise<t.Playlist> {
+  const cached = await cache.get<string>(CACHE_DOMAIN, id)
+  if (cached) {
+    return JSON.parse(cached)
+  } else {
+    const playlist = uncached(id)
+    playlist.then(playlist =>
+      cache.set<string>(CACHE_DOMAIN, id, JSON.stringify(playlist), CACHE_TTL)
+    )
+    return playlist
+  }
+}
+
+export async function uncached(id: string) {
+  const playlistResponse = await get<t.Playlist.List.Response>("/playlists", {
+    id,
     maxResults: 1,
-    part: joinWithCommas(options.parts, Playlist.Options.Part.Snippet)
-  }
-
-  const response = await request(PLAYLIST_URL, params)
-
-  const data = response.data as Types.Playlist.List.Response
-  return data.items[0]
-}
-
-const cached: typeof uncached = async (playlistId, options) => {
-  return cache.attempt(
-    CACHE_DOMAIN,
-    playlistId,
-    () => uncached(playlistId, options),
-    CACHE_TTL
-  )
-}
-export default cached
-
-export namespace Playlist {
-  export namespace Options {
-    export enum Part {
-      Id = "id",
-      Snippet = "snippet"
-    }
-  }
-
-  export interface Options {
-    key: string
-    parts?: Options.Part | Options.Part[]
-  }
+    part: "id,snippet,status,contentDetails"
+  })
+  const playlistInfo = playlistResponse.data.items[0]
+  if (!playlistInfo) throw new Error("Playlist does not exist")
+  return playlistInfo
 }

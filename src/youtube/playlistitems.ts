@@ -1,65 +1,92 @@
-import { CACHE_API_PLAYLISTITEMS } from "../_config"
-import { joinWithCommas } from "./_util"
-import { unpaginatedRequest } from "./_request"
+import { get, request, Response } from "./_request"
 import * as cache from "./_cache"
-import * as Types from "./types"
+import * as config from "../_config"
+import * as most from "most"
+import * as t from "./types"
 
-const PLAYLIST_ITEMS_URL = "https://www.googleapis.com/youtube/v3/playlistItems"
+type Item = t.Playlist.Item
+type ItemsResponse = t.Playlist.Item.List.Response
+const MAX_RESULTS_PER_PAGE = 50
 
 const CACHE_DOMAIN = __filename
-const CACHE_TTL = CACHE_API_PLAYLISTITEMS
+const CACHE_TTL = config.CACHE_API_PLAYLISTITEMS_SECONDS
 
-export async function* uncached(
+export default function playlistItems(playlistId: string, limit = Infinity) {
+  if (config.CACHE) {
+    return most.fromPromise(cacheHelper(playlistId, limit)).join()
+  } else {
+    return uncached(playlistId, limit)
+  }
+}
+
+interface CachedItemList {
+  length: number
+  data: string
+}
+
+async function cacheHelper(
   playlistId: string,
-  options: PlaylistItems.Options
-) {
-  const params: Types.Playlist.Item.List.Request.Params = {
-    key: options.key,
-    part: joinWithCommas(options.parts, PlaylistItems.Options.Part.Snippet),
-    playlistId
+  limit: number = Infinity
+): Promise<most.Stream<Item>> {
+  const cached = await cache.get<CachedItemList>(CACHE_DOMAIN, playlistId)
+  if (cached && cached.length >= limit) {
+    const items = JSON.parse(cached.data) as Item[]
+    return most.from(items.slice(0, limit)).multicast()
   }
-
-  const { items } = await unpaginatedRequest<Types.Playlist.Item>(
-    PLAYLIST_ITEMS_URL,
-    params,
-    options.limit
-  )
-  yield* items
+  const stream = uncached(playlistId, limit)
+  stream
+    .reduce((arr: Item[], item: Item) => [...arr, item], [])
+    .then((items: Item[]) => {
+      cache.set<CachedItemList>(
+        CACHE_DOMAIN,
+        playlistId,
+        {
+          length: items.length < limit ? Infinity : items.length,
+          data: JSON.stringify(items)
+        },
+        CACHE_TTL
+      )
+    })
+  return stream.take(limit)
 }
 
-export const cached: typeof uncached = async function*(playlistId, options) {
-  const cachedItems = await cache.get<Types.Playlist.Item[]>(
-    CACHE_DOMAIN,
-    playlistId
-  )
-  if (cachedItems) {
-    yield* cachedItems
-    return
-  }
-
-  const fresh = uncached(playlistId, options)
-  const buffer: Types.Playlist.Item[] = []
-  for await (const item of fresh) {
-    buffer.push(item)
-    yield item
-  }
-  await cache.set(CACHE_DOMAIN, playlistId, buffer, CACHE_TTL)
+interface Seed {
+  res: Response<ItemsResponse>
+  i: number
 }
-export default cached
 
-export namespace PlaylistItems {
-  export namespace Options {
-    export enum Part {
-      Id = "id",
-      Snippet = "snippet",
-      ContentDetails = "contentDetails",
-      Status = "status"
-    }
+export function uncached(playlistId: string, limit = Infinity) {
+  const params = {
+    playlistId,
+    part: "id,snippet,status,contentDetails",
+    maxResults: MAX_RESULTS_PER_PAGE
   }
 
-  export interface Options {
-    key: string
-    parts?: Options.Part | Options.Part[]
-    limit?: number
-  }
+  const maxPages = Math.ceil(limit / MAX_RESULTS_PER_PAGE)
+
+  const stream = most
+    .unfold<any, ItemsResponse, Seed>(
+      // FIXME: Typings here have to be fixed in mostjs
+      // @ts-ignore
+      async (seed: Seed) => {
+        if (seed.i >= limit) return { done: true }
+        if (seed.res && seed.res.data && !seed.res.data.nextPageToken)
+          return { done: true }
+        const res = await (seed.i === 0
+          ? get<ItemsResponse>("/playlistItems", params)
+          : request<ItemsResponse>({
+              ...seed.res.config,
+              params: {
+                ...seed.res.config.params,
+                pageToken: seed.res.data.nextPageToken
+              }
+            }))
+        const newSeed: Seed = { res, i: seed.i + 1 }
+        return { value: res.data, seed: newSeed }
+      },
+      { i: 0 }
+    )
+    .concatMap((res: ItemsResponse) => most.from(res.items))
+    .multicast()
+  return stream
 }

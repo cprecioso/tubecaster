@@ -56,7 +56,7 @@ app.get(
       routes.playlistPodcast(id)
     )
 
-    const info = await playlist(id, { key: config.API_KEY as string })
+    const info = await playlist(id)
     const thumbnail = chooseBiggestThumbnail(info.snippet!.thumbnails).url
 
     res.render("playlist", {

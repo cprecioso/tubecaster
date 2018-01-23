@@ -6,7 +6,7 @@ import * as url from "url"
 import * as ytdl from "ytdl-core"
 import createFeed from "../feed"
 import playlist from "../youtube/playlist"
-import playlistItems, { PlaylistItems } from "../youtube/playlistItems"
+import playlistItems from "../youtube/playlistItems"
 
 const app = express()
 
@@ -26,16 +26,8 @@ app.get(
       baseUrl,
       routes.playlistPodcast(req.params.playlistId)
     )
-    const playlistInfo = await playlist(req.params.playlistId, {
-      key: config.API_KEY as string
-    })
-    const items = playlistItems(req.params.playlistId, {
-      key: config.API_KEY as string,
-      parts: [
-        PlaylistItems.Options.Part.Snippet,
-        PlaylistItems.Options.Part.Status
-      ]
-    })
+    const playlistInfo = await playlist(req.params.playlistId)
+    const items = playlistItems(req.params.playlistId)
 
     const feed = await createFeed(
       completeUrl,

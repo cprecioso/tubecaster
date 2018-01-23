@@ -4,7 +4,7 @@
     "target": "es2017",
     "lib": [
       "es2017",
-      "esnext.asynciterable"
+      "dom" // Only for most
     ],
     "importHelpers": false,
     "rootDir": "src",
