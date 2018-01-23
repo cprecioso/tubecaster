@@ -6,7 +6,7 @@
       "es2017",
       "esnext.asynciterable"
     ],
-    "importHelpers": true,
+    "importHelpers": false,
     "rootDir": "src",
     "outDir": "lib",
     "strict": true,

@@ -42,7 +42,6 @@
     "pug": "^2.0.0-rc.4",
     "rss": "^1.2.2",
     "stylus": "^0.54.5",
-    "tslib": "^1.8.1",
     "ytdl-core": "^0.18.7"
   },
   "devDependencies": {
