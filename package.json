@@ -1,6 +1,6 @@
 {
   "name": "tubecaster",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Turn YouTube playlists into video podcasts",
   "homepage": "https://github.com/cprecioso/tubecaster#readme",
   "bugs": {
@@ -34,25 +34,25 @@
   },
   "dependencies": {
     "apicache": "^1.2.0",
-    "axios": "^0.17.1",
-    "dotenv": "^4.0.0",
+    "axios": "^0.18.0",
+    "dotenv": "^5.0.0",
     "express": "^4.16.2",
-    "most": "^1.7.2",
+    "most": "^1.7.3",
     "node-cache": "^4.1.1",
     "parse-author": "^2.0.0",
     "pug": "^2.0.0-rc.4",
     "rss": "^1.2.2",
     "stylus": "^0.54.5",
-    "ytdl-core": "^0.19.0"
+    "ytdl-core": "^0.20.1"
   },
   "devDependencies": {
     "@types/dotenv": "^4.0.2",
-    "@types/express": "^4.11.0",
-    "@types/node": "^9.3.0",
+    "@types/express": "^4.11.1",
+    "@types/node": "^9.4.6",
     "@types/node-cache": "^4.1.1",
     "@types/rss": "^0.0.28",
     "prettier": "^1.10.2",
-    "typescript": "^2.6.2"
+    "typescript": "^2.7.2"
   },
   "engines": {
     "node": ">=8"
