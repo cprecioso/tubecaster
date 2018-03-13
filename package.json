@@ -33,25 +33,25 @@
     "watch": "npm run clean && tsc --watch -p ."
   },
   "dependencies": {
-    "apicache": "^1.2.0",
+    "apicache": "^1.2.1",
     "axios": "^0.18.0",
-    "dotenv": "^5.0.0",
-    "express": "^4.16.2",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
     "most": "^1.7.3",
     "node-cache": "^4.1.1",
     "parse-author": "^2.0.0",
-    "pug": "^2.0.0-rc.4",
+    "pug": "^2.0.1",
     "rss": "^1.2.2",
     "stylus": "^0.54.5",
-    "ytdl-core": "^0.20.1"
+    "ytdl-core": "^0.20.2"
   },
   "devDependencies": {
     "@types/dotenv": "^4.0.2",
     "@types/express": "^4.11.1",
-    "@types/node": "^9.4.6",
+    "@types/node": "^9.4.7",
     "@types/node-cache": "^4.1.1",
     "@types/rss": "^0.0.28",
-    "prettier": "^1.10.2",
+    "prettier": "^1.11.1",
     "typescript": "^2.7.2"
   },
   "engines": {
