@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
+import { web } from "."
 import { PORT } from "./_config"
-import { web } from "./index"
 
 web.listen(PORT, (err: any) => {
   if (err) throw err

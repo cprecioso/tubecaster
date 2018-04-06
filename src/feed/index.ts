@@ -1,8 +1,10 @@
-import { chooseBiggestThumbnail } from "./_util"
+import { Stream } from "most"
 import * as parseAuthor from "parse-author"
 import * as RSS from "rss"
+
 import * as Types from "../youtube/types"
-import { Stream } from "most"
+import { chooseBiggestThumbnail } from "./_util"
+
 const pkg = require("../../package.json")
 
 interface Enclosure {

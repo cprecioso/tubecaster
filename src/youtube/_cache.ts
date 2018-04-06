@@ -1,5 +1,6 @@
-import { CACHE } from "../_config"
 import * as NodeCache from "node-cache"
+
+import { CACHE } from "../_config"
 
 const cache = new NodeCache()
 

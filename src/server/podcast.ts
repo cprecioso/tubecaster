@@ -1,12 +1,13 @@
-import * as express from "express"
 import { middleware as apicache } from "apicache"
-import * as config from "../_config"
-import * as routes from "./_routes"
+import * as express from "express"
 import * as url from "url"
 import * as ytdl from "ytdl-core"
+
+import * as config from "../_config"
 import createFeed from "../feed"
 import playlist from "../youtube/playlist"
 import playlistItems from "../youtube/playlistItems"
+import * as routes from "./_routes"
 
 const app = express()
 

@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
+
 import { API_KEY } from "../_config"
 
 const api = axios.create({

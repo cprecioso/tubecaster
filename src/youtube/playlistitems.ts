@@ -1,7 +1,8 @@
-import { get, request, Response } from "./_request"
-import * as cache from "./_cache"
-import * as config from "../_config"
 import * as most from "most"
+
+import * as config from "../_config"
+import * as cache from "./_cache"
+import { get, request, Response } from "./_request"
 import * as t from "./types"
 
 type Item = t.Playlist.Item

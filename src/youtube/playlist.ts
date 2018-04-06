@@ -1,6 +1,6 @@
-import { get } from "./_request"
-import * as cache from "./_cache"
 import * as config from "../_config"
+import * as cache from "./_cache"
+import { get } from "./_request"
 import * as t from "./types"
 
 const CACHE_DOMAIN = __filename
