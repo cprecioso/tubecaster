@@ -28,7 +28,7 @@ app.get(
       routes.playlistPodcast(req.params.playlistId)
     )
     const playlistInfo = await playlist(req.params.playlistId)
-    const items = playlistItems(req.params.playlistId)
+    const items = playlistItems(req.params.playlistId, config.ITEMS_PER_PODCAST)
 
     const feed = await createFeed(
       completeUrl,

@@ -8,6 +8,9 @@ export const API_KEY = (() => {
   return key
 })()
 
+export const ITEMS_PER_PODCAST =
+  parseInt(process.env.TUBECASTER_ITEMS_PER_PODCAST as string) || 50
+
 export const CACHE = process.env.TUBECASTER_CACHE !== "no"
 
 export const CACHE_FRONTEND_HOME_SECONDS =
