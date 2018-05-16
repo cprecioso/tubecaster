@@ -25,13 +25,13 @@
     "url": "git+https://cprecioso@github.com/cprecioso/tubecaster.git"
   },
   "scripts": {
-    "build": "npm run prepublish",
+    "build": "yarn && yarn run prepublish",
     "clean": "rm -rf lib",
     "format": "prettier --write \"src/**/*\" \"types/**/*\"",
-    "prepublish": "npm run clean && tsc -p .",
+    "prepublish": "yarn run clean && tsc -p .",
     "start": "node lib/start.js",
     "start:nocache": "TUBECASTER_CACHE=no node lib/start.js",
-    "watch": "npm run clean && tsc --watch -p ."
+    "watch": "yarn run clean && tsc --watch -p ."
   },
   "dependencies": {
     "apicache": "^1.2.1",
