@@ -25,6 +25,7 @@
     "url": "git+https://cprecioso@github.com/cprecioso/tubecaster.git"
   },
   "scripts": {
+    "build": "npm run prepublish",
     "clean": "rm -rf lib",
     "format": "prettier --write \"src/**/*\" \"types/**/*\"",
     "prepublish": "npm run clean && tsc -p .",
