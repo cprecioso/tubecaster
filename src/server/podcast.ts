@@ -4,7 +4,7 @@ import * as url from "url"
 import * as ytdl from "ytdl-core"
 import createFeed from "../feed"
 import playlist from "../youtube/playlist"
-import playlistItems from "../youtube/playlistItems"
+import playlistItems from "../youtube/playlistitems"
 import * as config from "../_config"
 import * as routes from "./_routes"
 
