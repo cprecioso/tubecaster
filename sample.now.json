@@ -1,0 +1,9 @@
+{
+  "name": "tubecaster",
+  "dotenv": ".env",
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "public": true,
+  "files": ["lib", "yarn.lock", "package.json"]
+}

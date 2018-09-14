@@ -26,7 +26,7 @@
     "build": "gulp build",
     "clean": "gulp clean",
     "dev": "gulp dev",
-    "now-build": "",
+    "now-build": "echo \"Don't build for now.sh\"",
     "prepublishOnly": "gulp prepublishOnly",
     "start": "node lib/src/start.js",
     "start:nocache": "TUBECASTER_CACHE=no node lib/src/start.js"
