@@ -1,11 +1,11 @@
 import { Stream } from "most"
 import * as parseAuthor from "parse-author"
+import { sync as readPkgUp } from "read-pkg-up"
 import * as RSS from "rss"
-
 import * as Types from "../youtube/types"
 import { chooseBiggestThumbnail } from "./_util"
 
-const pkg = require("../../package.json")
+const { pkg } = readPkgUp({ normalize: false })
 
 interface Enclosure {
   url: string

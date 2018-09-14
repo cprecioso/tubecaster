@@ -6,32 +6,30 @@
   "bugs": {
     "url": "https://github.com/cprecioso/tubecaster/issues"
   },
-  "license": "ISC",
-  "author": "Carlos Precioso <kalprestito@gmail.com>",
-  "files": [
-    "lib",
-    "public/**/*.styl",
-    "views"
-  ],
-  "main": "lib/index.js",
-  "bin": {
-    "tubecaster": "lib/start.js"
-  },
-  "directories": {
-    "lib": "lib"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://cprecioso@github.com/cprecioso/tubecaster.git"
   },
+  "license": "ISC",
+  "author": "Carlos Precioso <kalprestito@gmail.com>",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/src/index.js",
+  "bin": {
+    "tubecaster": "lib/src/start.js"
+  },
+  "directories": {
+    "lib": "lib"
+  },
   "scripts": {
-    "build": "yarn && yarn run prepublish",
-    "clean": "rm -rf lib",
-    "format": "prettier --write \"src/**/*\" \"types/**/*\"",
-    "prepublish": "yarn run clean && tsc -p .",
-    "start": "node lib/start.js",
-    "start:nocache": "TUBECASTER_CACHE=no node lib/start.js",
-    "watch": "yarn run clean && tsc --watch -p ."
+    "build": "gulp build",
+    "clean": "gulp clean",
+    "dev": "gulp dev",
+    "now-build": "",
+    "prepublishOnly": "gulp prepublishOnly",
+    "start": "node lib/src/start.js",
+    "start:nocache": "TUBECASTER_CACHE=no node lib/src/start.js"
   },
   "dependencies": {
     "apicache": "^1.2.3",
@@ -47,10 +45,11 @@
     "most-node-streams": "^1.0.0",
     "node-cache": "^4.1.1",
     "parse-author": "^2.0.0",
-    "pug": "^2.0.1",
+    "picnic": "^6.5.0",
+    "pug-runtime": "^2.0.4",
     "pump": "^3.0.0",
+    "read-pkg-up": "^4.0.0",
     "rss": "^1.2.2",
-    "stylus": "^0.54.5",
     "ytdl-core": "^0.25.2"
   },
   "devDependencies": {
@@ -62,9 +61,19 @@
     "@types/lodash": "^4.14.116",
     "@types/node": "^10.9.4",
     "@types/pump": "^1.0.1",
+    "@types/read-pkg-up": "^3.0.1",
     "@types/rss": "^0.0.28",
-    "prettier": "^1.14.2",
-    "ts-node": "^7.0.1",
+    "autoprefixer": "^9.1.5",
+    "cssnano": "^4.1.0",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-cli": "^2.0.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-pug": "^4.0.1",
+    "gulp-stylus": "^2.7.0",
+    "gulp-typescript": "^5.0.0-alpha.3",
+    "pumpify": "^1.5.1",
+    "through2": "^2.0.3",
     "typescript": "^3.0.3"
   },
   "engines": {

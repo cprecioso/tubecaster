@@ -1,7 +1,7 @@
 import * as config from "../_config"
+import * as t from "./types"
 import * as cache from "./_cache"
 import { get } from "./_request"
-import * as t from "./types"
 
 const CACHE_DOMAIN = __filename
 const CACHE_TTL = config.CACHE_API_PLAYLIST_SECONDS

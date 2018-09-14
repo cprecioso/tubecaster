@@ -1,9 +1,8 @@
 import * as most from "most"
-
 import * as config from "../_config"
+import * as t from "./types"
 import * as cache from "./_cache"
 import { get, request, Response } from "./_request"
-import * as t from "./types"
 
 type Item = t.Playlist.Item
 type ItemsResponse = t.Playlist.Item.List.Response

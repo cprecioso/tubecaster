@@ -1,17 +1,18 @@
 import { middleware as apicache } from "apicache"
 import * as express from "express"
 import * as url from "url"
-
-import * as config from "../_config"
 import { chooseBiggestThumbnail } from "../feed/_util"
 import playlist from "../youtube/playlist"
-import * as routes from "./_routes"
+import * as config from "../_config"
 import podcastApp from "./podcast"
+import addCompiledPugEngine from "./templateEngine"
+import * as routes from "./_routes"
 
 const app = express()
 
+addCompiledPugEngine(app)
 app.set("views", routes.viewsDir)
-app.set("view engine", "pug")
+app.set("view engine", "pug.js")
 app.enable("trust proxy")
 
 app.get(
@@ -76,12 +77,6 @@ app.get(
 )
 
 app.use(podcastApp)
-app.use(
-  require("stylus").middleware({
-    src: routes.publicDir,
-    compress: true
-  })
-)
 app.use(express.static(routes.publicDir))
 
 app.use((req, res) => {
