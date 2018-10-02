@@ -57,10 +57,9 @@ export default async function createFeed(
   })
 
   await items.forEach(item => {
-    if (!item.status || !item.snippet)
-      throw new Error("Please provide all the information for items")
-
+    if (!item.status || !item.snippet) return
     if (item.status.privacyStatus === "private") return
+
     feed.item({
       title: item.snippet.title,
       description: item.snippet.description,
