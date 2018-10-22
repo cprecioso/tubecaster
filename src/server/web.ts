@@ -82,4 +82,9 @@ app.use((req, res) => {
   res.status(404).render("error", { error: "Can't find that page" })
 })
 
+app.use(((err, req, res, next) => {
+  res.status(500)
+  res.render("error", { error: "" + err })
+}) as express.ErrorRequestHandler)
+
 export default app
