@@ -31,7 +31,7 @@ app.get(
 
     const feed = await createFeed(
       completeUrl,
-      (playlistId, itemId) => ({
+      videoId => ({
         url: url.resolve(baseUrl, routes.videoPlay(itemId)),
         type: "video/mp4"
       }),

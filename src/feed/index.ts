@@ -15,7 +15,7 @@ interface Enclosure {
 
 export default async function createFeed(
   feed_url: string,
-  enclosure_creator: (playlistId: string, itemId: string) => Enclosure,
+  enclosureCreator: (videoId: string) => Enclosure,
   playlist: Types.Playlist,
   items: Stream<Types.Playlist.Item>
 ) {
@@ -66,10 +66,7 @@ export default async function createFeed(
       url: `http://youtube.com/watch?v=${item.snippet.resourceId.videoId}`,
       author: item.snippet.channelTitle,
       date: new Date(item.snippet.publishedAt),
-      enclosure: enclosure_creator(
-        playlist.id,
-        item.snippet.resourceId.videoId
-      ),
+      enclosure: enclosureCreator(item.snippet.resourceId.videoId),
       custom_elements: [
         { "itunes:author": item.snippet.channelTitle },
         {
