@@ -11,6 +11,8 @@ dependencies:
   most-limiter: 0.0.11
   most-node-streams: 1.0.0
   node-cache: 4.2.0
+  p-memoize: 2.1.0
+  p-throttle: 2.0.0
   parse-author: 2.0.0
   picnic: 6.5.0
   pug-runtime: 2.0.4
@@ -26,6 +28,8 @@ devDependencies:
   '@types/get-stream': 3.0.1
   '@types/lodash': 4.14.116
   '@types/node': 10.11.3
+  '@types/p-memoize': 1.0.0
+  '@types/p-throttle': 1.1.0
   '@types/pump': 1.0.1
   '@types/read-pkg-up': 3.0.1
   '@types/rss': 0.0.28
@@ -145,6 +149,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==
+  /@types/p-memoize/1.0.0:
+    dev: true
+    resolution:
+      integrity: sha512-MHcpDTgpltar0Rt+nXRdxyY3JOGG/vmj5YnKDCvagadyb9GGTNUZg69v1trfCDZkDwWFuwzX+kyNaguK+8tKQA==
+  /@types/p-throttle/1.1.0:
+    dev: true
+    resolution:
+      integrity: sha512-CnH+becdzitucSgzFmKihCNgyOxJp//LTqcVq69vFv3jfdF9ERE67PM9jOoUKL/rbNN5zfhnbsalQJLFVVaMkQ==
   /@types/pug/2.0.4:
     dev: true
     resolution:
@@ -2726,6 +2738,14 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-pxiuXh0iVEq7VM7KMIhs5gxsfxCux2URptUQaXo4iZZJxBAzTPOLE2BumO5dbfVYq/hBJFBR/a1mFDmOx5AGmw==
+  /map-age-cleaner/0.1.2:
+    dependencies:
+      p-defer: 1.0.0
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-UN1dNocxQq44IhJyMI4TU8phc2m9BddacHRPRjKGLYaF0jqd3xLz0jS0skpAU9WgYyoR4gHtUpzytNBS385FWQ==
   /map-cache/0.2.2:
     dev: true
     engines:
@@ -2761,6 +2781,16 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
+  /mem/4.0.0:
+    dependencies:
+      map-age-cleaner: 0.1.2
+      mimic-fn: 1.2.0
+      p-is-promise: 1.1.0
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-WQxG/5xYc3tMbYLXoXPm81ET2WDULiU5FxbuIoNbJqLOOI8zehXFdZuiUEgfdrU2mVB1pxBZUGlYORSrpuJreA==
   /merge-descriptors/1.0.1:
     dev: false
     resolution:
@@ -2824,6 +2854,12 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-KI1+qOZu5DcW6wayYHSzR/tXKCDC5Om4s1z2QJjDULzLcmf3DvzS7oluY4HCTrc+9FiKmWUgeNLg7W3uIQvxtQ==
+  /mimic-fn/1.2.0:
+    dev: false
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha512-jf84uxzwiuiIVKiOLpfYk7N46TSy8ubTonmneY9vrpHNAnp0QBt2BxWV9dO3/j+BoVAb+a5G6YDPW3M5HOdMWQ==
   /miniget/1.5.0:
     dev: false
     engines:
@@ -3125,6 +3161,19 @@ packages:
     resolution:
       integrity: sha1-IPnxeuKe00XoveWDsT0gCYA8FNk=
       tarball: 'http://registry.npmjs.org/os-locale/-/os-locale-1.4.0.tgz'
+  /p-defer/1.0.0:
+    dev: false
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-n26xgvbJqozXQwBKfU+WsZaw+ww=
+  /p-is-promise/1.1.0:
+    dev: false
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-nJRWmJ6fZYgBewQ01WCXZ1w9oF4=
+      tarball: 'http://registry.npmjs.org/p-is-promise/-/p-is-promise-1.1.0.tgz'
   /p-limit/2.0.0:
     dependencies:
       p-try: 2.0.0
@@ -3147,6 +3196,21 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-r6zKACMNhjPJMTl8KcFH4li//gkrXWfbD6feV8l6doRHlzljFWGJ2AP6iKaCJXyZmAUMOPtvbW7EXkbWO/pLEA==
+  /p-memoize/2.1.0:
+    dependencies:
+      mem: 4.0.0
+      mimic-fn: 1.2.0
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-c6+a2iV4JyX0r4+i2IBJYO0r6LZAT2fg/tcB6GQbv1uzZsfsmKT7Ej5DRT1G6Wi7XUJSV2ZiP9+YEtluvhCmkg==
+  /p-throttle/2.0.0:
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-SKgpLwTm7VjKy8EoGZba3zqKAvVlBA8IiR+FLa5FkS/snoclGA4hH02fq+m+hwjUdZAed/PI7JVJImzb2P7U5A==
   /p-try/2.0.0:
     dev: false
     engines:
@@ -4839,6 +4903,8 @@ specifiers:
   '@types/get-stream': ^3.0.1
   '@types/lodash': ^4.14.116
   '@types/node': ^10.9.4
+  '@types/p-memoize': ^1.0.0
+  '@types/p-throttle': ^1.1.0
   '@types/pump': ^1.0.1
   '@types/read-pkg-up': ^3.0.1
   '@types/rss': ^0.0.28
@@ -4862,6 +4928,8 @@ specifiers:
   most-limiter: ^0.0.11
   most-node-streams: ^1.0.0
   node-cache: ^4.1.1
+  p-memoize: ^2.1.0
+  p-throttle: ^2.0.0
   parse-author: ^2.0.0
   picnic: ^6.5.0
   pug-runtime: ^2.0.4

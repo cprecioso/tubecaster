@@ -4,6 +4,7 @@ import * as url from "url"
 import { chooseBiggestThumbnail } from "../feed/_util"
 import playlist from "../youtube/playlist"
 import * as config from "../_config"
+import parseYTURL, { ListType } from "./parse-url"
 import podcastApp from "./podcast"
 import addCompiledPugEngine from "./templateEngine"
 import * as routes from "./_routes"
@@ -28,16 +29,19 @@ app.get(
   }
 )
 
-app.get("/" + routes.formAction(), (req, res) => {
-  if (!req.query.playlist) return res.redirect(req.baseUrl || "/")
+app.get("/" + routes.formAction(), async (req, res) => {
+  if (!req.query.yturl) return res.redirect(req.baseUrl || "/")
 
-  let id = req.query.playlist
   try {
-    const passedUrl = url.parse(id, true)
-    id = passedUrl.query.list || id
-  } catch (_) {}
+    const url = req.query.yturl
+    const { type, id } = await parseYTURL(url)
+    if (type !== ListType.Playlist)
+      throw new Error("Only playlists are supported for now")
 
-  res.redirect("/" + routes.playlistInfo(id))
+    res.redirect("/" + routes.playlistInfo(id))
+  } catch (err) {
+    res.end("" + err)
+  }
 })
 
 app.get(
