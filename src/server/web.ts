@@ -3,11 +3,10 @@ import * as express from "express"
 import { chooseBiggestThumbnail } from "../feed/_util"
 import playlist from "../youtube/playlist"
 import * as config from "../_config"
-import parseYTURL, { ListType } from "./parse-url"
 import podcastApp from "./podcast"
-import addCompiledPugEngine from "./templateEngine"
-import { resolveUrl } from "./url"
+import parseYTURL, { ListType } from "./_parse-url"
 import * as routes from "./_routes"
+import { addCompiledPugEngine, asyncMiddleware, resolveUrl } from "./_util"
 
 const app = express()
 
@@ -29,20 +28,24 @@ app.get(
   }
 )
 
-app.get("/" + routes.formAction(), async (req, res) => {
-  if (!req.query.yturl) return res.redirect(req.baseUrl || "/")
+app.get(
+  "/" + routes.formAction(),
+  asyncMiddleware(async (req, res) => {
+    if (!req.query.yturl) return res.redirect(req.baseUrl || "/")
 
-  try {
     const url = req.query.yturl
     const { type, id } = await parseYTURL(url)
-    if (type !== ListType.Playlist)
-      throw new Error("Only playlists are supported for now")
+    switch (type) {
+      case ListType.Channel: {
+        throw new Error("Only playlists are supported for now")
+      }
+      case ListType.Playlist: {
+        return res.redirect("/" + routes.playlistInfo(id))
+      }
+    }
+  })
+)
 
-    res.redirect("/" + routes.playlistInfo(id))
-  } catch (err) {
-    res.end("" + err)
-  }
-})
 
 app.get(
   "/" + routes.playlistInfo(),
@@ -50,11 +53,9 @@ app.get(
     `${config.CACHE_FRONTEND_PLAYLIST_SECONDS} seconds`,
     !config.CACHE ? () => false : undefined
   ),
-  async (req, res) => {
+  asyncMiddleware(async (req, res) => {
     const id = req.params.playlistId
-
     const podcastUrl = resolveUrl(req, routes.playlistPodcast(id))
-
     const info = await playlist(id)
     const thumbnail = chooseBiggestThumbnail(info.snippet!.thumbnails).url
 
@@ -70,7 +71,7 @@ app.get(
         }
       }
     })
-  }
+  })
 )
 
 app.use(podcastApp)
