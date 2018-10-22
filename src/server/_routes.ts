@@ -1,6 +1,10 @@
 import { resolve } from "path"
 
 export const parseUrlFormAction = () => `parse`
+export const parseChannelFormAction = () => `parse-channel`
+
+export const channelPlaylistSelection = (channelId = ":channelId") =>
+  `channel/${channelId}`
 
 export const playlistInfo = (playlistId = ":playlistId") =>
   `playlist/${playlistId}`

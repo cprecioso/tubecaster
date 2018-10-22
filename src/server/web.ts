@@ -38,7 +38,7 @@ app.post(
     const { type, id } = await parseYTURL(url)
     switch (type) {
       case ListType.Channel: {
-        throw new Error("Only playlists are supported for now")
+        return res.redirect("/" + routes.channelPlaylistSelection(id))
       }
       case ListType.Playlist: {
         return res.redirect("/" + routes.playlistInfo(id))
@@ -47,6 +47,28 @@ app.post(
   })
 )
 
+app.get(
+  "/" + routes.channelPlaylistSelection(),
+  asyncMiddleware(async (req, res) => {
+    const id = req.params.channelId
+    res.render("channel", {
+      channel: { id },
+      formAction: resolveUrl(req, routes.parseChannelFormAction())
+    })
+  })
+)
+
+app.post(
+  "/" + routes.parseChannelFormAction(),
+  express.urlencoded({ extended: false }),
+  asyncMiddleware(async (req, res) => {
+    const { channelId, listType } = req.body as { [key: string]: string }
+    if (!channelId || !listType) return res.redirect(req.baseUrl || "/")
+
+    const playlistId = channelId.replace(/^UC/, listType)
+    return res.redirect("/" + routes.playlistInfo(playlistId))
+  })
+)
 
 app.get(
   "/" + routes.playlistInfo(),

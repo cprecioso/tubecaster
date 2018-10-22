@@ -1,0 +1,22 @@
+extends _layout
+
+block body
+  .card.full.flex.one.center
+    main.flex.one
+      h3 Choose the list you want to convert:
+      form(method="POST" action=formAction).flex.one.two-500
+        input(type="hidden" name="channelId" value=channel.id)
+
+        each name, key in {"PU":"Popular videos", "FL":"Favourite videos", "UU": "Uploaded videos"}
+          label.stack
+            input(type="radio" name="listType" value=key)
+            span.checkable= name
+
+        button(type="submit") Get podcast
+
+      p
+        | If you want the podcast of another playlist from that user, you can
+        |
+        a(href="javascript:history.back()") go back
+        |
+        | and paste the link of that playlist instead.
