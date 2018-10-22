@@ -1,12 +1,12 @@
 import { middleware as apicache } from "apicache"
 import * as express from "express"
-import * as url from "url"
 import { chooseBiggestThumbnail } from "../feed/_util"
 import playlist from "../youtube/playlist"
 import * as config from "../_config"
 import parseYTURL, { ListType } from "./parse-url"
 import podcastApp from "./podcast"
 import addCompiledPugEngine from "./templateEngine"
+import { resolveUrl } from "./url"
 import * as routes from "./_routes"
 
 const app = express()
@@ -24,7 +24,7 @@ app.get(
   ),
   (req, res) => {
     res.render("index", {
-      formAction: url.resolve(req.baseUrl || "/", routes.formAction())
+      formAction: resolveUrl(req, routes.formAction())
     })
   }
 )
@@ -53,14 +53,7 @@ app.get(
   async (req, res) => {
     const id = req.params.playlistId
 
-    const podcastUrl = url.resolve(
-      url.format({
-        protocol: req.protocol,
-        host: req.hostname,
-        pathname: req.baseUrl || "/"
-      }),
-      routes.playlistPodcast(id)
-    )
+    const podcastUrl = resolveUrl(req, routes.playlistPodcast(id))
 
     const info = await playlist(id)
     const thumbnail = chooseBiggestThumbnail(info.snippet!.thumbnails).url

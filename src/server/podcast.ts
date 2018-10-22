@@ -1,11 +1,11 @@
 import { middleware as apicache } from "apicache"
 import * as express from "express"
-import * as url from "url"
 import * as ytdl from "ytdl-core"
 import createFeed from "../feed"
 import playlist from "../youtube/playlist"
 import playlistItems from "../youtube/playlistitems"
 import * as config from "../_config"
+import { resolveUrl } from "./url"
 import * as routes from "./_routes"
 
 const app = express()
@@ -17,13 +17,8 @@ app.get(
     !config.CACHE ? () => false : undefined
   ),
   async (req, res) => {
-    const baseUrl = url.format({
-      protocol: req.protocol,
-      host: req.hostname,
-      pathname: req.baseUrl || "/"
-    })
-    const completeUrl = url.resolve(
-      baseUrl,
+    const completeUrl = resolveUrl(
+      req,
       routes.playlistPodcast(req.params.playlistId)
     )
     const playlistInfo = await playlist(req.params.playlistId)
@@ -32,7 +27,7 @@ app.get(
     const feed = await createFeed(
       completeUrl,
       videoId => ({
-        url: url.resolve(baseUrl, routes.videoPlay(itemId)),
+        url: resolveUrl(req, routes.videoPlay(videoId)),
         type: "video/mp4"
       }),
       playlistInfo,
