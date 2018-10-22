@@ -23,17 +23,18 @@ app.get(
   ),
   (req, res) => {
     res.render("index", {
-      formAction: resolveUrl(req, routes.formAction())
+      formAction: resolveUrl(req, routes.parseUrlFormAction())
     })
   }
 )
 
-app.get(
-  "/" + routes.formAction(),
+app.post(
+  "/" + routes.parseUrlFormAction(),
+  express.urlencoded({ extended: false }),
   asyncMiddleware(async (req, res) => {
-    if (!req.query.yturl) return res.redirect(req.baseUrl || "/")
+    if (!req.body.yturl) return res.redirect(req.baseUrl || "/")
 
-    const url = req.query.yturl
+    const url = req.body.yturl
     const { type, id } = await parseYTURL(url)
     switch (type) {
       case ListType.Channel: {

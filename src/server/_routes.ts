@@ -1,6 +1,6 @@
 import { resolve } from "path"
 
-export const formAction = () => `get-playlist`
+export const parseUrlFormAction = () => `parse`
 
 export const playlistInfo = (playlistId = ":playlistId") =>
   `playlist/${playlistId}`
