@@ -37,7 +37,7 @@ const parseCurrentURL = (url: string): ListReference | false => {
   switch (urlType) {
     case "channel": {
       if (!urlId) return false
-      return { type: ListType.Channel, id: urlId }
+      return { type: ListType.Playlist, id: urlId.replace(/^UC/, "UU") }
     }
     case "watch":
     case "playlist": {
