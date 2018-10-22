@@ -52,7 +52,7 @@
     "pump": "^3.0.0",
     "read-pkg-up": "^4.0.0",
     "rss": "^1.2.2",
-    "ytdl-core": "^0.25.2"
+    "ytdl-core": "^0.26.3"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.9",
