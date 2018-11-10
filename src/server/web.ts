@@ -1,5 +1,5 @@
 import { middleware as apicache } from "apicache"
-import * as express from "express"
+import express from "express"
 import { chooseBiggestThumbnail } from "../feed/_util"
 import playlist from "../youtube/playlist"
 import * as config from "../_config"

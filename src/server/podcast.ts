@@ -1,5 +1,5 @@
 import { middleware as apicache } from "apicache"
-import * as express from "express"
+import express from "express"
 import * as ytdl from "ytdl-core"
 import createFeed from "../feed"
 import playlist from "../youtube/playlist"

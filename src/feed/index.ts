@@ -1,7 +1,7 @@
 import { Stream } from "most"
-import * as parseAuthor from "parse-author"
+import parseAuthor from "parse-author"
 import { sync as readPkgUp } from "read-pkg-up"
-import * as RSS from "rss"
+import RSS from "rss"
 import * as Types from "../youtube/types"
 import { chooseBiggestThumbnail } from "./_util"
 

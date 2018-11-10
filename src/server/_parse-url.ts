@@ -1,6 +1,6 @@
 import axios from "axios"
 import { load as cheerio } from "cheerio"
-import * as pMemoize from "p-memoize"
+import pMemoize from "p-memoize"
 import pThrottle from "p-throttle"
 import { URL } from "url"
 
