@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { web } from "."
 import { PORT } from "./_config"
 

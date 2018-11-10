@@ -17,7 +17,7 @@
   ],
   "main": "lib/src/index.js",
   "bin": {
-    "tubecaster": "lib/src/start.js"
+    "tubecaster": "lib/src/bin.js"
   },
   "directories": {
     "lib": "lib"
@@ -28,7 +28,7 @@
     "dev": "gulp dev",
     "now-build": "echo \"Don't build for now.sh\"",
     "prepublishOnly": "gulp prepublishOnly",
-    "start": "node lib/src/start.js",
+    "start": "node lib/src/bin.js",
     "start:nocache": "TUBECASTER_CACHE=no node lib/src/start.js"
   },
   "dependencies": {
