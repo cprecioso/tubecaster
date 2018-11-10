@@ -10,11 +10,8 @@ function createKey(domain: string, key: string) {
 export async function set<T>(domain: string, key: string, val: T, ttl: number) {
   if (!CACHE) return val
   await new Promise((f, r) => {
-    cache.set<T>(
-      createKey(domain, key),
-      val,
-      ttl || 0,
-      (err, success) => (err ? r(err) : f())
+    cache.set<T>(createKey(domain, key), val, ttl || 0, (err, success) =>
+      err ? r(err) : f()
     )
   })
   return val
