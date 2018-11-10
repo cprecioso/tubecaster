@@ -31,9 +31,9 @@ export default async function createFeed(
     site_url: `https://www.youtube.com/playlist?list=${playlist.id}`,
     image_url: chooseBiggestThumbnail(playlist.snippet.thumbnails).url,
     pubDate: new Date(playlist.snippet.publishedAt),
-    webMaster: pkg.author,
     custom_namespaces: {
-      itunes: "http://www.itunes.com/dtds/podcast-1.0.dtd"
+      itunes: "http://www.itunes.com/dtds/podcast-1.0.dtd",
+      media: "http://search.yahoo.com/mrss/"
     },
     custom_elements: [
       { "itunes:author": playlist.snippet.channelTitle },
@@ -45,6 +45,8 @@ export default async function createFeed(
         ]
       },
       { "itunes:block": "yes" },
+      { language: "en-US" },
+      { "itunes:explicit": false },
       { "itunes:category": { _attr: { text: "TV & Film" } } },
       {
         "itunes:image": {
@@ -60,13 +62,15 @@ export default async function createFeed(
     if (!item.status || !item.snippet) return
     if (item.status.privacyStatus === "private") return
 
+    const enclosure = enclosureCreator(item.snippet.resourceId.videoId)
+
     feed.item({
       title: item.snippet.title,
       description: item.snippet.description,
       url: `http://youtube.com/watch?v=${item.snippet.resourceId.videoId}`,
       author: item.snippet.channelTitle,
       date: new Date(item.snippet.publishedAt),
-      enclosure: enclosureCreator(item.snippet.resourceId.videoId),
+      enclosure,
       custom_elements: [
         { "itunes:author": item.snippet.channelTitle },
         {
@@ -76,7 +80,8 @@ export default async function createFeed(
             }
           }
         },
-        { "itunes:episodeType": "full" }
+        { "itunes:episodeType": "full" },
+        { "media:content": { _attr: enclosure } }
       ]
     })
   })

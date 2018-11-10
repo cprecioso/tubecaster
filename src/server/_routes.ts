@@ -12,7 +12,8 @@ export const playlistInfo = (playlistId = ":playlistId") =>
 export const playlistPodcast = (playlistId = ":playlistId") =>
   `playlist/${playlistId}/podcast`
 
-export const videoPlay = (videoId = ":videoId") => `video/${videoId}/play`
+export const legacyVideoPlay = (videoId = ":videoId") => `video/${videoId}/play`
+export const videoPlay = (videoId = ":videoId") => `video/${videoId}/play.mp4`
 
 export const viewsDir = resolve(__dirname, "../../views")
 export const publicDir = resolve(__dirname, "../../public")

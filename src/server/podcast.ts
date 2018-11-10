@@ -40,7 +40,7 @@ app.get(
 )
 
 app.get(
-  "/" + routes.videoPlay(),
+  ["/" + routes.legacyVideoPlay(), "/" + routes.videoPlay()],
   asyncMiddleware(async (req, res) => {
     const info = await ytdl.getInfo(req.params.videoId)
     const chosenFormat = ytdl.chooseFormat(info.formats, {

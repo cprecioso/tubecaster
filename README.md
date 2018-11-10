@@ -25,7 +25,3 @@ Exposes two [express apps](https://expressjs.com) that you can mount on your own
 
 - front-end server at `tubecaster.web`
 - podcast server at `tubecaster.podcast`
-
-## Known issues
-
-- Doesn't work on iTunes. `¯\_(ツ)_/¯`
