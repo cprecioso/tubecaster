@@ -77,7 +77,7 @@
     "gulp-typescript": "^5.0.0-alpha.3",
     "pumpify": "^1.5.1",
     "stylus": "^0.54.5",
-    "through2": "^2.0.3",
+    "through2": "^3.0.0",
     "typescript": "^3.0.3"
   },
   "engines": {
