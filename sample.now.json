@@ -6,5 +6,5 @@
     "NODE_ENV": "production"
   },
   "public": true,
-  "files": ["lib", "yarn.lock", "package.json"]
+  "files": ["lib", "shrinkwrap.yaml", "package.json"]
 }
