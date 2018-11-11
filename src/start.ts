@@ -1,4 +1,5 @@
-import { web } from "."
+import "dotenv/config"
+import { web } from "./index"
 import { PORT } from "./_config"
 
 web.listen(PORT, (err: any) => {

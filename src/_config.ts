@@ -1,5 +1,3 @@
-require("dotenv").config()
-
 export const PORT = parseInt(process.env.TUBECASTER_PORT as string) || 8080
 
 export const API_KEY = (() => {
