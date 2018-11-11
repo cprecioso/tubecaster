@@ -1,9 +1,7 @@
-import { Stream } from "most"
 import parseAuthor from "parse-author"
 import { sync as readPkgUp } from "read-pkg-up"
 import RSS from "rss"
-import * as Types from "../youtube/types"
-import { chooseBiggestThumbnail } from "./_util"
+import { Playlist, PlaylistItem } from "./_types"
 
 const { pkg } = readPkgUp({ normalize: false })
 
@@ -13,31 +11,28 @@ interface Enclosure {
   type?: string
 }
 
-export default async function createFeed(
+export default function createFeed(
   feed_url: string,
   enclosureCreator: (videoId: string) => Enclosure,
-  playlist: Types.Playlist,
-  items: Stream<Types.Playlist.Item>
+  playlist: Playlist,
+  items: PlaylistItem[]
 ) {
-  if (!playlist.snippet)
-    throw new Error("Please provide all the information for playlist")
-
   const feed = new RSS({
-    title: playlist.snippet.title,
-    description: playlist.snippet.description,
+    title: playlist.title,
+    description: playlist.description,
     generator: `${pkg.name} ${pkg.version}`,
     feed_url,
     ttl: 60,
-    site_url: `https://www.youtube.com/playlist?list=${playlist.id}`,
-    image_url: chooseBiggestThumbnail(playlist.snippet.thumbnails).url,
-    pubDate: new Date(playlist.snippet.publishedAt),
+    site_url: `https://www.youtube.com/playlist?list=${playlist.playlistId}`,
+    image_url: playlist.thumbnail,
+    pubDate: playlist.publishedAt,
     custom_namespaces: {
       itunes: "http://www.itunes.com/dtds/podcast-1.0.dtd",
       media: "http://search.yahoo.com/mrss/"
     },
     custom_elements: [
-      { "itunes:author": playlist.snippet.channelTitle },
-      { "itunes:summary": playlist.snippet.description },
+      { "itunes:author": playlist.channelTitle },
+      { "itunes:summary": playlist.description },
       {
         "itunes:owner": [
           { "itunes:name": parseAuthor(pkg.author).name },
@@ -51,32 +46,29 @@ export default async function createFeed(
       {
         "itunes:image": {
           _attr: {
-            href: chooseBiggestThumbnail(playlist.snippet.thumbnails).url
+            href: playlist.thumbnail
           }
         }
       }
     ]
   })
 
-  await items.forEach(item => {
-    if (!item.status || !item.snippet) return
-    if (item.status.privacyStatus === "private") return
-
-    const enclosure = enclosureCreator(item.snippet.resourceId.videoId)
+  items.forEach(item => {
+    const enclosure = enclosureCreator(item.videoId)
 
     feed.item({
-      title: item.snippet.title,
-      description: item.snippet.description,
-      url: `http://youtube.com/watch?v=${item.snippet.resourceId.videoId}`,
-      author: item.snippet.channelTitle,
-      date: new Date(item.snippet.publishedAt),
+      title: item.title,
+      description: item.description,
+      url: `http://youtube.com/watch?v=${item.videoId}`,
+      author: item.channelTitle,
+      date: new Date(item.publishedAt),
       enclosure,
       custom_elements: [
-        { "itunes:author": item.snippet.channelTitle },
+        { "itunes:author": item.channelTitle },
         {
           "itunes:image": {
             _attr: {
-              href: chooseBiggestThumbnail(item.snippet.thumbnails).url
+              href: item.thumbnail
             }
           }
         },

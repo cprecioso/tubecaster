@@ -1,8 +1,5 @@
-import axios from "axios"
-import { load as cheerio } from "cheerio"
-import pMemoize from "p-memoize"
-import pThrottle from "p-throttle"
 import { URL } from "url"
+import { getCanonicalURL, isYouTubeURL } from "./_util"
 
 export const enum ListType {
   Playlist = "playlist",
@@ -12,23 +9,6 @@ export const enum ListType {
 export interface ListReference {
   type: ListType
   id: string
-}
-
-export const getCanonicalURL = pMemoize(
-  pThrottle(
-    async (url: string): Promise<string> => {
-      const { data } = await axios(url, { responseType: "text" })
-      const $ = cheerio(data)
-      return $("link[rel='canonical']").attr("href")
-    },
-    60,
-    60 * 1000
-  )
-)
-
-export const isYouTubeURL = (url: string): boolean => {
-  const { host } = new URL(url, "https://www.youtube.com/")
-  return host === "youtube.com" || host === "www.youtube.com"
 }
 
 const parseCurrentURL = (url: string): ListReference | false => {
@@ -51,7 +31,9 @@ const parseCurrentURL = (url: string): ListReference | false => {
   }
 }
 
-export default async function parseURL(url: string): Promise<ListReference> {
+export default async function findPlaylistID(
+  url: string
+): Promise<ListReference> {
   if (!isYouTubeURL(url)) throw new Error("URL is not from YouTube")
 
   let parsed = parseCurrentURL(url)

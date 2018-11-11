@@ -1,39 +1,37 @@
-import * as config from "../_config"
-import * as t from "./types"
-import * as cache from "./_cache"
-import { get } from "./_request"
+import { Playlist } from "../feed/_types"
+import { elementWithName, getPlaylistFeed, getPlaylistPage } from "./_util"
 
-const CACHE_DOMAIN = __filename
-const CACHE_TTL = config.CACHE_API_PLAYLIST_SECONDS
+export default async function playlist(playlistId: string): Promise<Playlist> {
+  const [feed, $] = await Promise.all([
+    getPlaylistFeed(playlistId),
+    getPlaylistPage(playlistId)
+  ])
 
-export default function playlist(id: string): Promise<t.Playlist> {
-  if (config.CACHE) {
-    return cacheHelper(id)
-  } else {
-    return uncached(id)
+  let ref
+  const publishedAt = ((ref = feed.elements!.find(
+    elementWithName("published")
+  )) != null
+    ? (ref = ref.elements) != null
+      ? (ref = ref[0]) != null
+        ? ref.text
+        : void 0
+      : void 0
+    : void 0) as string | undefined
+
+  const playlistInfo: Playlist = {
+    playlistId,
+    title: $("meta[property='og:title']").attr("content"),
+    description: $("meta[property='og:description']").attr("content"),
+    thumbnail: $("meta[property='og:image']")
+      .last()
+      .attr("content"),
+    publishedAt: (publishedAt && new Date(publishedAt)) as Date | undefined,
+    channelTitle: feed
+      .elements!.find(elementWithName("author"))!
+      .elements!.find(elementWithName("name"))!.elements![0].text! as string,
+    channelId: feed.elements!.find(elementWithName("yt:channelId"))!
+      .elements![0].text! as string
   }
-}
 
-async function cacheHelper(id: string): Promise<t.Playlist> {
-  const cached = await cache.get<string>(CACHE_DOMAIN, id)
-  if (cached) {
-    return JSON.parse(cached)
-  } else {
-    const playlist = uncached(id)
-    playlist.then(playlist =>
-      cache.set<string>(CACHE_DOMAIN, id, JSON.stringify(playlist), CACHE_TTL)
-    )
-    return playlist
-  }
-}
-
-export async function uncached(id: string) {
-  const playlistResponse = await get<t.Playlist.List.Response>("/playlists", {
-    id,
-    maxResults: 1,
-    part: "id,snippet,status,contentDetails"
-  })
-  const playlistInfo = playlistResponse.data.items[0]
-  if (!playlistInfo) throw new Error("Playlist does not exist")
   return playlistInfo
 }

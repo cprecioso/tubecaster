@@ -1,20 +1,8 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
-import { API_KEY } from "../_config"
+import got from "got"
+import QuickLRU from "quick-lru"
 
-const api = axios.create({
-  method: "get",
-  baseURL: "https://www.googleapis.com/youtube/v3",
-  responseType: "json",
-  params: { key: API_KEY }
-})
+const createCache = (maxSize = 10000) => new QuickLRU({ maxSize })
 
-export type Response<T = any> = AxiosResponse<T>
-export type RequestConfig = AxiosRequestConfig
-
-export function get<T>(url: string, params: any): Promise<Response<T>> {
-  return api.get<T>(url, { params })
-}
-
-export function request<T>(config: RequestConfig): Promise<Response<T>> {
-  return api.request<T>(config)
-}
+export const client = (got as (typeof got) & {
+  extend(opts: got.GotOptions<string>): typeof got
+}).extend({ cache: createCache() })

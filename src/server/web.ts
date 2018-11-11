@@ -1,10 +1,9 @@
 import { middleware as apicache } from "apicache"
 import express from "express"
-import { chooseBiggestThumbnail } from "../feed/_util"
 import playlist from "../youtube/playlist"
+import findPlaylistID, { ListType } from "../youtube/playlist-id"
 import * as config from "../_config"
 import podcastApp from "./podcast"
-import parseYTURL, { ListType } from "./_parse-url"
 import * as routes from "./_routes"
 import { addCompiledPugEngine, asyncMiddleware, resolveUrl } from "./_util"
 
@@ -35,7 +34,7 @@ app.post(
     if (!req.body.yturl) return res.redirect(req.baseUrl || "/")
 
     const url = req.body.yturl
-    const { type, id } = await parseYTURL(url)
+    const { type, id } = await findPlaylistID(url)
     switch (type) {
       case ListType.Channel: {
         return res.redirect("/" + routes.channelPlaylistSelection(id))
@@ -80,17 +79,16 @@ app.get(
     const id = req.params.playlistId
     const podcastUrl = resolveUrl(req, routes.playlistPodcast(id))
     const info = await playlist(id)
-    const thumbnail = chooseBiggestThumbnail(info.snippet!.thumbnails).url
 
     res.render("playlist", {
       podcast: { url: podcastUrl },
       playlist: {
-        thumbnail,
-        name: info.snippet!.title,
+        thumbnail: info.thumbnail,
+        name: info.title,
         link: `https://www.youtube.com/playlist?list=${id}`,
         channel: {
-          name: info.snippet!.channelTitle,
-          link: `https://www.youtube.com/channel/${info.snippet!.channelId}`
+          name: info.channelTitle,
+          link: `https://www.youtube.com/channel/${info.channelId}`
         }
       }
     })

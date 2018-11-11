@@ -1,92 +1,35 @@
-import * as most from "most"
-import * as config from "../_config"
-import * as t from "./types"
-import * as cache from "./_cache"
-import { get, request, Response } from "./_request"
+import { PlaylistItem } from "../feed/_types"
+import { elementWithName, getPlaylistFeed } from "./_util"
 
-type Item = t.Playlist.Item
-type ItemsResponse = t.Playlist.Item.List.Response
-const MAX_RESULTS_PER_PAGE = 50
+export default async function playlistItems(
+  playlistId: string
+): Promise<PlaylistItem[]> {
+  const feed = await getPlaylistFeed(playlistId)
 
-const CACHE_DOMAIN = __filename
-const CACHE_TTL = config.CACHE_API_PLAYLISTITEMS_SECONDS
-
-export default function playlistItems(playlistId: string, limit = Infinity) {
-  if (config.CACHE) {
-    return most.fromPromise(cacheHelper(playlistId, limit)).join()
-  } else {
-    return uncached(playlistId, limit)
-  }
-}
-
-interface CachedItemList {
-  length: number
-  data: string
-}
-
-async function cacheHelper(
-  playlistId: string,
-  limit: number = Infinity
-): Promise<most.Stream<Item>> {
-  const cached = await cache.get<CachedItemList>(CACHE_DOMAIN, playlistId)
-  if (cached && cached.length >= limit) {
-    const items = JSON.parse(cached.data) as Item[]
-    return most.from(items.slice(0, limit)).multicast()
-  }
-  const stream = uncached(playlistId, limit)
-  stream
-    .reduce((arr: Item[], item: Item) => [...arr, item], [])
-    .then((items: Item[]) => {
-      cache.set<CachedItemList>(
-        CACHE_DOMAIN,
-        playlistId,
-        {
-          length: items.length < limit ? Infinity : items.length,
-          data: JSON.stringify(items)
-        },
-        CACHE_TTL
-      )
+  const items: PlaylistItem[] = feed
+    .elements!.filter(elementWithName("entry"))
+    .map(entry => {
+      const mediaGroup = entry.elements!.find(elementWithName("media:group"))!
+      const item: PlaylistItem = {
+        channelTitle: entry
+          .elements!.find(elementWithName("author"))!
+          .elements!.find(elementWithName("name"))!.elements![0].text as string,
+        description: mediaGroup.elements!.find(
+          elementWithName("media:description")
+        )!.elements![0].text! as string,
+        publishedAt: new Date(entry.elements!.find(
+          elementWithName("published")
+        )!.elements![0].text! as string),
+        thumbnail: mediaGroup.elements!.find(
+          elementWithName("media:thumbnail")
+        )!.attributes!.url as string,
+        title: entry.elements!.find(elementWithName("title"))!.elements![0]
+          .text! as string,
+        videoId: entry.elements!.find(elementWithName("yt:videoId"))!
+          .elements![0].text! as string
+      }
+      return item
     })
-  return stream.take(limit)
-}
 
-interface Seed {
-  res: Response<ItemsResponse>
-  i: number
-}
-
-export function uncached(playlistId: string, limit = Infinity) {
-  const params = {
-    playlistId,
-    part: "id,snippet,status,contentDetails",
-    maxResults: MAX_RESULTS_PER_PAGE
-  }
-
-  const maxPages = Math.ceil(limit / MAX_RESULTS_PER_PAGE)
-
-  const stream = most
-    .unfold<any, ItemsResponse, Seed>(
-      // FIXME: Typings here have to be fixed in mostjs
-      // @ts-ignore
-      async (seed: Seed) => {
-        if (seed.i >= limit) return { done: true }
-        if (seed.res && seed.res.data && !seed.res.data.nextPageToken)
-          return { done: true }
-        const res = await (seed.i === 0
-          ? get<ItemsResponse>("/playlistItems", params)
-          : request<ItemsResponse>({
-              ...seed.res.config,
-              params: {
-                ...seed.res.config.params,
-                pageToken: seed.res.data.nextPageToken
-              }
-            }))
-        const newSeed: Seed = { res, i: seed.i + 1 }
-        return { value: res.data, seed: newSeed }
-      },
-      { i: 0 }
-    )
-    .concatMap((res: ItemsResponse) => most.from(res.items))
-    .multicast()
-  return stream
+  return items
 }
