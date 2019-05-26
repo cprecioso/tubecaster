@@ -35,6 +35,7 @@ devDependencies:
   stylus: 0.54.5
   through2: 3.0.0
   typescript: 3.1.6
+lockfileVersion: 5
 packages:
   /@sindresorhus/is/0.12.0:
     dependencies:
@@ -4855,9 +4856,6 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-KD0SLFqVNhH8N4Ie+qdusqfFmyX7SB6+y+S1MCI7vY9zS/wjRxH/zgoYRUwpP+YfXaiWzBPVIzy/5wK5asVUXQ==
-registry: 'https://registry.npmjs.org/'
-shrinkwrapMinorVersion: 9
-shrinkwrapVersion: 3
 specifiers:
   '@types/cheerio': ^0.22.9
   '@types/dotenv': ^4.0.2
