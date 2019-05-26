@@ -12,22 +12,16 @@ export function resolveUrl(req: Request, url: string) {
 }
 
 export const addCompiledPugEngine = (app: Express) =>
-  app.engine(
-    "pug.js",
-    (
-      filePath: string,
-      options: unknown,
-      callback: (err: any, out?: string) => void
-    ) => {
-      try {
-        const template = require(filePath)
-        const out = template(options)
-        callback(null, out)
-      } catch (err) {
-        callback(err)
-      }
+  app.engine("pug.js", (filePath, options, callback) => {
+    try {
+      const template = require(filePath)
+      const out = template(options)
+      callback(null, out)
+    } catch (err) {
+      // @ts-ignore
+      callback(err)
     }
-  )
+  })
 
 export const asyncMiddleware = (fn: RequestHandler): RequestHandler => (
   req,

@@ -54,8 +54,6 @@
     "@types/got": "^9.4.4",
     "@types/node": "^12.0.2",
     "@types/pump": "^1.1.0",
-    "@types/quick-lru": "^3.0.0",
-    "@types/read-pkg-up": "^3.0.1",
     "@types/rss": "^0.0.28",
     "autoprefixer": "^9.5.1",
     "cssnano": "^4.1.10",

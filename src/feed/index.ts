@@ -3,7 +3,7 @@ import { sync as readPkgUp } from "read-pkg-up"
 import RSS from "rss"
 import { Playlist, PlaylistItem } from "./_types"
 
-const { package: pkg } = readPkgUp({ normalize: false })
+const { package: pkg } = readPkgUp({ normalize: false })!
 
 interface Enclosure {
   url: string
@@ -35,8 +35,8 @@ export default function createFeed(
       { "itunes:summary": playlist.description },
       {
         "itunes:owner": [
-          { "itunes:name": parseAuthor(pkg.author).name },
-          { "itunes:email": parseAuthor(pkg.author).email }
+          { "itunes:name": parseAuthor(pkg.author! as string).name },
+          { "itunes:email": parseAuthor(pkg.author! as string).email }
         ]
       },
       { "itunes:block": "yes" },
