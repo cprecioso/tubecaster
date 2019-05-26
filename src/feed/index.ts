@@ -3,7 +3,7 @@ import { sync as readPkgUp } from "read-pkg-up"
 import RSS from "rss"
 import { Playlist, PlaylistItem } from "./_types"
 
-const { pkg } = readPkgUp({ normalize: false })
+const { package: pkg } = readPkgUp({ normalize: false })
 
 interface Enclosure {
   url: string
