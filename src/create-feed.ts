@@ -12,7 +12,7 @@ export default function createFeed(
 
   const feed = new RSS({
     title: playlist.title,
-    description: playlist.description,
+    description: `${playlist.playlistLink}\n\n${playlist.description || ""}`,
     generator: `${pkg.name} ${pkg.version}`,
     feed_url,
     ttl: 60,
@@ -51,7 +51,7 @@ export default function createFeed(
 
     feed.item({
       title: item.title,
-      description: item.description,
+      description: `${item.videoLink}\n\n${item.description || ""}`,
       url: item.videoLink,
       author: item.channelTitle,
       date: new Date(item.publishedAt),
