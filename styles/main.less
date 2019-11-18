@@ -1,0 +1,138 @@
+@charset "utf-8";
+
+body {
+  width: 90vw;
+  max-width: 700px;
+  height: auto;
+  margin: 30px auto 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  margin-right: 0.5em !important;
+}
+
+h4 {
+  font-style: italic;
+}
+
+.card {
+  margin-top: 20px;
+  padding: 10px;
+
+  img {
+    border-radius: 0.2em;
+  }
+
+  > div {
+    padding-bottom: 0;
+  }
+
+  &:last-child {
+    padding-right: 0;
+  }
+
+  &.flex {
+    position: relative;
+    left: 0.6em;
+  }
+}
+
+pre {
+  margin-bottom: 0;
+}
+
+@media (max-width: 500px) {
+  .card.flex.one > * {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (min-width: 500px) {
+  button {
+    margin-top: 0 !important;
+  }
+
+  .card.flex.two-500 > :first-child {
+    padding-left: 0;
+  }
+
+  footer span:last-child {
+    text-align: right;
+  }
+}
+
+@bg-color: #282828;
+@fg-color: #ffffff;
+@accent-color: #f00;
+
+body {
+  background-color: @bg-color;
+}
+
+h1,
+h2,
+span,
+input {
+  color: @fg-color;
+}
+
+h1 a {
+  color: @fg-color;
+  text-decoration: none;
+}
+
+a {
+  color: @accent-color;
+  text-decoration: underline;
+
+  &.button,
+  pre & {
+    text-decoration: none;
+  }
+}
+
+.card {
+  color: @bg-color;
+  border-color: @fg-color;
+
+  h4 {
+    color: lighten(@bg-color, 30%);
+  }
+
+  h3,
+  h4 {
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  img {
+    box-shadow: 0 0 3px @bg-color;
+  }
+
+  button,
+  .button {
+    border-color: @fg-color;
+    background-color: @accent-color;
+  }
+
+  input {
+    color: @bg-color;
+    border: 0;
+    background-color: transparent;
+  }
+
+  label span {
+    color: inherit;
+  }
+}

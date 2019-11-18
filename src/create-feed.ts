@@ -1,22 +1,15 @@
 import parseAuthor from "parse-author"
-import { sync as readPkgUp } from "read-pkg-up"
 import RSS from "rss"
-import { Playlist, PlaylistItem } from "./_types"
-
-const { package: pkg } = readPkgUp({ normalize: false })!
-
-interface Enclosure {
-  url: string
-  size?: number
-  type?: string
-}
+import pkg from "../package.json"
+import { Enclosure, PlaylistData } from "./types"
 
 export default function createFeed(
   feed_url: string,
   enclosureCreator: (videoId: string) => Enclosure,
-  playlist: Playlist,
-  items: PlaylistItem[]
+  playlist: PlaylistData
 ) {
+  const author = parseAuthor(pkg.author as string)
+
   const feed = new RSS({
     title: playlist.title,
     description: playlist.description,
@@ -35,8 +28,8 @@ export default function createFeed(
       { "itunes:summary": playlist.description },
       {
         "itunes:owner": [
-          { "itunes:name": parseAuthor(pkg.author! as string).name },
-          { "itunes:email": parseAuthor(pkg.author! as string).email }
+          { "itunes:name": author.name },
+          { "itunes:email": author.email }
         ]
       },
       { "itunes:block": "yes" },
@@ -53,7 +46,7 @@ export default function createFeed(
     ]
   })
 
-  items.forEach(item => {
+  for (const item of playlist.items) {
     const enclosure = enclosureCreator(item.videoId)
 
     feed.item({
@@ -76,7 +69,7 @@ export default function createFeed(
         { "media:content": { _attr: enclosure } }
       ]
     })
-  })
+  }
 
   return feed.xml()
 }
