@@ -1,7 +1,7 @@
 import cheerio from "cheerio"
 import "isomorphic-fetch"
 import { Element as XMLElement, xml2js } from "xml-js"
-import { PlaylistData, PlaylistItemData } from "./types"
+import { PlaylistData } from "./types"
 
 const elementWithName = (name: string) => (node: XMLElement) =>
   node.type === "element" && node.name === name
@@ -45,7 +45,7 @@ export default async function requestPlaylistData(
       .elements![0].text! as string,
     items: feed.elements!.filter(elementWithName("entry")).map(entry => {
       const mediaGroup = entry.elements!.find(elementWithName("media:group"))!
-      const item: PlaylistItemData = {
+      return {
         channelTitle: entry
           .elements!.find(elementWithName("author"))!
           .elements!.find(elementWithName("name"))!.elements![0].text as string,
@@ -64,7 +64,6 @@ export default async function requestPlaylistData(
         videoId: entry.elements!.find(elementWithName("yt:videoId"))!
           .elements![0].text! as string
       }
-      return item
     })
   }
 }
