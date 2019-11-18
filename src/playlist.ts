@@ -30,8 +30,11 @@ export default async function requestPlaylistData(
   const publishedAt = feed.elements!.find(elementWithName("published"))
     ?.elements?.[0].text as string | undefined
 
+  const channelId = feed.elements!.find(elementWithName("yt:channelId"))!
+    .elements![0].text! as string
   return {
     playlistId,
+    playlistLink: `https://www.youtube.com/playlist?list=${playlistId}`,
     title: $("meta[property='og:title']").attr("content"),
     description: $("meta[property='og:description']").attr("content"),
     thumbnail: $("meta[property='og:image']")
@@ -41,10 +44,12 @@ export default async function requestPlaylistData(
     channelTitle: feed
       .elements!.find(elementWithName("author"))!
       .elements!.find(elementWithName("name"))!.elements![0].text! as string,
-    channelId: feed.elements!.find(elementWithName("yt:channelId"))!
-      .elements![0].text! as string,
+    channelId,
+    channelLink: `https://www.youtube.com/channel/${channelId}`,
     items: feed.elements!.filter(elementWithName("entry")).map(entry => {
       const mediaGroup = entry.elements!.find(elementWithName("media:group"))!
+      const videoId = entry.elements!.find(elementWithName("yt:videoId"))!
+        .elements![0].text! as string
       return {
         channelTitle: entry
           .elements!.find(elementWithName("author"))!
@@ -61,8 +66,8 @@ export default async function requestPlaylistData(
         )!.attributes!.url as string,
         title: entry.elements!.find(elementWithName("title"))!.elements![0]
           .text! as string,
-        videoId: entry.elements!.find(elementWithName("yt:videoId"))!
-          .elements![0].text! as string
+        videoId,
+        videoLink: `https://www.youtube.com/watch?v=${videoId}`
       }
     })
   }

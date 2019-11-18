@@ -15,17 +15,20 @@ export interface PlaylistReference {
 
 export interface PlaylistData {
   playlistId: string
+  playlistLink: string
   title: string
   description?: string
   thumbnail: string
   publishedAt?: string
   channelTitle: string
   channelId: string
+  channelLink: string
   items: PlaylistItemData[]
 }
 
 export interface PlaylistItemData {
   videoId: string
+  videoLink: string
   title: string
   description: string
   channelTitle: string

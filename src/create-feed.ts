@@ -16,7 +16,7 @@ export default function createFeed(
     generator: `${pkg.name} ${pkg.version}`,
     feed_url,
     ttl: 60,
-    site_url: `https://www.youtube.com/playlist?list=${playlist.playlistId}`,
+    site_url: playlist.playlistLink,
     image_url: playlist.thumbnail,
     pubDate: playlist.publishedAt,
     custom_namespaces: {
@@ -52,7 +52,7 @@ export default function createFeed(
     feed.item({
       title: item.title,
       description: item.description,
-      url: `http://youtube.com/watch?v=${item.videoId}`,
+      url: item.videoLink,
       author: item.channelTitle,
       date: new Date(item.publishedAt),
       enclosure,

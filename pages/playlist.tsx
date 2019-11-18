@@ -29,15 +29,10 @@ const PlaylistPage: NextPage<Props> = ({ response }) => {
       <header className="full">
         <img className="full" src={data.thumbnail} />
         <h3>
-          <a href={`https://www.youtube.com/playlist?list=${data.playlistId}`}>
-            {data.title}
-          </a>
+          <a href={data.playlistLink}>{data.title}</a>
         </h3>
         <h4>
-          from{" "}
-          <a href={`https://www.youtube.com/channel/${data.channelId}`}>
-            {data.channelTitle}
-          </a>
+          from <a href={data.channelLink}>{data.channelTitle}</a>
         </h4>
       </header>
       <main className="full">
