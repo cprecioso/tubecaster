@@ -11,7 +11,9 @@ const isYouTubeUrl = (url: string): boolean => {
   return ["youtube.com", "www.youtube.com", "m.youtube.com"].includes(host)
 }
 
-const requestCanonicalUrl = async (url: string): Promise<string> => {
+const requestCanonicalUrl = async (
+  url: string
+): Promise<string | undefined> => {
   const body = await (await fetch(url)).text()
   const $ = cheerio.load(body)
   return $("link[rel='canonical']").attr("href")
@@ -44,8 +46,10 @@ async function requestPlaylistRef(url: string): Promise<GeneralListReference> {
   if (parsed) return parsed
 
   const canonicalUrl = await requestCanonicalUrl(url)
-  parsed = parseUrl(canonicalUrl)
-  if (parsed) return parsed
+  if (canonicalUrl) {
+    parsed = parseUrl(canonicalUrl)
+    if (parsed) return parsed
+  }
 
   throw new Error("Unable to parse URL")
 }
