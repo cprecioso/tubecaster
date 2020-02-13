@@ -35,11 +35,12 @@ export default async function requestPlaylistData(
   return {
     playlistId,
     playlistLink: `https://www.youtube.com/playlist?list=${playlistId}`,
-    title: $("meta[property='og:title']").attr("content"),
+    title: $("meta[property='og:title']").attr("content") || "",
     description: $("meta[property='og:description']").attr("content"),
-    thumbnail: $("meta[property='og:image']")
-      .last()
-      .attr("content"),
+    thumbnail:
+      $("meta[property='og:image']")
+        .last()
+        .attr("content") || "",
     publishedAt: publishedAt && new Date(publishedAt).toISOString(),
     channelTitle: feed
       .elements!.find(elementWithName("author"))!
