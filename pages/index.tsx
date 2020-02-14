@@ -3,9 +3,12 @@ import { produce } from "immer"
 import Link from "next/link"
 import Router from "next/router"
 import React, { FunctionComponent } from "react"
-import { ApiErrorResponse, ERROR_TYPE_SIG } from "../src/api-helpers"
+import {
+  ApiErrorResponse,
+  CanonicalPlaylist,
+  ERROR_TYPE_SIG
+} from "../src/api-types"
 import { PlaylistReference } from "../src/types"
-import { FoundResponse, Response, ResponseType } from "./api/canonical-playlist"
 
 const OptionButton: FunctionComponent<{
   option: PlaylistReference
@@ -33,7 +36,7 @@ export default () => {
         `/api/canonical-playlist?url=${encodeURIComponent(state.url)}`,
         { signal: controller.signal }
       )
-      const res = (await (await req).json()) as Response
+      const res = (await (await req).json()) as CanonicalPlaylist.Response
       setState(
         produce(state => {
           state.loading = false
@@ -41,8 +44,8 @@ export default () => {
       )
 
       switch (res.type) {
-        case ResponseType.Found:
-          const { playlistReferences } = res as FoundResponse
+        case CanonicalPlaylist.ResponseType.Found:
+          const { playlistReferences } = res as CanonicalPlaylist.FoundResponse
           if (playlistReferences.length === 1) {
             return Router.push({
               pathname: "/playlist",

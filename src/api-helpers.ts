@@ -1,13 +1,5 @@
 import getMiddleware from "micro-get"
-import { NextApiRequest, NextApiResponse } from "next"
-
-export const ERROR_TYPE_SIG = -1
-export type ApiErrorResponse = { type: typeof ERROR_TYPE_SIG; error: string }
-export type ApiResponse =
-  | { type: Exclude<number | string, typeof ERROR_TYPE_SIG> }
-  | ApiErrorResponse
-
-type MicroHandler = (req: NextApiRequest, res: NextApiResponse) => Promise<void>
+import { ApiResponse, ERROR_TYPE_SIG, MicroHandler } from "./api-types"
 
 export const get = <Req extends {}, Res extends ApiResponse>(
   handler: (req: Req) => Promise<Res>

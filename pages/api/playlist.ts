@@ -1,22 +1,9 @@
 import { get } from "../../src/api-helpers"
+import { Playlist } from "../../src/api-types"
 import requestPlaylistData from "../../src/playlist"
-import { PlaylistData } from "../../src/types"
 
-export type Request = {
-  id: string
-}
-
-export enum ResponseType {
-  Found
-}
-
-export type Response = {
-  type: ResponseType.Found
-  playlistData: PlaylistData
-}
-
-export default get<Request, Response>(async ({ id }) => {
+export default get<Playlist.Request, Playlist.Response>(async ({ id }) => {
   if (!id) throw new Error("ID not found")
   const playlistData = await requestPlaylistData(id)
-  return { type: ResponseType.Found, playlistData }
+  return { type: Playlist.ResponseType.Found, playlistData }
 })

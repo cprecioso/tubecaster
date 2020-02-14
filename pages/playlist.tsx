@@ -1,9 +1,9 @@
 import { jsx } from "@emotion/core"
 import { NextPage } from "next"
 import React from "react"
-import { Response, ResponseType } from "./api/playlist"
+import { Playlist } from "../src/api-types"
 
-type Props = { response: Response }
+type Props = { response: Playlist.Response }
 
 const PlaylistPage: NextPage<Props> = ({ response }) => {
   const data = response.playlistData
@@ -51,11 +51,11 @@ PlaylistPage.getInitialProps = async ({ query, res }) => {
   const id = query.id as string
   if (!res) {
     const req = fetch(`/api/playlist?id=${encodeURIComponent(id)}`)
-    const response = (await (await req).json()) as Response
+    const response = (await (await req).json()) as Playlist.Response
     return { id, response }
   } else {
-    const response: Response = {
-      type: ResponseType.Found,
+    const response: Playlist.Response = {
+      type: Playlist.ResponseType.Found,
       playlistData: await (await import("../src/playlist")).default(id)
     }
     return { response }
