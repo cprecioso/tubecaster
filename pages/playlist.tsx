@@ -1,5 +1,4 @@
 import { jsx } from "@emotion/core"
-import "isomorphic-fetch"
 import { NextPage } from "next"
 import React from "react"
 import { Response, ResponseType } from "./api/playlist"

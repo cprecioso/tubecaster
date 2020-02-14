@@ -1,6 +1,5 @@
 import { css, jsx } from "@emotion/core"
 import { produce } from "immer"
-import "isomorphic-fetch"
 import Link from "next/link"
 import Router from "next/router"
 import React, { FunctionComponent } from "react"
