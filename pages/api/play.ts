@@ -24,8 +24,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         format.container === "mp4" && (format.audioChannels ?? 0) > 0
     })
 
-    if (chosenFormat instanceof Error) throw chosenFormat
-
     redirect(res, 302, chosenFormat.url)
   } catch (error) {
     res.status(500).send("" + error)
