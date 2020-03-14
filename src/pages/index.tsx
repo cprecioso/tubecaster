@@ -95,6 +95,15 @@ export default () => {
 
   return (
     <>
+      <style jsx>{`
+        ul {
+          margin: 0;
+        }
+        .small-font {
+          font-size: 0.8em;
+        }
+      `}</style>
+
       {state.error ? <pre className="card">{state.error}</pre> : null}
       <form
         className="card full flex one two-500"
@@ -121,11 +130,7 @@ export default () => {
           <div className="card full flex one center">
             <h3>Choose the list you want to convert:</h3>
             <div className="flex one two-500">
-              <ul
-                css={css`
-                  margin: 0;
-                `}
-              >
+              <ul>
                 {state.options.map((option, i) => (
                   <li className="stack" key={i}>
                     <OptionButton option={option} />
@@ -134,12 +139,7 @@ export default () => {
               </ul>
             </div>
           </div>
-          <div
-            className="card"
-            css={css`
-              font-size: 0.8em;
-            `}
-          >
+          <div className="card small-font">
             <p>
               If you want the podcast of another playlist from that user, you
               can paste the link of that playlist instead.
@@ -147,12 +147,7 @@ export default () => {
           </div>
         </>
       ) : (
-        <div
-          className="full card"
-          css={css`
-            font-size: 0.8em;
-          `}
-        >
+        <div className="full card small-font">
           <p>
             Just paste the link to a YouTube channel or playlist in the box
             above. Tubecaster will convert it to a video podcast you can listen
