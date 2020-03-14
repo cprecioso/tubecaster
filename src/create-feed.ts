@@ -1,5 +1,6 @@
 import parseAuthor from "parse-author"
 import RSS from "rss"
+// @ts-ignore
 import pkg from "../package.json"
 import { Enclosure, PlaylistData } from "./types"
 
