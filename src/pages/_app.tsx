@@ -1,7 +1,7 @@
-import { jsx } from "@emotion/core"
 import App from "next/app"
 import Head from "next/head"
 import "picnic"
+import React from "react"
 import "../styles/main.less"
 
 export default class Tubecaster extends App {

@@ -1,4 +1,3 @@
-import { jsx } from "@emotion/core"
 import { NextPage } from "next"
 import React from "react"
 import { Playlist } from "../api-types"

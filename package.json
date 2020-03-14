@@ -8,7 +8,6 @@
     "start": "next start -p $PORT"
   },
   "dependencies": {
-    "@emotion/core": "^10.0.27",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-less": "^1.0.1",
     "cheerio": "^1.0.0-rc.3",
@@ -33,7 +32,6 @@
   "devDependencies": {
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
     "@babel/plugin-proposal-optional-chaining": "^7.8.3",
-    "@emotion/babel-preset-css-prop": "^10.0.27",
     "@types/cheerio": "^0.22.16",
     "@types/node": "^13.9.1",
     "@types/parse-author": "^2.0.0",
