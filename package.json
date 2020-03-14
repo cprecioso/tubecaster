@@ -27,8 +27,6 @@
     "ytdl-core": "^2.0.0"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
-    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
     "@types/cheerio": "^0.22.16",
     "@types/node": "^13.9.1",
     "@types/parse-author": "^2.0.0",
