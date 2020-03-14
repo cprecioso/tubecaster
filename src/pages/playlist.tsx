@@ -1,7 +1,7 @@
 import { jsx } from "@emotion/core"
 import { NextPage } from "next"
 import React from "react"
-import { Playlist } from "../src/api-types"
+import { Playlist } from "../api-types"
 
 type Props = { response: Playlist.Response }
 
@@ -56,7 +56,7 @@ PlaylistPage.getInitialProps = async ({ query, res }) => {
   } else {
     const response: Playlist.Response = {
       type: Playlist.ResponseType.Found,
-      playlistData: await (await import("../src/playlist")).default(id)
+      playlistData: await (await import("../playlist")).default(id)
     }
     return { response }
   }

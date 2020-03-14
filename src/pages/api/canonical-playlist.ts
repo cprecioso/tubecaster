@@ -1,6 +1,6 @@
-import { get } from "../../src/api-helpers"
-import { CanonicalPlaylist } from "../../src/api-types"
-import requestCanonicalPlaylists from "../../src/canonical"
+import { get } from "../../api-helpers"
+import { CanonicalPlaylist } from "../../api-types"
+import requestCanonicalPlaylists from "../../canonical"
 
 export default get<CanonicalPlaylist.Request, CanonicalPlaylist.Response>(
   async ({ url }) => {

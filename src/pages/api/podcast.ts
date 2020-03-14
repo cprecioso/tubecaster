@@ -2,8 +2,8 @@ import get from "micro-get"
 import host from "micro-host"
 import protocol from "micro-protocol"
 import { NextApiRequest, NextApiResponse } from "next"
-import createFeed from "../../src/create-feed"
-import requestPlaylistData from "../../src/playlist"
+import createFeed from "../../create-feed"
+import requestPlaylistData from "../../playlist"
 
 export type Request = {
   id: string

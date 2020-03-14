@@ -1,6 +1,6 @@
-import { get } from "../../src/api-helpers"
-import { Playlist } from "../../src/api-types"
-import requestPlaylistData from "../../src/playlist"
+import { get } from "../../api-helpers"
+import { Playlist } from "../../api-types"
+import requestPlaylistData from "../../playlist"
 
 export default get<Playlist.Request, Playlist.Response>(async ({ id }) => {
   if (!id) throw new Error("ID not found")

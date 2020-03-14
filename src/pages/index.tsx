@@ -7,8 +7,8 @@ import {
   ApiErrorResponse,
   CanonicalPlaylist,
   ERROR_TYPE_SIG
-} from "../src/api-types"
-import { PlaylistReference } from "../src/types"
+} from "../api-types"
+import { PlaylistReference } from "../types"
 
 const OptionButton: FunctionComponent<{
   option: PlaylistReference
