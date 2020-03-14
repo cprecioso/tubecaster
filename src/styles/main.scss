@@ -70,28 +70,28 @@ pre {
   }
 }
 
-@bg-color: #282828;
-@fg-color: #ffffff;
-@accent-color: #f00;
+$bg-color: #282828;
+$fg-color: #ffffff;
+$accent-color: #f00;
 
 body {
-  background-color: @bg-color;
+  background-color: $bg-color;
 }
 
 h1,
 h2,
 span,
 input {
-  color: @fg-color;
+  color: $fg-color;
 }
 
 h1 a {
-  color: @fg-color;
+  color: $fg-color;
   text-decoration: none;
 }
 
 a {
-  color: @accent-color;
+  color: $accent-color;
   text-decoration: underline;
 
   &.button,
@@ -101,11 +101,11 @@ a {
 }
 
 .card {
-  color: @bg-color;
-  border-color: @fg-color;
+  color: $bg-color;
+  border-color: $fg-color;
 
   h4 {
-    color: lighten(@bg-color, 30%);
+    color: lighten($bg-color, 30%);
   }
 
   h3,
@@ -117,17 +117,17 @@ a {
   }
 
   img {
-    box-shadow: 0 0 3px @bg-color;
+    box-shadow: 0 0 3px $bg-color;
   }
 
   button,
   .button {
-    border-color: @fg-color;
-    background-color: @accent-color;
+    border-color: $fg-color;
+    background-color: $accent-color;
   }
 
   input {
-    color: @bg-color;
+    color: $bg-color;
     border: 0;
     background-color: transparent;
   }

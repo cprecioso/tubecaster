@@ -3,7 +3,7 @@ import Head from "next/head"
 import Link from "next/link"
 import "picnic"
 import React from "react"
-import "../styles/main.less"
+import "../styles/main.scss"
 
 export default class Tubecaster extends App {
   render() {

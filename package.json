@@ -8,16 +8,14 @@
     "start": "next start -p $PORT"
   },
   "dependencies": {
-    "@zeit/next-css": "^1.0.1",
-    "@zeit/next-less": "^1.0.1",
     "cheerio": "^1.0.0-rc.3",
     "isomorphic-fetch": "^2.2.1",
-    "less": "^3.11.1",
     "micro-get": "^0.1.1",
     "micro-host": "^1.1.0",
     "micro-protocol": "^1.1.0",
     "micro-redirect": "^1.0.2",
     "next": "^9.2.1",
+    "node-sass": "^4.13.1",
     "parse-author": "^2.0.0",
     "picnic": "^6.5.2",
     "react": "^16.12.0",
