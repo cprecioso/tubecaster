@@ -1,5 +1,6 @@
 import App from "next/app"
 import Head from "next/head"
+import Link from "next/link"
 import "picnic"
 import React from "react"
 import "../styles/main.less"
@@ -18,7 +19,9 @@ export default class Tubecaster extends App {
         </Head>
         <header>
           <h1 className="full">
-            <a href="/">Tubecaster</a>
+            <Link href="/" prefetch={false}>
+              <a>Tubecaster</a>
+            </Link>
           </h1>
           <h2 className="full">
             Turn YouTube playlists and channels into video podcasts
