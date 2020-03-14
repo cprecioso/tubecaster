@@ -5,23 +5,26 @@ import { Playlist } from "../api-types"
 
 type Props = { response: Playlist.Response }
 
-const PlaylistPage: NextPage<Props> = ({ response }) => {
-  const data = response.playlistData
-
+const usePodcastUrl = (id: string) => {
   const [podcastUrl, setPodcastUrl] = React.useState(
     undefined as string | undefined
   )
 
   React.useEffect(() => {
     if (process.browser) {
-      const url = new URL(
-        `/api/podcast?id=${data.playlistId}`,
-        window.location.href
-      )
+      const url = new URL(`/api/podcast?id=${id}`, window.location.href)
       url.protocol = "podcast"
       setPodcastUrl(url.href)
     }
   }, [])
+
+  return podcastUrl
+}
+
+const PlaylistPage: NextPage<Props> = ({ response }) => {
+  const data = response.playlistData
+
+  const podcastUrl = usePodcastUrl(data.playlistId)
 
   return (
     <div className="card flex one center">
