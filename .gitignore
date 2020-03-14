@@ -1,6 +1,2 @@
+/node_modules/
 /.next/
-
-.yarn/*
-!.yarn/releases
-!.yarn/plugins
-.pnp.*
