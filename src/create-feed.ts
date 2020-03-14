@@ -18,7 +18,7 @@ export default function createFeed(
     ttl: 60,
     site_url: playlist.playlistLink,
     image_url: playlist.thumbnail,
-    pubDate: playlist.publishedAt,
+    pubDate: playlist.publishedAt ?? undefined,
     custom_namespaces: {
       itunes: "http://www.itunes.com/dtds/podcast-1.0.dtd",
       media: "http://search.yahoo.com/mrss/"

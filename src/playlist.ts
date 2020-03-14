@@ -36,12 +36,12 @@ export default async function requestPlaylistData(
     playlistId,
     playlistLink: `https://www.youtube.com/playlist?list=${playlistId}`,
     title: $("meta[property='og:title']").attr("content") || "",
-    description: $("meta[property='og:description']").attr("content"),
+    description: $("meta[property='og:description']").attr("content") ?? null,
     thumbnail:
       $("meta[property='og:image']")
         .last()
         .attr("content") || "",
-    publishedAt: publishedAt && new Date(publishedAt).toISOString(),
+    publishedAt: (publishedAt && new Date(publishedAt).toISOString()) ?? null,
     channelTitle: feed
       .elements!.find(elementWithName("author"))!
       .elements!.find(elementWithName("name"))!.elements![0].text! as string,
@@ -61,7 +61,7 @@ export default async function requestPlaylistData(
         publishedAt: new Date(
           entry.elements!.find(elementWithName("published"))!.elements![0]
             .text! as string
-        ),
+        ).toISOString(),
         thumbnail: mediaGroup.elements!.find(
           elementWithName("media:thumbnail")
         )!.attributes!.url as string,

@@ -17,9 +17,9 @@ export interface PlaylistData {
   playlistId: string
   playlistLink: string
   title: string
-  description?: string
+  description: string | null
   thumbnail: string
-  publishedAt?: string
+  publishedAt: string | null
   channelTitle: string
   channelId: string
   channelLink: string
@@ -32,7 +32,7 @@ export interface PlaylistItemData {
   title: string
   description: string
   channelTitle: string
-  publishedAt: Date
+  publishedAt: string
   thumbnail: string
 }
 
