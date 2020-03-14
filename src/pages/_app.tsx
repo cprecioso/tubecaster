@@ -29,7 +29,7 @@ export default class Tubecaster extends App {
         </main>
         <footer className="flex one two-500">
           <span>
-            Made by <a href="https://carlosprecioso.com">Carlos Precioso</a>
+            Made by <a href="https://precioso.design">Carlos Precioso</a>
           </span>
           <span>
             <a href="https://github.com/cprecioso/tubecaster">Source</a>
