@@ -29,7 +29,7 @@
     "@types/parse-author": "^2.0.0",
     "@types/react": "^16.9.19",
     "@types/rss": "^0.0.28",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.2",
     "typescript": "^3.7.5"
   }
 }
