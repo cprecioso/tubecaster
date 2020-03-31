@@ -10,7 +10,6 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "isomorphic-fetch": "^2.2.1",
-    "micro-get": "^0.1.1",
     "micro-host": "^1.1.0",
     "micro-protocol": "^1.1.0",
     "micro-redirect": "^1.0.2",

@@ -1,4 +1,3 @@
-import get from "micro-get"
 import host from "micro-host"
 import protocol from "micro-protocol"
 import { NextApiRequest, NextApiResponse } from "next"
@@ -9,36 +8,38 @@ export type Request = {
   id: string
 }
 
-export default get<NextApiRequest, NextApiResponse>(
-  host(
-    protocol(
-      async (req, res) => {
-        try {
-          const { href } = new URL(`${req.protocol}://${req.host}${req.url}`)
+export default host<NextApiRequest, NextApiResponse>(
+  protocol(
+    async (req, res) => {
+      if (req.method?.toUpperCase() !== "GET") {
+        return res.status(405).send("Only GET requests are allowed")
+      }
 
-          const { id } = req.query as Request
-          if (!id) throw new Error("ID not found")
+      try {
+        const { href } = new URL(`${req.protocol}://${req.host}${req.url}`)
 
-          const playlistData = await requestPlaylistData(id)
+        const { id } = req.query as Request
+        if (!id) throw new Error("ID not found")
 
-          const feed = createFeed(
-            href,
-            id => ({
-              url: new URL(`/api/play?id=${id}`, href).href,
-              type: "video/mp4"
-            }),
-            playlistData
-          )
+        const playlistData = await requestPlaylistData(id)
 
-          res.status(200)
-          res.setHeader("Content-Type", "text/xml")
-          res.send(feed)
-        } catch (error) {
-          res.status(500).send("" + error)
-        }
-      },
-      { trustProxy: true }
-    ),
+        const feed = createFeed(
+          href,
+          id => ({
+            url: new URL(`/api/play?id=${id}`, href).href,
+            type: "video/mp4"
+          }),
+          playlistData
+        )
+
+        res.status(200)
+        res.setHeader("Content-Type", "text/xml")
+        res.send(feed)
+      } catch (error) {
+        res.status(500).send("" + error)
+      }
+    },
     { trustProxy: true }
-  )
+  ),
+  { trustProxy: true }
 )
