@@ -13,7 +13,7 @@
     "micro-host": "^1.1.0",
     "micro-protocol": "^1.1.0",
     "micro-redirect": "^1.0.2",
-    "next": "^9.2.1",
+    "next": "^9.3.3",
     "node-sass": "^4.13.1",
     "parse-author": "^2.0.0",
     "picnic": "^6.5.2",
