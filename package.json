@@ -21,7 +21,7 @@
     "react-dom": "^16.12.0",
     "rss": "^1.2.2",
     "xml-js": "^1.6.11",
-    "ytdl-core": "^2.0.0"
+    "ytdl-core": "^2.1.1"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.16",
