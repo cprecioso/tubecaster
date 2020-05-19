@@ -17,7 +17,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const id = query.id as string
   const playlistData: PlaylistData = {
     ...(await requestPlaylistData(id)),
-    items: []
+    items: [],
   }
   const props: Props = { playlistData }
   return { props }

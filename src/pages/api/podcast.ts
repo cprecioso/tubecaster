@@ -25,9 +25,9 @@ export default host<NextApiRequest, NextApiResponse>(
 
         const feed = createFeed(
           href,
-          id => ({
+          (id) => ({
             url: new URL(`/api/play?id=${id}`, href).href,
-            type: "video/mp4"
+            type: "video/mp4",
           }),
           playlistData
         )

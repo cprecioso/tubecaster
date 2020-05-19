@@ -19,7 +19,7 @@ const PlaylistChoosePage: NextPage<Props> = ({ playlistReferences }) => {
       const [{ id }] = playlists
       router.push({
         pathname: "/playlist",
-        query: { id }
+        query: { id },
       })
     }
   }, [playlists.length])

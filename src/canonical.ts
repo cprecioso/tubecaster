@@ -2,7 +2,7 @@ import cheerio from "cheerio"
 import {
   GeneralListReference,
   GeneralListType,
-  PlaylistReference
+  PlaylistReference,
 } from "./types"
 
 const isYouTubeUrl = (url: string): boolean => {
@@ -58,16 +58,16 @@ const channelToPlaylists = (() => {
   return (channelId: string): PlaylistReference[] => [
     {
       name: "Uploaded videos",
-      id: channelId.replace(CHANNEL_PREFIX_REGEX, "UU")
+      id: channelId.replace(CHANNEL_PREFIX_REGEX, "UU"),
     },
     {
       name: "Popular videos",
-      id: channelId.replace(CHANNEL_PREFIX_REGEX, "PU")
+      id: channelId.replace(CHANNEL_PREFIX_REGEX, "PU"),
     },
     {
       name: "Favorite videos",
-      id: channelId.replace(CHANNEL_PREFIX_REGEX, "FL")
-    }
+      id: channelId.replace(CHANNEL_PREFIX_REGEX, "FL"),
+    },
   ]
 })()
 

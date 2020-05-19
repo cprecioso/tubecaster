@@ -21,7 +21,7 @@ export default function createFeed(
     pubDate: playlist.publishedAt ?? undefined,
     custom_namespaces: {
       itunes: "http://www.itunes.com/dtds/podcast-1.0.dtd",
-      media: "http://search.yahoo.com/mrss/"
+      media: "http://search.yahoo.com/mrss/",
     },
     custom_elements: [
       { "itunes:author": playlist.channelTitle },
@@ -29,21 +29,15 @@ export default function createFeed(
       {
         "itunes:owner": [
           { "itunes:name": author.name },
-          { "itunes:email": author.email }
-        ]
+          { "itunes:email": author.email },
+        ],
       },
       { "itunes:block": "yes" },
       { language: "en-US" },
       { "itunes:explicit": false },
       { "itunes:category": { _attr: { text: "TV & Film" } } },
-      {
-        "itunes:image": {
-          _attr: {
-            href: playlist.thumbnail
-          }
-        }
-      }
-    ]
+      { "itunes:image": { _attr: { href: playlist.thumbnail } } },
+    ],
   })
 
   for (const item of playlist.items) {
@@ -58,16 +52,10 @@ export default function createFeed(
       enclosure,
       custom_elements: [
         { "itunes:author": item.channelTitle },
-        {
-          "itunes:image": {
-            _attr: {
-              href: item.thumbnail
-            }
-          }
-        },
+        { "itunes:image": { _attr: { href: item.thumbnail } } },
         { "itunes:episodeType": "full" },
-        { "media:content": { _attr: enclosure } }
-      ]
+        { "media:content": { _attr: enclosure } },
+      ],
     })
   }
 

@@ -1,6 +1,6 @@
 export enum GeneralListType {
   Playlist = "playlist",
-  Channel = "channel"
+  Channel = "channel",
 }
 
 export interface GeneralListReference {

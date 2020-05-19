@@ -20,8 +20,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const chosenFormat = ytdl.chooseFormat(info.formats, {
       quality: "highest",
-      filter: format =>
-        format.container === "mp4" && (format.audioChannels ?? 0) > 0
+      filter: (format) =>
+        format.container === "mp4" && (format.audioChannels ?? 0) > 0,
     })
 
     redirect(res, 302, chosenFormat.url)
