@@ -1,4 +1,3 @@
-import "isomorphic-fetch"
 import React from "react"
 
 export const useClientSideValue = <T>(

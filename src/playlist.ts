@@ -1,5 +1,4 @@
 import cheerio from "cheerio"
-import "isomorphic-fetch"
 import { Element as XMLElement, xml2js } from "xml-js"
 import { PlaylistData } from "./types"
 

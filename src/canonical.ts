@@ -1,5 +1,4 @@
 import cheerio from "cheerio"
-import "isomorphic-fetch"
 import {
   GeneralListReference,
   GeneralListType,
