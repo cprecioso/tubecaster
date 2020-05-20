@@ -1,18 +1,21 @@
 import React from "react"
-import { useClientSideValue } from "../hooks"
 import { PlaylistData } from "../types"
 
 export const PlaylistCard: React.FunctionComponent<{
   data: PlaylistData
 }> = ({ data }) => {
-  const podcastUrl = useClientSideValue(() => {
-    const url = new URL(
-      `/api/podcast?id=${data.playlistId}`,
-      window.location.href
-    )
-    url.protocol = "podcast"
-    return url.href
-  })
+  const [podcastUrl, setPodcastUrl] = React.useState(
+    `/api/podcast?id=${data.playlistId}`
+  )
+  React.useEffect(
+    () =>
+      setPodcastUrl((oldUrl) => {
+        const newUrl = new URL(oldUrl, window.location.href)
+        newUrl.protocol = "podcast"
+        return newUrl.href
+      }),
+    []
+  )
 
   return (
     <div className="card flex one center">
