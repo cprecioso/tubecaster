@@ -17,10 +17,7 @@ const PlaylistChoosePage: NextPage<Props> = ({ playlistReferences }) => {
   useEffect(() => {
     if (playlists.length === 1) {
       const [{ id }] = playlists
-      router.push({
-        pathname: "/playlist",
-        query: { id },
-      })
+      router.push("/playlist/[id]", `/playlist/${id}`)
     }
   }, [playlists.length])
 

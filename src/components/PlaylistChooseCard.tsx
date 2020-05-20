@@ -6,7 +6,7 @@ const OptionButton: FunctionComponent<{
   option: PlaylistReference
 }> = ({ option }) => (
   <li className="stack">
-    <Link href={{ pathname: "/playlist", query: { id: option.id } }}>
+    <Link href="/playlist/[id]" as={`/playlist/${option.id}`}>
       <a>{option.name}</a>
     </Link>
   </li>
