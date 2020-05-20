@@ -1,33 +1,20 @@
 import { NextPage } from "next"
 import { useRouter } from "next/router"
 import React from "react"
-import { parsePlaylistRef, refToPlaylists } from "../canonical"
+import { youtubeUrlToTubecasterUrl } from "../api/youtube-urls"
 import { ErrorCard } from "../components/ErrorCard"
-import { PlaylistChooseCard } from "../components/PlaylistChooseCard"
 import SearchField, { OnSubmitHandler } from "../components/SearchField"
-import { PlaylistReference } from "../types"
 
 const IndexPage: NextPage = () => {
-  const [playlistOptions, setPlaylistOptions] = React.useState<
-    PlaylistReference[] | undefined
-  >()
   const [error, setError] = React.useState<string | undefined>()
 
   const router = useRouter()
   const handleSubmit = React.useCallback<OnSubmitHandler>(
     (url, preventDefault) => {
-      setError(undefined)
-      setPlaylistOptions(undefined)
-
       try {
-        const ref = parsePlaylistRef(url)
-        if (ref) {
-          const playlists = refToPlaylists(ref)
-          if (playlists.length === 1) {
-            router.push("/playlist/[id]", `/playlist/${playlists[0].id}`)
-          } else {
-            setPlaylistOptions(playlists)
-          }
+        const redirectUrl = youtubeUrlToTubecasterUrl(url)
+        if (redirectUrl) {
+          router.push(redirectUrl.href, redirectUrl.as)
           return preventDefault()
         }
       } catch (err) {
@@ -49,10 +36,6 @@ const IndexPage: NextPage = () => {
       <SearchField onSubmit={handleSubmit} />
 
       {error != null ? <ErrorCard error={error} /> : null}
-
-      {playlistOptions != null ? (
-        <PlaylistChooseCard options={playlistOptions} />
-      ) : null}
 
       <div className="full card small-font">
         <p>

@@ -1,10 +1,10 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { useRouter } from "next/router"
 import React from "react"
+import requestPlaylistData from "../../api/playlist"
+import { PlaylistData } from "../../api/types"
 import { LoadingCard } from "../../components/LoadingCard"
 import { PlaylistCard } from "../../components/PlaylistCard"
-import requestPlaylistData from "../../playlist"
-import { PlaylistData } from "../../types"
 
 type Props = {
   playlistData: PlaylistData

@@ -1,5 +1,5 @@
 import React from "react"
-import { PlaylistData } from "../types"
+import { PlaylistData } from "../api/types"
 
 export const PlaylistCard: React.FunctionComponent<{
   data: PlaylistData

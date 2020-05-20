@@ -1,6 +1,6 @@
 import parseAuthor from "parse-author"
 import RSS from "rss"
-import pkg from "../package.json"
+import pkg from "../../package.json"
 import { Enclosure, PlaylistData } from "./types"
 
 export default function createFeed(

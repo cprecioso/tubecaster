@@ -1,6 +1,6 @@
 import Link from "next/link"
 import React, { FunctionComponent } from "react"
-import { PlaylistReference } from "../types"
+import { PlaylistReference } from "../api/types"
 
 const OptionButton: FunctionComponent<{
   option: PlaylistReference

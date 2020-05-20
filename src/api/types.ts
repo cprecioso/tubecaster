@@ -8,9 +8,13 @@ export interface VideoCollectionReference {
   id: string
 }
 
-export interface PlaylistReference {
+export interface ChannelReference extends VideoCollectionReference {
+  type: VideoCollectionType.Channel
+}
+
+export interface PlaylistReference extends VideoCollectionReference {
+  type: VideoCollectionType.Playlist
   name?: string
-  id: string
 }
 
 export interface PlaylistData {

@@ -28,7 +28,7 @@ const SearchField: FunctionComponent<Props> = ({ onSubmit }) => {
     <form
       className="card full flex one two-500"
       method="GET"
-      action="/playlist-choose"
+      action="/api/parse-playlist"
       onSubmit={handleSubmit}
     >
       <div className="full two-third-500 three-fourth-700">
