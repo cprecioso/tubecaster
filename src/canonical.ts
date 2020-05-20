@@ -1,8 +1,8 @@
 import cheerio from "cheerio"
 import {
-  GeneralListReference,
-  GeneralListType,
   PlaylistReference,
+  VideoCollectionReference,
+  VideoCollectionType,
 } from "./types"
 
 const isYouTubeUrl = (url: string): boolean => {
@@ -18,19 +18,19 @@ const requestCanonicalUrl = async (
   return $("link[rel='canonical']").attr("href")
 }
 
-const parseUrl = (url: string): GeneralListReference | null => {
+const parseUrl = (url: string): VideoCollectionReference | null => {
   const obj = new URL(url, "https://www.youtube.com/")
   const [, urlType, urlId] = obj.pathname.split("/")
   switch (urlType) {
     case "channel": {
       if (!urlId) throw new Error("Expected a channel ID in the URL")
-      return { type: GeneralListType.Channel, id: urlId }
+      return { type: VideoCollectionType.Channel, id: urlId }
     }
     case "watch":
     case "playlist": {
       const list = obj.searchParams.get("list")
       if (!list) throw new Error("Expected a list ID in the URL")
-      return { type: GeneralListType.Playlist, id: list }
+      return { type: VideoCollectionType.Playlist, id: list }
     }
     default: {
       return null
@@ -38,12 +38,14 @@ const parseUrl = (url: string): GeneralListReference | null => {
   }
 }
 
-export function parsePlaylistRef(url: string): GeneralListReference | null {
+export function parsePlaylistRef(url: string): VideoCollectionReference | null {
   if (!isYouTubeUrl(url)) throw new Error("URL is not from YouTube")
   return parseUrl(url)
 }
 
-async function requestPlaylistRef(url: string): Promise<GeneralListReference> {
+async function requestPlaylistRef(
+  url: string
+): Promise<VideoCollectionReference> {
   let parsed = parsePlaylistRef(url)
   if (parsed) return parsed
 
@@ -80,11 +82,11 @@ const requestCanonicalPlaylists = async (
 }
 export default requestCanonicalPlaylists
 
-export function refToPlaylists(ref: GeneralListReference) {
+export function refToPlaylists(ref: VideoCollectionReference) {
   switch (ref.type) {
-    case GeneralListType.Channel:
+    case VideoCollectionType.Channel:
       return channelToPlaylists(ref.id)
-    case GeneralListType.Playlist:
+    case VideoCollectionType.Playlist:
       return [{ id: ref.id }]
     default:
       throw new Error("Can't find playlist")

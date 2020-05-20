@@ -1,10 +1,10 @@
-export enum GeneralListType {
+export enum VideoCollectionType {
   Playlist = "playlist",
   Channel = "channel",
 }
 
-export interface GeneralListReference {
-  type: GeneralListType
+export interface VideoCollectionReference {
+  type: VideoCollectionType
   id: string
 }
 
