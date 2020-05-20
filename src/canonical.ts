@@ -56,23 +56,21 @@ async function requestPlaylistRef(url: string): Promise<GeneralListReference> {
   throw new Error("Unable to parse URL")
 }
 
-const channelToPlaylists = (() => {
-  const CHANNEL_PREFIX_REGEX = /^UC/
-  return (channelId: string): PlaylistReference[] => [
-    {
-      name: "Uploaded videos",
-      id: channelId.replace(CHANNEL_PREFIX_REGEX, "UU"),
-    },
-    {
-      name: "Popular videos",
-      id: channelId.replace(CHANNEL_PREFIX_REGEX, "PU"),
-    },
-    {
-      name: "Favorite videos",
-      id: channelId.replace(CHANNEL_PREFIX_REGEX, "FL"),
-    },
-  ]
-})()
+const CHANNEL_PREFIX_REGEX = /^UC/
+const channelToPlaylists = (channelId: string): PlaylistReference[] => [
+  {
+    name: "Uploaded videos",
+    id: channelId.replace(CHANNEL_PREFIX_REGEX, "UU"),
+  },
+  {
+    name: "Popular videos",
+    id: channelId.replace(CHANNEL_PREFIX_REGEX, "PU"),
+  },
+  {
+    name: "Favorite videos",
+    id: channelId.replace(CHANNEL_PREFIX_REGEX, "FL"),
+  },
+]
 
 const requestCanonicalPlaylists = async (
   url: string
