@@ -1,10 +1,12 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
+import { useRouter } from "next/router"
 import {
   ChannelReference,
   PlaylistReference,
   VideoCollectionType,
 } from "../../api/types"
 import { channelReferenceToPlaylistReferences } from "../../api/youtube-urls"
+import { LoadingCard } from "../../components/LoadingCard"
 import { PlaylistChooseCard } from "../../components/PlaylistChooseCard"
 
 type Props = {
@@ -13,9 +15,15 @@ type Props = {
 
 type Params = { id: string }
 
-const PlaylistChoosePage: NextPage<Props> = ({ playlistReferences }) => (
-  <PlaylistChooseCard options={playlistReferences} />
-)
+const PlaylistChoosePage: NextPage<Props> = ({ playlistReferences }) => {
+  const router = useRouter()
+
+  return router.isFallback ? (
+    <LoadingCard />
+  ) : (
+    <PlaylistChooseCard options={playlistReferences} />
+  )
+}
 export default PlaylistChoosePage
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({
