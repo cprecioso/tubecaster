@@ -38,10 +38,13 @@ const parseUrl = (url: string): GeneralListReference | null => {
   }
 }
 
-async function requestPlaylistRef(url: string): Promise<GeneralListReference> {
+export function parsePlaylistRef(url: string): GeneralListReference | null {
   if (!isYouTubeUrl(url)) throw new Error("URL is not from YouTube")
+  return parseUrl(url)
+}
 
-  let parsed = parseUrl(url)
+async function requestPlaylistRef(url: string): Promise<GeneralListReference> {
+  let parsed = parsePlaylistRef(url)
   if (parsed) return parsed
 
   const canonicalUrl = await requestCanonicalUrl(url)
@@ -75,6 +78,11 @@ const requestCanonicalPlaylists = async (
   url: string
 ): Promise<PlaylistReference[]> => {
   const ref = await requestPlaylistRef(url)
+  return refToPlaylists(ref)
+}
+export default requestCanonicalPlaylists
+
+export function refToPlaylists(ref: GeneralListReference) {
   switch (ref.type) {
     case GeneralListType.Channel:
       return channelToPlaylists(ref.id)
@@ -84,5 +92,3 @@ const requestCanonicalPlaylists = async (
       throw new Error("Can't find playlist")
   }
 }
-
-export default requestCanonicalPlaylists
