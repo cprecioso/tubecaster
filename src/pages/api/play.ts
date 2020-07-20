@@ -1,4 +1,3 @@
-import redirect from "micro-redirect"
 import { NextApiRequest, NextApiResponse } from "next"
 import ytdl from "ytdl-core"
 
@@ -24,7 +23,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         format.container === "mp4" && (format.audioChannels ?? 0) > 0,
     })
 
-    redirect(res, 302, chosenFormat.url)
+    res
+      .writeHead(302, {
+        Location: chosenFormat.url,
+        "Cache-Control": "no-store",
+      })
+      .end()
   } catch (error) {
     res.status(500).send("" + error)
     throw error
