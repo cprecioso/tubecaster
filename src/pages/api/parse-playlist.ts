@@ -20,7 +20,7 @@ export default <NextApiHandler>(async (req, res) => {
           .end()
       }
     } catch (error) {
-      return res.writeHead(500).json({ error })
+      return res.status(500).json({ error })
     }
   }
 

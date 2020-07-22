@@ -32,12 +32,10 @@ export default host<NextApiRequest, NextApiResponse>(
           playlistData
         )
 
-        res
-          .writeHead(200, {
-            "Content-Type": "text/xml",
-            "Cache-Control": "maxage=86400, immutable",
-          })
-          .send(feed)
+        res.status(200)
+        res.setHeader("Content-Type", "text/xml")
+        res.setHeader("Cache-Control", "maxage=86400, immutable")
+        res.send(feed)
       } catch (error) {
         res.status(500).send("" + error)
       }
