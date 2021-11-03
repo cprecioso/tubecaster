@@ -13,7 +13,6 @@ const TubecasterApp: FunctionComponent<AppProps> = ({
     <Head>
       <title>Tubecaster</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta name="monetization" content="$precioso.design" />
     </Head>
     <header>
       <h1 className="full">
