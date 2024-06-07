@@ -1,23 +1,23 @@
-import React from "react"
-import { PlaylistData } from "../api/types"
+import React from "react";
+import { PlaylistData } from "../api/types";
 
 export const PlaylistCard: React.FunctionComponent<{
-  data: PlaylistData
+  data: PlaylistData;
 }> = ({ data }) => {
   const [podcastLink, setPodcastLink] = React.useState({
     url: `/api/podcast?id=${data.playlistId}`,
     text: "Right click (or hold) to copy the link",
     shoxExtraInfo: false,
-  })
+  });
   React.useEffect(
     () =>
       setPodcastLink(({ url }) => {
-        const newUrl = new URL(url, window.location.href)
-        newUrl.protocol = "podcast"
-        return { url: newUrl.href, text: newUrl.href, shoxExtraInfo: true }
+        const newUrl = new URL(url, window.location.href);
+        newUrl.protocol = "podcast";
+        return { url: newUrl.href, text: newUrl.href, shoxExtraInfo: true };
       }),
-    []
-  )
+    [],
+  );
 
   return (
     <div className="card flex one center">
@@ -46,5 +46,5 @@ export const PlaylistCard: React.FunctionComponent<{
         </p>
       </main>
     </div>
-  )
-}
+  );
+};

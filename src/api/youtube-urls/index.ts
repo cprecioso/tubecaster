@@ -2,26 +2,26 @@ import {
   ChannelReference,
   PlaylistReference,
   VideoCollectionType,
-} from "../types"
+} from "../types";
 import {
   TubecasterUrl,
   videoCollectionReferenceToTubecasterUrl,
   youtubeUrlToVideoCollectionReference,
-} from "./internal"
+} from "./internal";
 
 export const youtubeUrlToTubecasterUrl = (
-  url: string
+  url: string,
 ): TubecasterUrl | null => {
-  const ref = youtubeUrlToVideoCollectionReference(url)
+  const ref = youtubeUrlToVideoCollectionReference(url);
   if (ref) {
-    return videoCollectionReferenceToTubecasterUrl(ref)
+    return videoCollectionReferenceToTubecasterUrl(ref);
   }
-  return ref
-}
+  return ref;
+};
 
-const CHANNEL_PREFIX_REGEX = /^UC/
+const CHANNEL_PREFIX_REGEX = /^UC/;
 export const channelReferenceToPlaylistReferences = (
-  ref: ChannelReference
+  ref: ChannelReference,
 ): PlaylistReference[] => [
   {
     type: VideoCollectionType.Playlist,
@@ -38,4 +38,4 @@ export const channelReferenceToPlaylistReferences = (
     name: "Favorite videos",
     id: ref.id.replace(CHANNEL_PREFIX_REGEX, "FL"),
   },
-]
+];

@@ -1,28 +1,28 @@
-import React, { FunctionComponent } from "react"
+import React, { FunctionComponent } from "react";
 
 export type OnSubmitHandler = (
   value: string,
-  preventDefault: () => void
-) => void
+  preventDefault: () => void,
+) => void;
 
 export type Props = {
-  onSubmit?: OnSubmitHandler
-}
+  onSubmit?: OnSubmitHandler;
+};
 
 type FormOnSubmitHandler = NonNullable<
   JSX.IntrinsicElements["form"]["onSubmit"]
->
+>;
 
 const SearchField: FunctionComponent<Props> = ({ onSubmit }) => {
-  const ref = React.useRef<HTMLInputElement>(null)
+  const ref = React.useRef<HTMLInputElement>(null);
 
   const handleSubmit = React.useMemo<FormOnSubmitHandler | undefined>(
     () =>
       onSubmit != null
         ? (e) => onSubmit(ref.current?.value ?? "", e.preventDefault.bind(e))
         : undefined,
-    [onSubmit]
-  )
+    [onSubmit],
+  );
 
   return (
     <form
@@ -46,7 +46,7 @@ const SearchField: FunctionComponent<Props> = ({ onSubmit }) => {
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default SearchField
+export default SearchField;

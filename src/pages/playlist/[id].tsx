@@ -1,41 +1,40 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from "next"
-import { useRouter } from "next/router"
-import React from "react"
-import requestPlaylistData from "../../api/playlist"
-import { PlaylistData } from "../../api/types"
-import { LoadingCard } from "../../components/LoadingCard"
-import { PlaylistCard } from "../../components/PlaylistCard"
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { useRouter } from "next/router";
+import requestPlaylistData from "../../api/playlist";
+import { PlaylistData } from "../../api/types";
+import { LoadingCard } from "../../components/LoadingCard";
+import { PlaylistCard } from "../../components/PlaylistCard";
 
 type Props = {
-  playlistData: PlaylistData
-}
+  playlistData: PlaylistData;
+};
 
-type Params = { id: string }
+type Params = { id: string };
 
 const PlaylistPage: NextPage<Props> = ({ playlistData }) => {
-  const router = useRouter()
+  const router = useRouter();
 
   return router.isFallback ? (
     <LoadingCard />
   ) : (
     <PlaylistCard data={playlistData!} />
-  )
-}
-export default PlaylistPage
+  );
+};
+export default PlaylistPage;
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({
   params,
 }) => {
-  const id = params?.id
-  if (!id) throw new Error("Can't find id")
+  const id = params?.id;
+  if (!id) throw new Error("Can't find id");
 
   const props = {
     playlistData: { ...(await requestPlaylistData(id)), items: [] },
-  }
-  return { props }
-}
+  };
+  return { props };
+};
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => ({
   paths: [],
   fallback: true,
-})
+});

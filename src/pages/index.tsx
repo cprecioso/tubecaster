@@ -1,29 +1,29 @@
-import { NextPage } from "next"
-import { useRouter } from "next/router"
-import React from "react"
-import { youtubeUrlToTubecasterUrl } from "../api/youtube-urls"
-import { ErrorCard } from "../components/ErrorCard"
-import SearchField, { OnSubmitHandler } from "../components/SearchField"
+import { NextPage } from "next";
+import { useRouter } from "next/router";
+import React from "react";
+import { youtubeUrlToTubecasterUrl } from "../api/youtube-urls";
+import { ErrorCard } from "../components/ErrorCard";
+import SearchField, { OnSubmitHandler } from "../components/SearchField";
 
 const IndexPage: NextPage = () => {
-  const [error, setError] = React.useState<string | undefined>()
+  const [error, setError] = React.useState<string | undefined>();
 
-  const router = useRouter()
+  const router = useRouter();
   const handleSubmit = React.useCallback<OnSubmitHandler>(
     (url, preventDefault) => {
       try {
-        const redirectUrl = youtubeUrlToTubecasterUrl(url)
+        const redirectUrl = youtubeUrlToTubecasterUrl(url);
         if (redirectUrl) {
-          router.push(redirectUrl.href, redirectUrl.as)
-          return preventDefault()
+          router.push(redirectUrl.href, redirectUrl.as);
+          return preventDefault();
         }
       } catch (err) {
-        setError("" + err)
-        return preventDefault()
+        setError("" + err);
+        return preventDefault();
       }
     },
-    []
-  )
+    [],
+  );
 
   return (
     <>
@@ -50,6 +50,6 @@ const IndexPage: NextPage = () => {
         </p>
       </div>
     </>
-  )
-}
-export default IndexPage
+  );
+};
+export default IndexPage;

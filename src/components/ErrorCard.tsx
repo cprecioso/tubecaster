@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from "react"
+import { FunctionComponent } from "react";
 
 export const ErrorCard: FunctionComponent<{ error: string }> = ({ error }) => (
   <pre className="card">{error}</pre>
-)
+);

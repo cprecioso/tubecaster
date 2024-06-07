@@ -1,14 +1,14 @@
-import parseAuthor from "parse-author"
-import RSS from "rss"
-import pkg from "../../package.json"
-import { Enclosure, PlaylistData } from "./types"
+import parseAuthor from "parse-author";
+import RSS from "rss";
+import pkg from "../../package.json";
+import { Enclosure, PlaylistData } from "./types";
 
 export default function createFeed(
   feed_url: string,
   enclosureCreator: (videoId: string) => Enclosure,
-  playlist: PlaylistData
+  playlist: PlaylistData,
 ) {
-  const author = parseAuthor(pkg.author as string)
+  const author = parseAuthor(pkg.author as string);
 
   const feed = new RSS({
     title: playlist.title,
@@ -38,10 +38,10 @@ export default function createFeed(
       { "itunes:category": { _attr: { text: "TV & Film" } } },
       { "itunes:image": { _attr: { href: playlist.thumbnail } } },
     ],
-  })
+  });
 
   for (const item of playlist.items) {
-    const enclosure = enclosureCreator(item.videoId)
+    const enclosure = enclosureCreator(item.videoId);
 
     feed.item({
       title: item.title,
@@ -56,8 +56,8 @@ export default function createFeed(
         { "itunes:episodeType": "full" },
         { "media:content": { _attr: enclosure } },
       ],
-    })
+    });
   }
 
-  return feed.xml()
+  return feed.xml();
 }

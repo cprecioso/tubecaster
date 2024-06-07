@@ -1,27 +1,27 @@
-import host from "micro-host"
-import protocol from "micro-protocol"
-import { NextApiRequest, NextApiResponse } from "next"
-import createFeed from "../../api/create-feed"
-import requestPlaylistData from "../../api/playlist"
+import host from "micro-host";
+import protocol from "micro-protocol";
+import { NextApiRequest, NextApiResponse } from "next";
+import createFeed from "../../api/create-feed";
+import requestPlaylistData from "../../api/playlist";
 
 export type Request = {
-  id: string
-}
+  id: string;
+};
 
 export default host<NextApiRequest, NextApiResponse>(
   protocol(
     async (req, res) => {
       if (req.method?.toUpperCase() !== "GET") {
-        return res.status(405).send("Only GET requests are allowed")
+        return res.status(405).send("Only GET requests are allowed");
       }
 
       try {
-        const { href } = new URL(`${req.protocol}://${req.host}${req.url}`)
+        const { href } = new URL(`${req.protocol}://${req.host}${req.url}`);
 
-        const { id } = req.query as Request
-        if (!id) throw new Error("ID not found")
+        const { id } = req.query as Request;
+        if (!id) throw new Error("ID not found");
 
-        const playlistData = await requestPlaylistData(id)
+        const playlistData = await requestPlaylistData(id);
 
         const feed = createFeed(
           href,
@@ -29,18 +29,18 @@ export default host<NextApiRequest, NextApiResponse>(
             url: new URL(`/api/play?id=${id}`, href).href,
             type: "video/mp4",
           }),
-          playlistData
-        )
+          playlistData,
+        );
 
-        res.status(200)
-        res.setHeader("Content-Type", "text/xml")
-        res.setHeader("Cache-Control", "maxage=86400, immutable")
-        res.send(feed)
+        res.status(200);
+        res.setHeader("Content-Type", "text/xml");
+        res.setHeader("Cache-Control", "maxage=86400, immutable");
+        res.send(feed);
       } catch (error) {
-        res.status(500).send("" + error)
+        res.status(500).send("" + error);
       }
     },
-    { trustProxy: true }
+    { trustProxy: true },
   ),
-  { trustProxy: true }
-)
+  { trustProxy: true },
+);

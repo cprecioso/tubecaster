@@ -1,9 +1,9 @@
-import { AppProps } from "next/app"
-import Head from "next/head"
-import Link from "next/link"
-import "picnic"
-import React, { FunctionComponent } from "react"
-import "../styles/main.scss"
+import { AppProps } from "next/app";
+import Head from "next/head";
+import Link from "next/link";
+import "picnic";
+import { FunctionComponent } from "react";
+import "../styles/main.scss";
 
 const TubecasterApp: FunctionComponent<AppProps> = ({
   Component,
@@ -36,6 +36,6 @@ const TubecasterApp: FunctionComponent<AppProps> = ({
       </span>
     </footer>
   </>
-)
+);
 
-export default TubecasterApp
+export default TubecasterApp;

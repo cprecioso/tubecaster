@@ -1,44 +1,44 @@
-import { VideoCollectionReference, VideoCollectionType } from "../types"
+import { VideoCollectionReference, VideoCollectionType } from "../types";
 
-export type TubecasterUrl = { href: string; as: string }
+export type TubecasterUrl = { href: string; as: string };
 
 const isYouTubeUrl = (url: string): boolean => {
-  const { host } = new URL(url, "https://www.youtube.com/")
-  return ["youtube.com", "www.youtube.com", "m.youtube.com"].includes(host)
-}
+  const { host } = new URL(url, "https://www.youtube.com/");
+  return ["youtube.com", "www.youtube.com", "m.youtube.com"].includes(host);
+};
 
 const extractParamsFromYoutubeUrl = (
-  url: string
+  url: string,
 ): VideoCollectionReference | null => {
-  const obj = new URL(url, "https://www.youtube.com/")
-  const [, urlType, urlId] = obj.pathname.split("/")
+  const obj = new URL(url, "https://www.youtube.com/");
+  const [, urlType, urlId] = obj.pathname.split("/");
   switch (urlType) {
     case "channel": {
-      if (!urlId) throw new Error("Expected a channel ID in the URL")
-      return { type: VideoCollectionType.Channel, id: urlId }
+      if (!urlId) throw new Error("Expected a channel ID in the URL");
+      return { type: VideoCollectionType.Channel, id: urlId };
     }
     case "watch":
     case "playlist": {
-      const list = obj.searchParams.get("list")
-      if (!list) throw new Error("Expected a list ID in the URL")
-      return { type: VideoCollectionType.Playlist, id: list }
+      const list = obj.searchParams.get("list");
+      if (!list) throw new Error("Expected a list ID in the URL");
+      return { type: VideoCollectionType.Playlist, id: list };
     }
     default: {
-      return null
+      return null;
     }
   }
-}
+};
 
 export const youtubeUrlToVideoCollectionReference = (
-  url: string
+  url: string,
 ): VideoCollectionReference | null => {
-  if (!isYouTubeUrl(url)) throw new Error("URL is not from YouTube")
-  return extractParamsFromYoutubeUrl(url)
-}
+  if (!isYouTubeUrl(url)) throw new Error("URL is not from YouTube");
+  return extractParamsFromYoutubeUrl(url);
+};
 
 export const videoCollectionReferenceToTubecasterUrl = (
-  ref: VideoCollectionReference
+  ref: VideoCollectionReference,
 ): TubecasterUrl => ({
   href: `/${ref.type}/[id]`,
   as: `/${ref.type}/${ref.id}`,
-})
+});

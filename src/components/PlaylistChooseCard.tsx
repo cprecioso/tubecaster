@@ -1,19 +1,19 @@
-import Link from "next/link"
-import React, { FunctionComponent } from "react"
-import { PlaylistReference } from "../api/types"
+import Link from "next/link";
+import { FunctionComponent } from "react";
+import { PlaylistReference } from "../api/types";
 
 const OptionButton: FunctionComponent<{
-  option: PlaylistReference
+  option: PlaylistReference;
 }> = ({ option }) => (
   <li className="stack">
     <Link href="/playlist/[id]" as={`/playlist/${option.id}`}>
       <a>{option.name}</a>
     </Link>
   </li>
-)
+);
 
 export const PlaylistChooseCard: FunctionComponent<{
-  options: readonly PlaylistReference[]
+  options: readonly PlaylistReference[];
 }> = ({ options }) => {
   return (
     <>
@@ -42,5 +42,5 @@ export const PlaylistChooseCard: FunctionComponent<{
         </p>
       </div>
     </>
-  )
-}
+  );
+};
