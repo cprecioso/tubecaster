@@ -5,6 +5,15 @@ __metadata:
   version: 8
   cacheKey: 10
 
+"@cprecioso/tsconfig@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@cprecioso/tsconfig@npm:2.0.1"
+  peerDependencies:
+    typescript: ^5.0.4
+  checksum: 10/5b3ca24232dc2b61adba25d13000a8cdbd742f329ff28f3701f4418477d754292f7c22facc723250480c86585560487c8b2b4d1d6dcb7c86fd7f1902c21a972e
+  languageName: node
+  linkType: hard
+
 "@next/env@npm:14.2.3":
   version: 14.2.3
   resolution: "@next/env@npm:14.2.3"
@@ -1646,6 +1655,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "tubecaster@workspace:."
   dependencies:
+    "@cprecioso/tsconfig": "npm:^2.0.1"
     "@types/cheerio": "npm:^0.22.35"
     "@types/node": "npm:^20.14.2"
     "@types/parse-author": "npm:^2.0.3"

@@ -24,6 +24,7 @@
     "ytdl-core": "^4.11.5"
   },
   "devDependencies": {
+    "@cprecioso/tsconfig": "^2.0.1",
     "@types/cheerio": "^0.22.35",
     "@types/node": "^20.14.2",
     "@types/parse-author": "^2.0.3",
