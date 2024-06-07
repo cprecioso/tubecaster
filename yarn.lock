@@ -1948,6 +1948,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mvdan-sh@npm:^0.10.1":
+  version: 0.10.1
+  resolution: "mvdan-sh@npm:0.10.1"
+  checksum: 10/bbb6e83ea20f1ab785aa97cadc793d3715768f5ff1d919204bc602d2f1cb3b21efe4034e194db168b1d3867f61274b22d0cd23486c0f3735ad4fb431335dc8fa
+  languageName: node
+  linkType: hard
+
 "nanoid@npm:^3.1.16":
   version: 3.1.20
   resolution: "nanoid@npm:3.1.20"
@@ -2365,12 +2372,50 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "prettier@npm:2.2.1"
+"prettier-plugin-organize-imports@npm:3.2.4":
+  version: 3.2.4
+  resolution: "prettier-plugin-organize-imports@npm:3.2.4"
+  peerDependencies:
+    "@volar/vue-language-plugin-pug": ^1.0.4
+    "@volar/vue-typescript": ^1.0.4
+    prettier: ">=2.0"
+    typescript: ">=2.9"
+  peerDependenciesMeta:
+    "@volar/vue-language-plugin-pug":
+      optional: true
+    "@volar/vue-typescript":
+      optional: true
+  checksum: 10/93c98d365af500aa4c72f5330d82c20a20d0e7661a9692e6f26a76a2f4f88b99e0f85dcb8871e98b6d687d6e19ea5f1dcc937f9e29fd0778e888675ecafed233
+  languageName: node
+  linkType: hard
+
+"prettier-plugin-pkg@npm:0.18.1":
+  version: 0.18.1
+  resolution: "prettier-plugin-pkg@npm:0.18.1"
+  peerDependencies:
+    prettier: ^3.0.3
+  checksum: 10/f7bc257005aa399a27b1ccd31bc7c8fc66aba7711ab27969450f4895e13b9359e9a7509e05eafbe1a4bf39fb84a2f99c64c6d3c03acbaf48ef15ebc8a622d3f5
+  languageName: node
+  linkType: hard
+
+"prettier-plugin-sh@npm:0.14.0":
+  version: 0.14.0
+  resolution: "prettier-plugin-sh@npm:0.14.0"
+  dependencies:
+    mvdan-sh: "npm:^0.10.1"
+    sh-syntax: "npm:^0.4.1"
+  peerDependencies:
+    prettier: ^3.0.3
+  checksum: 10/9dd100a01983dd7ee8a051659457b1e2f2d43d2736947e7f4ff3ca74d3cc156ef9d3f3ed74ecda06658aa1ebed1ff6b817e40eabf0ec92a54c0e08499b3b81f4
+  languageName: node
+  linkType: hard
+
+"prettier@npm:3.3.1":
+  version: 3.3.1
+  resolution: "prettier@npm:3.3.1"
   bin:
-    prettier: bin-prettier.js
-  checksum: 10/7bad7ef9cf2da3059a83de0729d480879f5adbe9974419a16a953dee69b2c720ebf1df8d1a713306547a5af8c2b6168a79cd94bda15202de0121348123f7903f
+    prettier: bin/prettier.cjs
+  checksum: 10/31ca48d07a163fe6bff5483feb9bdf3bd7e4305e8d976373375cddc2949180a007be3ef08c36f4d7b31e449acef1ebbf46d3b94dc32f5a276837bf48c393be69
   languageName: node
   linkType: hard
 
@@ -2716,6 +2761,15 @@ __metadata:
   version: 1.1.1
   resolution: "setprototypeof@npm:1.1.1"
   checksum: 10/b8fcf5b4b8325ea638712ed6e62f8e0ffac69eef1390305a5331046992424e484d4d6603a18d84d4c08c3def50b9195d9e707b747aed5eec15ee66a2a6508318
+  languageName: node
+  linkType: hard
+
+"sh-syntax@npm:^0.4.1":
+  version: 0.4.2
+  resolution: "sh-syntax@npm:0.4.2"
+  dependencies:
+    tslib: "npm:^2.6.2"
+  checksum: 10/12aae8b6f57b86150a5a35975ef241cd6bb882347b732477a0cf562876e043d7a804c14e3ba602c9650c7024bd30a365a53a1538f6c3fa63d5d06d5714a2f2b3
   languageName: node
   linkType: hard
 
@@ -3082,6 +3136,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tslib@npm:^2.6.2":
+  version: 2.6.3
+  resolution: "tslib@npm:2.6.3"
+  checksum: 10/52109bb681f8133a2e58142f11a50e05476de4f075ca906d13b596ae5f7f12d30c482feb0bff167ae01cfc84c5803e575a307d47938999246f5a49d174fc558c
+  languageName: node
+  linkType: hard
+
 "tty-browserify@npm:0.0.0":
   version: 0.0.0
   resolution: "tty-browserify@npm:0.0.0"
@@ -3105,13 +3166,16 @@ __metadata:
     next: "npm:^10.0.8"
     parse-author: "npm:^2.0.0"
     picnic: "npm:^6.5.4"
-    prettier: "npm:^2.2.1"
+    prettier: "npm:3.3.1"
+    prettier-plugin-organize-imports: "npm:3.2.4"
+    prettier-plugin-pkg: "npm:0.18.1"
+    prettier-plugin-sh: "npm:0.14.0"
     react: "npm:^17.0.1"
     react-dom: "npm:^17.0.1"
     rss: "npm:^1.2.2"
     sass: "npm:^1.32.8"
     styled-jsx: "npm:^3.4.4"
-    typescript: "npm:^4.2.3"
+    typescript: "npm:^5.4.5"
     xml-js: "npm:^1.6.11"
     ytdl-core: "npm:^4.5.0"
   languageName: unknown
@@ -3140,23 +3204,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.2.3":
-  version: 4.2.3
-  resolution: "typescript@npm:4.2.3"
+"typescript@npm:^5.4.5":
+  version: 5.4.5
+  resolution: "typescript@npm:5.4.5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10/79de7440b0625c7489de9d41e0baad60a232fe3d50ff012727ef580cc7bdca7bec91045708605f1135f82e3150ee2636af1995600cdaf50d08e5e972683b34a8
+  checksum: 10/d04a9e27e6d83861f2126665aa8d84847e8ebabcea9125b9ebc30370b98cb38b5dff2508d74e2326a744938191a83a69aa9fddab41f193ffa43eabfdf3f190a5
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^4.2.3#optional!builtin<compat/typescript>":
-  version: 4.2.3
-  resolution: "typescript@patch:typescript@npm%3A4.2.3#optional!builtin<compat/typescript>::version=4.2.3&hash=334f98"
+"typescript@patch:typescript@npm%3A^5.4.5#optional!builtin<compat/typescript>":
+  version: 5.4.5
+  resolution: "typescript@patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=5adc0c"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10/68e2b89d5094a4b2164d06172cee38d8789b11ee14f2f34ecab6398af078ea2676f2ba3943d52503d3cc8883acf8f15e6ef1db7f2e63b69b75f57558471786ec
+  checksum: 10/760f7d92fb383dbf7dee2443bf902f4365db2117f96f875cf809167f6103d55064de973db9f78fe8f31ec08fff52b2c969aee0d310939c0a3798ec75d0bca2e1
   languageName: node
   linkType: hard
 
