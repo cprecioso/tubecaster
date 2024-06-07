@@ -9,31 +9,31 @@
     "start": "next start -p $PORT"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.5",
+    "cheerio": "^1.0.0-rc.12",
     "micro-host": "^1.1.0",
     "micro-protocol": "^1.1.0",
     "micro-redirect": "^1.0.2",
-    "next": "^10.0.8",
+    "next": "^14.2.3",
     "parse-author": "^2.0.0",
-    "picnic": "^6.5.4",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "picnic": "^7.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "rss": "^1.2.2",
-    "styled-jsx": "^3.4.4",
+    "styled-jsx": "^5.1.6",
     "xml-js": "^1.6.11",
-    "ytdl-core": "^4.5.0"
+    "ytdl-core": "^4.11.5"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.24",
-    "@types/node": "^14.14.31",
-    "@types/parse-author": "^2.0.0",
-    "@types/react": "^17.0.2",
-    "@types/rss": "^0.0.28",
+    "@types/cheerio": "^0.22.35",
+    "@types/node": "^20.14.2",
+    "@types/parse-author": "^2.0.3",
+    "@types/react": "^18.3.3",
+    "@types/rss": "^0.0.32",
     "prettier": "3.3.1",
     "prettier-plugin-organize-imports": "3.2.4",
     "prettier-plugin-pkg": "0.18.1",
     "prettier-plugin-sh": "0.14.0",
-    "sass": "^1.32.8",
+    "sass": "^1.77.4",
     "typescript": "^5.4.5"
   }
 }
