@@ -1,39 +1,37 @@
 "use client";
 
+import { Route } from "next";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export const CopyLink = ({ playlistId }: { playlistId: string }) => {
-  const [podcastLink, setPodcastLink] = useState({
-    url: `/api/podcast?id=${playlistId}`,
-    text: "Right click (or hold) to copy the link",
-    shoxExtraInfo: false,
-  });
+export const CopyLink = <T extends string>({ url }: { url: Route<T> }) => {
+  const [ref, setRef] = useState<HTMLAnchorElement | null>(null);
+  const fullUrl = ref?.href || url;
 
-  useEffect(
-    () =>
-      setPodcastLink(({ url }) => {
-        const newUrl = new URL(url, window.location.href);
-        newUrl.protocol = "podcast";
-        return { url: newUrl.href, text: newUrl.href, shoxExtraInfo: true };
-      }),
-    [],
-  );
+  const [showDone, setShowDone] = useState(false);
+  useEffect(() => {
+    if (!showDone) return;
+
+    const timer = setTimeout(() => setShowDone(false), 2000);
+    return () => clearTimeout(timer);
+  }, [showDone]);
 
   return (
-    <>
-      <a href={podcastLink.url}>
-        <pre className="full">{podcastLink.text}</pre>
-      </a>
-      <p className="full">
-        <>Copy the link and paste it into your podcast app.</>
-        {podcastLink.shoxExtraInfo ? (
-          <>
-            {" "}
-            You can press and hold (or right-click) the link in order to copy it
-            more easily.
-          </>
-        ) : null}
-      </p>
-    </>
+    <div className="flex one full">
+      <pre>
+        <Link href={url} ref={setRef}>
+          {fullUrl}
+        </Link>
+      </pre>
+
+      <button
+        onClick={async () => {
+          await navigator.clipboard.writeText(fullUrl);
+          setShowDone(true);
+        }}
+      >
+        {showDone ? "Done" : "Copy the feed link"}
+      </button>
+    </div>
   );
 };

@@ -13,7 +13,7 @@ export const PlaylistCard = ({ data }: { data: PlaylistData }) => (
       </h4>
     </header>
     <main className="full">
-      <CopyLink playlistId={data.playlistId} />
+      <CopyLink url={`/api/podcast?id=${data.playlistId}`} />
     </main>
   </div>
 );
