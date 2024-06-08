@@ -7,6 +7,8 @@ export type Params = {
   id: string;
 };
 
+const coerceUrl = <T extends string>(route: Route<T>) => route;
+
 export const GET = async (
   req: NextRequest,
   { params: { id } }: { params: Params },
@@ -18,7 +20,7 @@ export const GET = async (
   const feed = createFeed(
     href,
     (id) => ({
-      url: new URL(`/api/play?id=${id}` satisfies Route, href).href,
+      url: new URL(coerceUrl(`/api/play/${id}`), href).href,
       type: "video/mp4",
     }),
     playlistData,
