@@ -1,3 +1,3 @@
-import { LoadingCard } from "../../../../components/LoadingCard";
+import { Progress } from "@radix-ui/themes";
 
-export default LoadingCard;
+export default Progress;
