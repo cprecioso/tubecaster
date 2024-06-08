@@ -7,8 +7,10 @@
     "incremental": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "plugins": [{ "name": "next" }],
+    "strictNullChecks": true
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "src/**/*", "types/**/*"]
+  "include": ["next-env.d.ts", "src/**/*", "types/**/*", ".next/types/**/*.ts"]
 }

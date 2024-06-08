@@ -9,6 +9,7 @@
     "start": "next start -p $PORT"
   },
   "dependencies": {
+    "@vanilla-extract/css": "^1.15.2",
     "cheerio": "^1.0.0-rc.12",
     "micro-host": "^1.1.0",
     "micro-protocol": "^1.1.0",
@@ -30,11 +31,14 @@
     "@types/parse-author": "^2.0.3",
     "@types/react": "^18.3.3",
     "@types/rss": "^0.0.32",
+    "@vanilla-extract/next-plugin": "^2.4.1",
     "prettier": "3.3.1",
     "prettier-plugin-organize-imports": "3.2.4",
     "prettier-plugin-pkg": "0.18.1",
     "prettier-plugin-sh": "0.14.0",
     "sass": "^1.77.4",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "zod": "^3.23.8",
+    "zod-form-data": "^2.0.2"
   }
 }
