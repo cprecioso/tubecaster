@@ -1,5 +1,5 @@
-import { Route } from "next";
 import { Locale } from "../../locale";
+import { coerceUrl } from "../route";
 import { VideoCollectionReference, VideoCollectionType } from "../types";
 
 const isYouTubeUrl = (url: string): boolean => {
@@ -36,9 +36,7 @@ export const youtubeUrlToVideoCollectionReference = (
   return extractParamsFromYoutubeUrl(url);
 };
 
-const coerceUrl = <T extends string>(route: Route<T>) => route;
-
-export const videoCollectionReferenceToTubecasterUrl = (
+export const videoCollectionReferenceToTubecasterUrl = <T extends string>(
   locale: Locale,
   ref: VideoCollectionReference,
 ) => coerceUrl(`/${locale}/${ref.type}/${ref.id}`);

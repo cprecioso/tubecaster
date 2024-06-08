@@ -1,13 +1,11 @@
-import { Route } from "next";
 import { NextRequest, NextResponse } from "next/server";
 import createFeed from "../../../../api/create-feed";
 import requestPlaylistData from "../../../../api/playlist";
+import { coerceUrl } from "../../../../api/route";
 
 export type Params = {
   id: string;
 };
-
-const coerceUrl = <T extends string>(route: Route<T>) => route;
 
 export const GET = async (
   req: NextRequest,
