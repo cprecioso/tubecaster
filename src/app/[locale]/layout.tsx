@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import "picnic";
 import { ReactNode } from "react";
 import { ALLOWED_LOCALES } from "../../locale";
-import "../../styles/global.css";
 
 export default function RootLayout({
   children,
@@ -23,17 +21,15 @@ export default function RootLayout({
 
       <body>
         <header>
-          <h1 className="full">
+          <h1>
             <Link href={`/${locale}`} prefetch={false}>
               Tubecaster
             </Link>
           </h1>
-          <h2 className="full">
-            Turn YouTube playlists and channels into video podcasts
-          </h2>
+          <h2>Turn YouTube playlists and channels into video podcasts</h2>
         </header>
         <main>{children}</main>
-        <footer className="flex one two-500">
+        <footer>
           <span>
             Made by <a href="https://precioso.design">Carlos Precioso</a>
           </span>

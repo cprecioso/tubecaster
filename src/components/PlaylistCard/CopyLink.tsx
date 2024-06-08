@@ -17,7 +17,7 @@ export const CopyLink = <T extends string>({ url }: { url: Route<T> }) => {
   }, [showDone]);
 
   return (
-    <div className="flex one full">
+    <div>
       <pre>
         <Link href={url} ref={setRef}>
           {fullUrl}

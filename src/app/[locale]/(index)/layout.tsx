@@ -1,12 +1,11 @@
 import { ReactNode } from "react";
-import * as styles from "./styles.css";
 
 export default function IndexLayout({ children }: { children: ReactNode }) {
   return (
     <>
       {children}
 
-      <div className={`full card ${styles.smallFont}`}>
+      <div>
         <p>
           Just paste the link to a YouTube channel or playlist in the box above.
           Tubecaster will convert it to a video podcast you can listen to (or

@@ -2396,13 +2396,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picnic@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "picnic@npm:7.1.0"
-  checksum: 10/57d4fdc15c4f9e2a98dddea4d3684b26c080198b38b2fe26c6a9df8765c7d2bae4e2a151373821b949cc51fbe15b807985e791ea7ce1ca31ee3d170283f504ff
-  languageName: node
-  linkType: hard
-
 "picocolors@npm:^1.0.0, picocolors@npm:^1.0.1":
   version: 1.0.1
   resolution: "picocolors@npm:1.0.1"
@@ -2919,7 +2912,6 @@ __metadata:
     cheerio: "npm:^1.0.0-rc.12"
     next: "npm:^14.2.3"
     parse-author: "npm:^2.0.0"
-    picnic: "npm:^7.1.0"
     prettier: "npm:3.3.1"
     prettier-plugin-organize-imports: "npm:3.2.4"
     prettier-plugin-pkg: "npm:0.18.1"
