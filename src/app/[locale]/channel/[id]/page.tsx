@@ -1,7 +1,7 @@
-import { ChannelReference, VideoCollectionType } from "../../../../api/types";
-import { channelReferenceToPlaylistReferences } from "../../../../api/youtube-urls";
-import { PlaylistChooseCard } from "../../../../components/PlaylistChooseCard";
-import { Locale } from "../../../../locale";
+import { PlaylistChooseCard } from "@/components/PlaylistChooseCard";
+import { ChannelReference, VideoCollectionType } from "@/lib/types";
+import { channelReferenceToPlaylistReferences } from "@/lib/youtube-urls";
+import { Locale } from "@/locale";
 
 export type Params = {
   locale: Locale;

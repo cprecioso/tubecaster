@@ -9,7 +9,10 @@
     "resolveJsonModule": true,
     "jsx": "preserve",
     "plugins": [{ "name": "next" }],
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "exclude": ["node_modules"],
   "include": ["next-env.d.ts", "src/**/*", "types/**/*", ".next/types/**/*.ts"]

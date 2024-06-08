@@ -1,5 +1,5 @@
+import { PlaylistData } from "@/lib/types";
 import { Box, Card, Flex, Inset, Link, Text } from "@radix-ui/themes";
-import { PlaylistData } from "../../api/types";
 import * as styles from "./styles.css";
 
 export type PlaylistCardData = Pick<

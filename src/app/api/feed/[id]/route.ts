@@ -1,7 +1,7 @@
+import createFeed from "@/lib/create-feed";
+import requestPlaylistData from "@/lib/playlist";
+import { coerceUrl } from "@/route";
 import { NextRequest, NextResponse } from "next/server";
-import createFeed from "../../../../api/create-feed";
-import requestPlaylistData from "../../../../api/playlist";
-import { coerceUrl } from "../../../../api/route";
 
 export type Params = {
   id: string;

@@ -1,7 +1,7 @@
 "use client";
 
+import { ErrorCard } from "@/components/ErrorCard";
 import { useParams } from "next/navigation";
-import { ErrorCard } from "../../../components/ErrorCard";
 import IndexPage, { Params } from "./page";
 
 export default function ErrorPage({ error }: { error: Error }) {

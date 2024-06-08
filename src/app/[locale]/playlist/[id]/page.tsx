@@ -1,8 +1,8 @@
+import { CopyLinkCard } from "@/components/CopyLinkCard";
+import { PlaylistCard } from "@/components/PlaylistCard";
+import requestPlaylistData from "@/lib/playlist";
+import { Locale } from "@/locale";
 import { Flex } from "@radix-ui/themes";
-import requestPlaylistData from "../../../../api/playlist";
-import { CopyLinkCard } from "../../../../components/CopyLinkCard";
-import { PlaylistCard } from "../../../../components/PlaylistCard";
-import { Locale } from "../../../../locale";
 
 export type Params = {
   locale: Locale;

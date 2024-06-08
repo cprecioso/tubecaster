@@ -1,6 +1,6 @@
-import { Locale } from "../../locale";
-import { coerceUrl } from "../route";
-import { VideoCollectionReference, VideoCollectionType } from "../types";
+import { VideoCollectionReference, VideoCollectionType } from "@/lib/types";
+import { Locale } from "@/locale";
+import { coerceUrl } from "@/route";
 
 const isYouTubeUrl = (url: string): boolean => {
   const { host } = new URL(url, "https://www.youtube.com/");

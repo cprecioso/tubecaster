@@ -1,5 +1,5 @@
-import SearchField from "../../../components/SearchField";
-import { Locale } from "../../../locale";
+import SearchField from "@/components/SearchField";
+import { Locale } from "@/locale";
 import { handleSearchForm } from "./actions";
 
 export type Params = {

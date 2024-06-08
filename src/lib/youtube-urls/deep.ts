@@ -1,5 +1,5 @@
+import { Locale } from "@/locale";
 import cheerio from "cheerio";
-import { Locale } from "../../locale";
 import { youtubeUrlToTubecasterUrl as shallow } from "./index";
 
 const fetchCanonicalYoutubeUrl = async (

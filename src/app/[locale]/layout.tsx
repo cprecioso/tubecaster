@@ -1,3 +1,4 @@
+import { ALLOWED_LOCALES } from "@/locale";
 import { Box, Container, Flex, Heading, Link, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { Metadata, Viewport } from "next";
@@ -5,7 +6,6 @@ import { ThemeProvider } from "next-themes";
 import NextLink from "next/link";
 import { notFound } from "next/navigation";
 import { ReactNode } from "react";
-import { ALLOWED_LOCALES } from "../../locale";
 
 export const viewport: Viewport = {
   width: "device-width",
