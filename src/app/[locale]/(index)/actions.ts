@@ -16,5 +16,5 @@ export const handleSearchForm = async (formData: FormData) => {
   const { url } = SearchFormSchema.parse(formData);
   const redirectUrl = youtubeUrlToTubecasterUrl(url);
   assert(redirectUrl);
-  redirect(redirectUrl.as);
+  redirect(redirectUrl);
 };

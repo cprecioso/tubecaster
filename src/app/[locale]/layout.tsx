@@ -20,7 +20,7 @@ export default function RootLayout({
       <body>
         <header>
           <h1 className="full">
-            <Link href="/" prefetch={false}>
+            <Link href={`/${locale}`} prefetch={false}>
               Tubecaster
             </Link>
           </h1>

@@ -1,6 +1,5 @@
+import { Route } from "next";
 import { VideoCollectionReference, VideoCollectionType } from "../types";
-
-export type TubecasterUrl = { href: string; as: string };
 
 const isYouTubeUrl = (url: string): boolean => {
   const { host } = new URL(url, "https://www.youtube.com/");
@@ -38,7 +37,6 @@ export const youtubeUrlToVideoCollectionReference = (
 
 export const videoCollectionReferenceToTubecasterUrl = (
   ref: VideoCollectionReference,
-): TubecasterUrl => ({
-  href: `/${ref.type}/[id]`,
-  as: `/${ref.type}/${ref.id}`,
-});
+): Route =>
+  // @ts-expect-error Don't know why it's not working
+  `/${ref.type}/${ref.id}`;

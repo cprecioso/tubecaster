@@ -16,7 +16,7 @@ const TubecasterApp: FunctionComponent<AppProps> = ({
     </Head>
     <header>
       <h1 className="full">
-        <Link href="/" prefetch={false}>
+        <Link href="/en" prefetch={false}>
           Tubecaster
         </Link>
       </h1>

@@ -1,6 +1,5 @@
 import cheerio from "cheerio";
 import { youtubeUrlToTubecasterUrl as shallow } from "./index";
-import { TubecasterUrl } from "./internal";
 
 const fetchCanonicalYoutubeUrl = async (
   url: string,
@@ -10,9 +9,9 @@ const fetchCanonicalYoutubeUrl = async (
   return $("link[rel='canonical']").attr("href");
 };
 
-export const youtubeUrlToTubecasterUrl = async (
+export const youtubeUrlToTubecasterUrl = async <T extends string>(
   url: string,
-): Promise<TubecasterUrl> => {
+) => {
   const shallowReturn = shallow(url);
   if (shallowReturn != null) return shallowReturn;
 

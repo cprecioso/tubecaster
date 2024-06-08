@@ -4,14 +4,11 @@ import {
   VideoCollectionType,
 } from "../types";
 import {
-  TubecasterUrl,
   videoCollectionReferenceToTubecasterUrl,
   youtubeUrlToVideoCollectionReference,
 } from "./internal";
 
-export const youtubeUrlToTubecasterUrl = (
-  url: string,
-): TubecasterUrl | null => {
+export const youtubeUrlToTubecasterUrl = (url: string) => {
   const ref = youtubeUrlToVideoCollectionReference(url);
   if (ref) {
     return videoCollectionReferenceToTubecasterUrl(ref);
