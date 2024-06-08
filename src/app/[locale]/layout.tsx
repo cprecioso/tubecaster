@@ -1,9 +1,17 @@
+import { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import "picnic";
 import { ReactNode } from "react";
 import { ALLOWED_LOCALES } from "../../locale";
 import "../../styles/global.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
+export const metadata: Metadata = { title: "Tubecaster" };
 
 export default function RootLayout({
   children,
@@ -16,10 +24,7 @@ export default function RootLayout({
 
   return (
     <html lang={locale}>
-      <head>
-        <title>Tubecaster</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </head>
+      <head />
 
       <body>
         <header>
