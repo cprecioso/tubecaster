@@ -1,36 +1,49 @@
-import Link from "next/link";
-import { FunctionComponent } from "react";
+import { Card, Flex, Grid, Link, Text } from "@radix-ui/themes";
+import NextLink from "next/link";
 import { PlaylistReference } from "../../api/types";
+import { Locale } from "../../locale";
 
-const OptionButton: FunctionComponent<{
+const OptionButton = ({
+  locale,
+  option,
+}: {
+  locale: Locale;
   option: PlaylistReference;
-}> = ({ option }) => (
-  <li>
-    <Link href={`/playlist/${option.id}`}>{option.name}</Link>
-  </li>
+}) => (
+  <NextLink href={`/${locale}/playlist/${option.id}`} passHref legacyBehavior>
+    <Link>
+      <Card>
+        <Text align="center" as="div">
+          {option.name}
+        </Text>
+      </Card>
+    </Link>
+  </NextLink>
 );
 
-export const PlaylistChooseCard: FunctionComponent<{
+export const PlaylistChooseCard = ({
+  locale,
+  options,
+}: {
+  locale: Locale;
   options: readonly PlaylistReference[];
-}> = ({ options }) => {
+}) => {
   return (
-    <>
-      <div>
-        <h3>Choose the list you want to convert:</h3>
-        <div>
-          <ul>
-            {options.map((option, i) => (
-              <OptionButton key={i} option={option} />
-            ))}
-          </ul>
-        </div>
-      </div>
-      <div>
-        <p>
+    <Card>
+      <Flex gap="2" direction="column">
+        <Text weight="bold">Choose the list you want to convert</Text>
+
+        <Grid columns="3" gap="2">
+          {options.map((option, i) => (
+            <OptionButton key={i} locale={locale} option={option} />
+          ))}
+        </Grid>
+
+        <Text as="p">
           If you want the podcast of another playlist from that user, you can
           paste the link of that playlist instead.
-        </p>
-      </div>
-    </>
+        </Text>
+      </Flex>
+    </Card>
   );
 };

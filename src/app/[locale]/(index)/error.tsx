@@ -1,15 +1,12 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { ErrorCard } from "../../../components/ErrorCard";
 import IndexPage, { Params } from "./page";
 
-export default function ErrorPage({
-  params,
-  error,
-}: {
-  params: Params;
-  error: Error;
-}) {
+export default function ErrorPage({ error }: { error: Error }) {
+  const params = useParams<Params>();
+
   return (
     <>
       <IndexPage params={params} />

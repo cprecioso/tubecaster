@@ -1,7 +1,7 @@
-import React from "react";
+import { Card, Skeleton } from "@radix-ui/themes";
 
-export const LoadingCard: React.FunctionComponent = () => (
-  <>
-    <div>Loading...</div>
-  </>
+export const LoadingCard = () => (
+  <Skeleton loading>
+    <Card />
+  </Skeleton>
 );
