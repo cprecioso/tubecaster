@@ -14,6 +14,7 @@ const SearchFieldInput = () => {
       name="url"
       placeholder="YouTube URL"
       disabled={pending}
+      required
     >
       <TextField.Slot side="right">
         <Inset side="right">
