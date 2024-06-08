@@ -36,9 +36,9 @@ export const youtubeUrlToVideoCollectionReference = (
   return extractParamsFromYoutubeUrl(url);
 };
 
+const coerceUrl = <T extends string>(route: Route<T>) => route;
+
 export const videoCollectionReferenceToTubecasterUrl = (
   locale: Locale,
   ref: VideoCollectionReference,
-): Route =>
-  // @ts-expect-error Don't know why it's not working
-  `/${locale}/${ref.type}/${ref.id}`;
+) => coerceUrl(`/${locale}/${ref.type}/${ref.id}`);
