@@ -24,7 +24,7 @@ export default function RootLayout({
 
       <body>
         <ThemeProvider attribute="class">
-          <Theme>
+          <Theme accentColor="ruby" radius="small">
             <Container size="2">
               <Flex direction="column" gap="3">
                 <header>
