@@ -3441,6 +3441,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"next-themes@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "next-themes@npm:0.3.0"
+  peerDependencies:
+    react: ^16.8 || ^17 || ^18
+    react-dom: ^16.8 || ^17 || ^18
+  checksum: 10/4285c4969eac517ad7addd773bcb71e7d14bc6c6e3b24eb97b80a6e06ac03fb6cb345e75dfb448156d14430d06289948eb8cfdeb52402ca7ce786093d01d2878
+  languageName: node
+  linkType: hard
+
 "next@npm:^14.2.3":
   version: 14.2.3
   resolution: "next@npm:14.2.3"
@@ -4248,6 +4258,7 @@ __metadata:
     "@vanilla-extract/next-plugin": "npm:^2.4.1"
     cheerio: "npm:^1.0.0-rc.12"
     next: "npm:^14.2.3"
+    next-themes: "npm:^0.3.0"
     parse-author: "npm:^2.0.0"
     prettier: "npm:3.3.1"
     prettier-plugin-organize-imports: "npm:3.2.4"
