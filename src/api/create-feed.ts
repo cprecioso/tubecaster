@@ -1,11 +1,11 @@
 import parseAuthor from "parse-author";
 import RSS from "rss";
 import pkg from "../../package.json";
-import { Enclosure, PlaylistData } from "./types";
+import { PlaylistData } from "./types";
 
 export default function createFeed(
   feed_url: string,
-  enclosureCreator: (videoId: string) => Enclosure,
+  enclosureCreator: (videoId: string) => RSS.EnclosureObject,
   playlist: PlaylistData,
 ) {
   const author = parseAuthor(pkg.author as string);

@@ -39,9 +39,3 @@ export interface PlaylistItemData {
   publishedAt: string;
   thumbnail: string;
 }
-
-export interface Enclosure {
-  url: string;
-  size?: number;
-  type?: string;
-}
