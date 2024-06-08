@@ -2,11 +2,16 @@ import { Box, Card, Flex, Inset, Link, Text } from "@radix-ui/themes";
 import { PlaylistData } from "../../api/types";
 import * as styles from "./styles.css";
 
-export const PlaylistCard = ({ data }: { data: PlaylistData }) => (
+export type PlaylistCardData = Pick<
+  PlaylistData,
+  "thumbnail" | "title" | "playlistLink" | "channelTitle" | "channelLink"
+>;
+
+export const PlaylistCard = ({ data }: { data: PlaylistCardData }) => (
   <Card>
     <Flex gap="4">
       <Box width="30%">
-        <Inset side="left">
+        <Inset side="left" clip="padding-box">
           <img
             className={styles.coverImage}
             src={data.thumbnail}
