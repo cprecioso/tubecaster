@@ -1,7 +1,7 @@
 import { Card, Flex, Grid, Link, Text } from "@radix-ui/themes";
 import NextLink from "next/link";
-import { PlaylistReference } from "../../api/types";
-import { Locale } from "../../locale";
+import { PlaylistReference } from "../api/types";
+import { Locale } from "../locale";
 
 const OptionButton = ({
   locale,
