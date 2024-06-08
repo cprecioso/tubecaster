@@ -1,9 +1,13 @@
 import SearchField from "../../../components/SearchField";
-import { ALL_LOCALES } from "../../../locale";
+import { ALL_LOCALES, Locale } from "../../../locale";
 import { handleSearchForm } from "./actions";
 
-export default function IndexPage() {
-  return <SearchField action={handleSearchForm} />;
+export type Params = {
+  locale: Locale;
+};
+
+export default function IndexPage({ params: { locale } }: { params: Params }) {
+  return <SearchField action={handleSearchForm.bind(null, locale)} />;
 }
 
 export const generateStaticParams = () =>

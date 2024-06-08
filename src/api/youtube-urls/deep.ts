@@ -1,4 +1,5 @@
 import cheerio from "cheerio";
+import { Locale } from "../../locale";
 import { youtubeUrlToTubecasterUrl as shallow } from "./index";
 
 const fetchCanonicalYoutubeUrl = async (
@@ -9,16 +10,17 @@ const fetchCanonicalYoutubeUrl = async (
   return $("link[rel='canonical']").attr("href");
 };
 
-export const youtubeUrlToTubecasterUrl = async <T extends string>(
+export const youtubeUrlToTubecasterUrl = async (
+  locale: Locale,
   url: string,
 ) => {
-  const shallowReturn = shallow(url);
+  const shallowReturn = shallow(locale, url);
   if (shallowReturn != null) return shallowReturn;
 
   const canonicalUrl = await fetchCanonicalYoutubeUrl(url);
   if (canonicalUrl == null) throw new Error("Unable to fetch canonical URL");
 
-  const deepReturn = shallow(canonicalUrl);
+  const deepReturn = shallow(locale, canonicalUrl);
   if (deepReturn == null) throw new Error("Unable to parse canonical URL");
 
   return deepReturn;

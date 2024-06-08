@@ -1,4 +1,5 @@
 import { Route } from "next";
+import { Locale } from "../../locale";
 import { VideoCollectionReference, VideoCollectionType } from "../types";
 
 const isYouTubeUrl = (url: string): boolean => {
@@ -36,7 +37,8 @@ export const youtubeUrlToVideoCollectionReference = (
 };
 
 export const videoCollectionReferenceToTubecasterUrl = (
+  locale: Locale,
   ref: VideoCollectionReference,
 ): Route =>
   // @ts-expect-error Don't know why it's not working
-  `/${ref.type}/${ref.id}`;
+  `/${locale}/${ref.type}/${ref.id}`;

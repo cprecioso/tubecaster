@@ -1,12 +1,18 @@
 "use client";
 
 import { ErrorCard } from "../../../components/ErrorCard";
-import IndexPage from "./page";
+import IndexPage, { Params } from "./page";
 
-export default function ErrorPage({ error }: { error: Error }) {
+export default function ErrorPage({
+  params,
+  error,
+}: {
+  params: Params;
+  error: Error;
+}) {
   return (
     <>
-      <IndexPage />
+      <IndexPage params={params} />
       <ErrorCard error={error.message} />
     </>
   );

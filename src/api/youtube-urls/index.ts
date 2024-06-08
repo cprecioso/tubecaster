@@ -1,3 +1,4 @@
+import { Locale } from "../../locale";
 import {
   ChannelReference,
   PlaylistReference,
@@ -8,10 +9,10 @@ import {
   youtubeUrlToVideoCollectionReference,
 } from "./internal";
 
-export const youtubeUrlToTubecasterUrl = (url: string) => {
+export const youtubeUrlToTubecasterUrl = (locale: Locale, url: string) => {
   const ref = youtubeUrlToVideoCollectionReference(url);
   if (ref) {
-    return videoCollectionReferenceToTubecasterUrl(ref);
+    return videoCollectionReferenceToTubecasterUrl(locale, ref);
   }
   return ref;
 };
