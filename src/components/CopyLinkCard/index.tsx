@@ -37,7 +37,7 @@ export const CopyLinkCard = <T extends string>({ url }: { url: Route<T> }) => {
           Add the following podcast URL to your preferred app:
         </Text>
 
-        <Inset side="bottom">
+        <Inset side="bottom" clip="padding-box">
           <TextField.Root
             value={fullUrl}
             readOnly
