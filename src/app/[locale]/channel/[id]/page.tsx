@@ -1,14 +1,15 @@
 import { ChannelReference, VideoCollectionType } from "../../../../api/types";
 import { channelReferenceToPlaylistReferences } from "../../../../api/youtube-urls";
 import { PlaylistChooseCard } from "../../../../components/PlaylistChooseCard";
+import { Locale } from "../../../../locale";
 
 export type Params = {
+  locale: Locale;
   id: string;
-  locale: string;
 };
 
 export default function PlaylistChoosePage({
-  params: { id },
+  params: { locale, id },
 }: {
   params: Params;
 }) {
@@ -20,5 +21,5 @@ export default function PlaylistChoosePage({
   const playlistReferences =
     channelReferenceToPlaylistReferences(channelReference);
 
-  return <PlaylistChooseCard options={playlistReferences} />;
+  return <PlaylistChooseCard locale={locale} options={playlistReferences} />;
 }

@@ -1,19 +1,37 @@
+import { Box, Card, Flex, Inset, Link, Text } from "@radix-ui/themes";
 import { PlaylistData } from "../../api/types";
-import { CopyLink } from "./CopyLink";
+import * as styles from "./styles.css";
 
-export const PlaylistCard = ({ data }: { data: PlaylistData }) => (
-  <div className="card flex one center">
-    <header className="full">
-      <img className="full" src={data.thumbnail} />
-      <h3>
-        <a href={data.playlistLink}>{data.title}</a>
-      </h3>
-      <h4>
-        from <a href={data.channelLink}>{data.channelTitle}</a>
-      </h4>
-    </header>
-    <main className="full">
-      <CopyLink url={`/api/feed/${data.playlistId}`} />
-    </main>
-  </div>
+export type PlaylistCardData = Pick<
+  PlaylistData,
+  "thumbnail" | "title" | "playlistLink" | "channelTitle" | "channelLink"
+>;
+
+export const PlaylistCard = ({ data }: { data: PlaylistCardData }) => (
+  <Card>
+    <Flex gap="4">
+      <Box width="30%">
+        <Inset side="left" clip="padding-box">
+          <img
+            className={styles.coverImage}
+            src={data.thumbnail}
+            alt={`Cover for ${data.title}`}
+          />
+        </Inset>
+      </Box>
+
+      <Flex direction="column" justify="center">
+        <Text as="p" weight="bold" size="5">
+          <Link href={data.playlistLink}>{data.title}</Link>
+        </Text>
+
+        <Text as="p">
+          from{" "}
+          <Link weight="medium" href={data.channelLink}>
+            {data.channelTitle}
+          </Link>
+        </Text>
+      </Flex>
+    </Flex>
+  </Card>
 );

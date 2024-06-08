@@ -1,22 +1,40 @@
+"use client";
+
+import { Button, Inset, TextField } from "@radix-ui/themes";
 import { ComponentPropsWithoutRef } from "react";
+import { useFormStatus } from "react-dom";
+
+const SearchFieldInput = () => {
+  const { pending } = useFormStatus();
+
+  return (
+    <TextField.Root
+      size="3"
+      type="url"
+      name="url"
+      placeholder="YouTube URL"
+      disabled={pending}
+      required
+    >
+      <TextField.Slot side="right">
+        <Inset side="right">
+          <Button type="submit" size="1" loading={pending}>
+            Get podcast
+          </Button>
+        </Inset>
+      </TextField.Slot>
+    </TextField.Root>
+  );
+};
 
 const SearchField = ({
   action,
 }: {
   action: ComponentPropsWithoutRef<"form">["action"];
-}) => {
-  return (
-    <form className="card full flex one two-500" action={action}>
-      <div className="full two-third-500 three-fourth-700">
-        <input type="url" name="url" placeholder="YouTube URL" />
-      </div>
-      <div className="full third-500 fourth-700">
-        <button className="full" type="submit">
-          Get podcast
-        </button>
-      </div>
-    </form>
-  );
-};
+}) => (
+  <form action={action}>
+    <SearchFieldInput />
+  </form>
+);
 
 export default SearchField;
