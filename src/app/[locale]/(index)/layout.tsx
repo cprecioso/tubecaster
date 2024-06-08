@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { ALL_LOCALES } from "../../../locale";
 import * as styles from "./styles.css";
 
 export default function IndexLayout({ children }: { children: ReactNode }) {
@@ -22,6 +21,3 @@ export default function IndexLayout({ children }: { children: ReactNode }) {
     </>
   );
 }
-
-export const generateStaticParams = () =>
-  ALL_LOCALES.map((locale) => ({ locale }));

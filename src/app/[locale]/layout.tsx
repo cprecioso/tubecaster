@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import "picnic";
 import { ReactNode } from "react";
+import { ALLOWED_LOCALES } from "../../locale";
 import "../../styles/global.css";
 
 export default function RootLayout({
@@ -10,6 +12,8 @@ export default function RootLayout({
   params: { locale: string };
   children: ReactNode;
 }) {
+  if (!ALLOWED_LOCALES.has(locale)) notFound();
+
   return (
     <html lang={locale}>
       <head>
