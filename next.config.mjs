@@ -3,11 +3,6 @@ import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 const withVanillaExtract = createVanillaExtractPlugin();
 
 /** @type {import("next").NextConfig} */
-const nextConfig = {
-  experimental: {
-    typedRoutes: true,
-    typedEnv: true,
-  },
-};
+const nextConfig = {};
 
 export default withVanillaExtract(nextConfig);
