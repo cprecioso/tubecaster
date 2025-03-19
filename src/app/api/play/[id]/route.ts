@@ -1,5 +1,5 @@
+import ytdl from "@distube/ytdl-core";
 import { NextRequest, NextResponse } from "next/server";
-import ytdl from "ytdl-core";
 
 export type Params = { id: string };
 
