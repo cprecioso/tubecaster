@@ -6,6 +6,7 @@ const withVanillaExtract = createVanillaExtractPlugin();
 const nextConfig = {
   experimental: {
     typedRoutes: true,
+    typedEnv: true,
   },
 };
 
