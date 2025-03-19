@@ -1,6 +1,5 @@
 import createFeed from "@/lib/create-feed";
 import requestPlaylistData from "@/lib/playlist";
-import { coerceUrl } from "@/route";
 import { NextRequest, NextResponse } from "next/server";
 
 export type Params = {
@@ -19,7 +18,7 @@ export const GET = async (
   const feed = createFeed(
     href,
     (id) => ({
-      url: new URL(coerceUrl(`/api/play/${id}`), href).href,
+      url: new URL(`/api/play/${id}`, href).href,
       type: "video/mp4",
     }),
     playlistData,
