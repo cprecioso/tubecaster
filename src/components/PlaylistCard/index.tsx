@@ -12,6 +12,7 @@ export const PlaylistCard = ({ data }: { data: PlaylistCardData }) => (
     <Flex gap="4">
       <Box width="30%">
         <Inset side="left" clip="padding-box">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             className={styles.coverImage}
             src={data.thumbnail}
