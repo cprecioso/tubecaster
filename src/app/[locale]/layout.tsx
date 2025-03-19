@@ -14,11 +14,19 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = { title: "Tubecaster" };
 
+type Params = {
+  locale: string;
+};
+
+export const dynamicParams = false;
+export const generateStaticParams = async (): Promise<Params[]> =>
+  Array.from(ALLOWED_LOCALES, (locale) => ({ locale }));
+
 export default async function RootLayout({
   children,
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<Params>;
   children: ReactNode;
 }) {
   const { locale } = await params;
