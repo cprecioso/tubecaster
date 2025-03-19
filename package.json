@@ -5,7 +5,7 @@
   "packageManager": "yarn@4.7.0",
   "scripts": {
     "build": "next build",
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "start": "next start -p $PORT"
   },
   "dependencies": {
