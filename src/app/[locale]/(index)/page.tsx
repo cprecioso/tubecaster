@@ -6,6 +6,12 @@ export type Params = {
   locale: Locale;
 };
 
-export default function IndexPage({ params: { locale } }: { params: Params }) {
+export default async function IndexPage({
+  params,
+}: {
+  params: Promise<Params>;
+}) {
+  const { locale } = await params;
+
   return <SearchField action={handleSearchForm.bind(null, locale)} />;
 }

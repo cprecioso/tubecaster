@@ -14,13 +14,14 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = { title: "Tubecaster" };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-  params: { locale },
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
   children: ReactNode;
 }) {
+  const { locale } = await params;
   if (!ALLOWED_LOCALES.has(locale)) notFound();
 
   return (

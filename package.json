@@ -5,7 +5,7 @@
   "packageManager": "yarn@4.7.0",
   "scripts": {
     "build": "next build",
-    "dev": "next",
+    "dev": "next dev --turbopack",
     "start": "next start -p $PORT"
   },
   "dependencies": {
@@ -13,11 +13,11 @@
     "@radix-ui/themes": "^3.0.5",
     "@vanilla-extract/css": "^1.15.2",
     "cheerio": "^1.0.0-rc.12",
-    "next": "^14.2.3",
+    "next": "^15.2.3",
     "next-themes": "^0.3.0",
     "parse-author": "^2.0.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "rss": "^1.2.2",
     "xml-js": "^1.6.11",
     "ytdl-core": "^4.11.5"
@@ -25,14 +25,14 @@
   "devDependencies": {
     "@cprecioso/tsconfig": "^2.0.1",
     "@types/cheerio": "^0.22.35",
-    "@types/node": "^20.14.2",
+    "@types/node": "^22.13.10",
     "@types/parse-author": "^2.0.3",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
     "@types/rss": "^0.0.32",
     "@vanilla-extract/next-plugin": "^2.4.1",
     "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.3",
+    "eslint-config-next": "^15.2.3",
     "prettier": "3.3.1",
     "prettier-plugin-organize-imports": "3.2.4",
     "prettier-plugin-pkg": "0.18.1",

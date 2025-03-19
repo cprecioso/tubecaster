@@ -8,11 +8,13 @@ export type Params = {
   id: string;
 };
 
-export default function PlaylistChoosePage({
-  params: { locale, id },
+export default async function PlaylistChoosePage({
+  params,
 }: {
-  params: Params;
+  params: Promise<Params>;
 }) {
+  const { locale, id } = await params;
+
   const channelReference: ChannelReference = {
     type: VideoCollectionType.Channel,
     id,

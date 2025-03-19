@@ -9,8 +9,9 @@ export type Params = {
 
 export const GET = async (
   req: NextRequest,
-  { params: { id } }: { params: Params },
+  { params }: { params: Promise<Params> },
 ) => {
+  const { id } = await params;
   const { href } = req.nextUrl;
 
   const playlistData = await requestPlaylistData(id);

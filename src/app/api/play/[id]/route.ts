@@ -5,8 +5,10 @@ export type Params = { id: string };
 
 export const GET = async (
   req: NextRequest,
-  { params: { id } }: { params: Params },
+  { params }: { params: Promise<Params> },
 ) => {
+  const { id } = await params;
+
   const info = await ytdl.getInfo(id);
 
   const chosenFormat = ytdl.chooseFormat(info.formats, {

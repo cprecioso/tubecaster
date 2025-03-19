@@ -10,10 +10,12 @@ export type Params = {
 };
 
 export default async function PlaylistPage({
-  params: { id },
+  params,
 }: {
-  params: Params;
+  params: Promise<Params>;
 }) {
+  const { id } = await params;
+
   const playlistData = await requestPlaylistData(id);
 
   return (
