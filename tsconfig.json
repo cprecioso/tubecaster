@@ -1,19 +1,23 @@
 {
-  "extends": "@cprecioso/tsconfig/bundler",
   "compilerOptions": {
+    "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
     "noEmit": true,
     "incremental": true,
+    "module": "esnext",
     "esModuleInterop": true,
+    "moduleResolution": "node",
     "resolveJsonModule": true,
+    "isolatedModules": true,
     "jsx": "preserve",
     "plugins": [{ "name": "next" }],
-    "strictNullChecks": true,
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "src/**/*", "types/**/*", ".next/types/**/*.ts"]
+  "include": ["next-env.d.ts", ".next/types/**/*.ts", "src/**/*"],
+  "exclude": ["node_modules"]
 }
