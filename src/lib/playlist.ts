@@ -1,4 +1,4 @@
-import cheerio from "cheerio";
+import * as cheerio from "cheerio";
 import { Element as XMLElement, xml2js } from "xml-js";
 import { PlaylistData } from "./types";
 
@@ -35,6 +35,7 @@ export default async function requestPlaylistData(
 
   const channelId = feed.elements!.find(elementWithName("yt:channelId"))!
     .elements![0].text! as string;
+
   return {
     playlistId,
     playlistLink: `https://www.youtube.com/playlist?list=${playlistId}`,
