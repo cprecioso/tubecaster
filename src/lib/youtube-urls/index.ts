@@ -1,20 +1,32 @@
 import { Locale } from "@/locale";
+import assert from "node:assert/strict";
 import {
   ChannelReference,
   PlaylistReference,
+  VideoCollectionReference,
   VideoCollectionType,
 } from "../types";
-import {
-  videoCollectionReferenceToTubecasterUrl,
-  youtubeUrlToVideoCollectionReference,
-} from "./internal";
+import { fetchCanonicalYoutubeUrl } from "./canonical";
+import { extractParamsFromYoutubeUrl } from "./extract-params";
 
-export const youtubeUrlToTubecasterUrl = (locale: Locale, url: string) => {
-  const ref = youtubeUrlToVideoCollectionReference(url);
-  if (ref) {
-    return videoCollectionReferenceToTubecasterUrl(locale, ref);
+const videoCollectionReferenceToTubecasterUrl = (
+  locale: Locale,
+  ref: VideoCollectionReference,
+) => `/${locale}/${ref.type}/${ref.id}`;
+
+export const youtubeUrlToTubecasterUrl = async (
+  locale: Locale,
+  url: string,
+) => {
+  let ref = extractParamsFromYoutubeUrl(url);
+
+  if (ref.type === "username") {
+    ref = extractParamsFromYoutubeUrl(await fetchCanonicalYoutubeUrl(url));
   }
-  return ref;
+
+  assert(ref.type !== "username", "Couldn't get a channel reference");
+
+  return videoCollectionReferenceToTubecasterUrl(locale, ref);
 };
 
 const CHANNEL_PREFIX_REGEX = /^UC/;
