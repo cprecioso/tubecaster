@@ -36,6 +36,10 @@ export default async function requestPlaylistData(
   const channelId = feed.elements!.find(elementWithName("yt:channelId"))!
     .elements![0].text! as string;
 
+  const channelTitle = feed.elements
+    ?.find(elementWithName("author"))
+    ?.elements?.find(elementWithName("name"))?.elements?.[0].text;
+
   return {
     playlistId,
     playlistLink: `https://www.youtube.com/playlist?list=${playlistId}`,
@@ -43,34 +47,40 @@ export default async function requestPlaylistData(
     description: $("meta[property='og:description']").attr("content") ?? null,
     thumbnail: $("meta[property='og:image']").last().attr("content") || "",
     publishedAt: (publishedAt && new Date(publishedAt).toISOString()) ?? null,
-    channelTitle: feed
-      .elements!.find(elementWithName("author"))!
-      .elements!.find(elementWithName("name"))!.elements![0].text! as string,
+    channelTitle: channelTitle ? String(channelTitle) : "",
     channelId,
     channelLink: `https://www.youtube.com/channel/${channelId}`,
-    items: feed.elements!.filter(elementWithName("entry")).map((entry) => {
-      const mediaGroup = entry.elements!.find(elementWithName("media:group"))!;
-      const videoId = entry.elements!.find(elementWithName("yt:videoId"))!
-        .elements![0].text! as string;
-      return {
-        channelTitle: entry
-          .elements!.find(elementWithName("author"))!
-          .elements!.find(elementWithName("name"))!.elements![0].text as string,
-        description: mediaGroup.elements!.find(
+    items:
+      feed.elements?.filter(elementWithName("entry")).map((entry) => {
+        const mediaGroup = entry.elements!.find(
+          elementWithName("media:group"),
+        )!;
+        const videoId = entry.elements!.find(elementWithName("yt:videoId"))!
+          .elements![0].text! as string;
+
+        const channelTitle = entry.elements
+          ?.find(elementWithName("author"))
+          ?.elements?.find(elementWithName("name"))?.elements?.[0]?.text;
+
+        const description = mediaGroup.elements!.find(
           elementWithName("media:description"),
-        )!.elements![0].text! as string,
-        publishedAt: new Date(
-          entry.elements!.find(elementWithName("published"))!.elements![0]
+        )?.elements?.[0]?.text;
+
+        return {
+          channelTitle: channelTitle ? String(channelTitle) : "",
+          description: description ? String(description) : "",
+          publishedAt: new Date(
+            entry.elements!.find(elementWithName("published"))!.elements![0]
+              .text! as string,
+          ).toISOString(),
+          thumbnail: mediaGroup.elements!.find(
+            elementWithName("media:thumbnail"),
+          )!.attributes!.url as string,
+          title: entry.elements!.find(elementWithName("title"))!.elements![0]
             .text! as string,
-        ).toISOString(),
-        thumbnail: mediaGroup.elements!.find(
-          elementWithName("media:thumbnail"),
-        )!.attributes!.url as string,
-        title: entry.elements!.find(elementWithName("title"))!.elements![0]
-          .text! as string,
-        videoId,
-        videoLink: `https://www.youtube.com/watch?v=${videoId}`,
-      };
-    }),
+          videoId,
+          videoLink: `https://www.youtube.com/watch?v=${videoId}`,
+        };
+      }) ?? [],
   };
 }
