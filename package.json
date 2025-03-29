@@ -1,6 +1,6 @@
 {
   "name": "tubecaster",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "author": "Carlos Precioso <kalprestito@gmail.com>",
   "packageManager": "yarn@4.7.0",
   "scripts": {
