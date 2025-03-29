@@ -1,86 +1,66 @@
-import * as cheerio from "cheerio";
-import { Element as XMLElement, xml2js } from "xml-js";
-import { PlaylistData } from "./types";
+import { parse as parseDate } from "date-fns";
+import { enUS } from "date-fns/locale/en-US";
+import { Misc, YTNodes } from "youtubei.js";
+import * as z from "zod";
+import { PlaylistData, PlaylistItemData, safeHtml } from "./types";
+import { findMax } from "./util";
+import { yt } from "./youtube";
 
-const elementWithName = (name: string) => (node: XMLElement) =>
-  node.type === "element" && node.name === name;
+const findBestThumbnail = (thumbnails: Misc.Thumbnail[]) =>
+  findMax(thumbnails, (t) => t.width * t.height);
 
-const requestPlaylistFeed = async (id: string) =>
-  (
-    xml2js(
-      await (
-        await fetch(
-          `https://www.youtube.com/feeds/videos.xml?playlist_id=${id}`,
-        )
-      ).text(),
-      { alwaysArray: true },
-    ) as XMLElement
-  ).elements![0];
-
-const requestPlaylistPage = async (id: string) =>
-  cheerio.load(
-    await (await fetch(`https://www.youtube.com/playlist?list=${id}`)).text(),
+const fromYTDate = z
+  .string()
+  .transform((str) =>
+    parseDate(str, "MMM d, yyyy", new Date(), { locale: enUS }),
   );
 
 export default async function requestPlaylistData(
   playlistId: string,
 ): Promise<PlaylistData> {
-  const [feed, $] = await Promise.all([
-    requestPlaylistFeed(playlistId),
-    requestPlaylistPage(playlistId),
-  ]);
+  {
+    const { info, videos } = await yt.getPlaylist(playlistId);
 
-  const publishedAt = feed.elements!.find(elementWithName("published"))
-    ?.elements?.[0].text as string | undefined;
+    return {
+      playlistId,
+      playlistLink: `https://www.youtube.com/playlist?list=${playlistId}`,
+      title: info.title,
+      description: safeHtml.parse(
+        [info.subtitle && `<p>${info.subtitle.toHTML()}</p>`, info.description]
+          .filter(Boolean)
+          .join(""),
+      ),
+      thumbnail: findBestThumbnail(info.thumbnails)?.url,
+      channelTitle: info.author.name,
+      channelId: info.author.id,
+      channelLink: `https://www.youtube.com/channel/${info.author.id}`,
 
-  const channelId = feed.elements!.find(elementWithName("yt:channelId"))!
-    .elements![0].text! as string;
+      items: await Promise.all(
+        videos
+          .filter((video) => video.is(YTNodes.PlaylistVideo))
+          .map(async (video): Promise<PlaylistItemData> => {
+            const videoInfo = await yt.getInfo(video.endpoint);
 
-  const channelTitle = feed.elements
-    ?.find(elementWithName("author"))
-    ?.elements?.find(elementWithName("name"))?.elements?.[0].text;
+            const publishedAt = fromYTDate
+              .optional()
+              .safeParse(videoInfo.primary_info?.published.toString()).data;
 
-  return {
-    playlistId,
-    playlistLink: `https://www.youtube.com/playlist?list=${playlistId}`,
-    title: $("meta[property='og:title']").attr("content") || "",
-    description: $("meta[property='og:description']").attr("content") ?? null,
-    thumbnail: $("meta[property='og:image']").last().attr("content") || "",
-    publishedAt: (publishedAt && new Date(publishedAt).toISOString()) ?? null,
-    channelTitle: channelTitle ? String(channelTitle) : "",
-    channelId,
-    channelLink: `https://www.youtube.com/channel/${channelId}`,
-    items:
-      feed.elements?.filter(elementWithName("entry")).map((entry) => {
-        const mediaGroup = entry.elements!.find(
-          elementWithName("media:group"),
-        )!;
-        const videoId = entry.elements!.find(elementWithName("yt:videoId"))!
-          .elements![0].text! as string;
-
-        const channelTitle = entry.elements
-          ?.find(elementWithName("author"))
-          ?.elements?.find(elementWithName("name"))?.elements?.[0]?.text;
-
-        const description = mediaGroup.elements!.find(
-          elementWithName("media:description"),
-        )?.elements?.[0]?.text;
-
-        return {
-          channelTitle: channelTitle ? String(channelTitle) : "",
-          description: description ? String(description) : "",
-          publishedAt: new Date(
-            entry.elements!.find(elementWithName("published"))!.elements![0]
-              .text! as string,
-          ).toISOString(),
-          thumbnail: mediaGroup.elements!.find(
-            elementWithName("media:thumbnail"),
-          )!.attributes!.url as string,
-          title: entry.elements!.find(elementWithName("title"))!.elements![0]
-            .text! as string,
-          videoId,
-          videoLink: `https://www.youtube.com/watch?v=${videoId}`,
-        };
-      }) ?? [],
-  };
+            return {
+              channelTitle: video.author.name,
+              description: safeHtml
+                .optional()
+                .parse(
+                  videoInfo.secondary_info?.description.toHTML() ??
+                    videoInfo.basic_info.short_description,
+                ),
+              publishedAt,
+              thumbnail: findBestThumbnail(video.thumbnails)?.url,
+              title: video.title.toString(),
+              videoId: video.id,
+              videoLink: `https://www.youtube.com/watch?v=${video.id}`,
+            };
+          }),
+      ),
+    };
+  }
 }

@@ -1,3 +1,16 @@
+import createDOMPurify from "dompurify";
+import { JSDOM } from "jsdom";
+import * as z from "zod";
+
+const window = new JSDOM("").window;
+const DOMPurify = createDOMPurify(window);
+
+export const safeHtml = z
+  .string()
+  .transform((s) => DOMPurify.sanitize(s))
+  .brand<"safe_html">();
+export type SafeHTML = z.infer<typeof safeHtml>;
+
 export enum VideoCollectionType {
   Playlist = "playlist",
   Channel = "channel",
@@ -20,10 +33,10 @@ export interface PlaylistReference extends VideoCollectionReference {
 export interface PlaylistData {
   playlistId: string;
   playlistLink: string;
-  title: string;
-  description: string | null;
-  thumbnail: string;
-  publishedAt: string | null;
+  title?: string;
+  description?: SafeHTML;
+  thumbnail?: string;
+  publishedAt?: Date;
   channelTitle: string;
   channelId: string;
   channelLink: string;
@@ -34,8 +47,9 @@ export interface PlaylistItemData {
   videoId: string;
   videoLink: string;
   title: string;
-  description: string;
+  duration?: number;
+  description?: SafeHTML;
   channelTitle: string;
-  publishedAt: string;
-  thumbnail: string;
+  publishedAt?: Date;
+  thumbnail?: string;
 }
