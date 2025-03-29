@@ -1,18 +1,16 @@
+import { yt } from "@/lib/youtube";
 import { NextRequest, NextResponse } from "next/server";
 import assert from "node:assert/strict";
-import { Innertube } from "youtubei.js";
-
-const client = await Innertube.create({});
 
 export type Params = { id: string };
 
 export const GET = async (
-  req: NextRequest,
+  _: NextRequest,
   { params }: { params: Promise<Params> },
 ) => {
   const { id } = await params;
 
-  const data = await client.getStreamingData(id, {
+  const data = await yt.getStreamingData(id, {
     type: "video+audio",
     format: "mp4",
     quality: "best",
