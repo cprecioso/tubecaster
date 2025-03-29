@@ -6,13 +6,14 @@ import {
   VideoCollectionReference,
   VideoCollectionType,
 } from "../types";
+import { route } from "../util";
 import { fetchCanonicalYoutubeUrl } from "./canonical";
 import { extractParamsFromYoutubeUrl } from "./extract-params";
 
 const videoCollectionReferenceToTubecasterUrl = (
   locale: Locale,
   ref: VideoCollectionReference,
-) => `/${locale}/${ref.type}/${ref.id}`;
+) => route(`/${locale}/${ref.type}/${ref.id}`);
 
 export const youtubeUrlToTubecasterUrl = async (
   locale: Locale,

@@ -1,3 +1,4 @@
+import { route } from "@/lib/util";
 import { ALLOWED_LOCALES } from "@/locale";
 import { Box, Container, Flex, Heading, Link, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
@@ -45,7 +46,7 @@ export default async function RootLayout({
                   <Flex gap="3" align={"baseline"} wrap="wrap">
                     <Heading as="h1" size="8">
                       <NextLink
-                        href={`/${locale}`}
+                        href={route(`/${locale}`)}
                         prefetch={false}
                         passHref
                         legacyBehavior

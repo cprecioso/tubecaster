@@ -1,6 +1,7 @@
 import { CopyLinkCard } from "@/components/CopyLinkCard";
 import { PlaylistCard } from "@/components/PlaylistCard";
 import requestPlaylistData from "@/lib/playlist";
+import { route } from "@/lib/util";
 import { Locale } from "@/locale";
 import { Flex } from "@radix-ui/themes";
 
@@ -22,7 +23,7 @@ export default async function PlaylistPage({
     <Flex direction="column" gap="3">
       <PlaylistCard data={playlistData} />
 
-      <CopyLinkCard url={`/api/feed/${playlistData.playlistId}`} />
+      <CopyLinkCard url={route(`/api/feed/${playlistData.playlistId}`)} />
     </Flex>
   );
 }
