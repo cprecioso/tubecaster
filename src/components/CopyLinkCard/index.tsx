@@ -1,5 +1,6 @@
 "use client";
 
+import { Route } from "@/lib/util";
 import { CheckIcon, ClipboardCopyIcon } from "@radix-ui/react-icons";
 import {
   Card,
@@ -9,7 +10,6 @@ import {
   Text,
   TextField,
 } from "@radix-ui/themes";
-import { Route } from "next";
 import { useMemo, useSyncExternalStore } from "react";
 import { useTimeout } from "./hooks";
 
