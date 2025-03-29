@@ -1,6 +1,5 @@
 "use client";
 
-import { Route } from "@/lib/util";
 import { CheckIcon, ClipboardCopyIcon } from "@radix-ui/react-icons";
 import {
   Card,
@@ -20,7 +19,7 @@ const useClientBaseUrl = () =>
     () => null,
   );
 
-export const CopyLinkCard = <T extends string>({ url }: { url: Route<T> }) => {
+export const CopyLinkCard = ({ url }: { url: string }) => {
   const clientBaseUrl = useClientBaseUrl();
 
   const fullUrl = useMemo(
