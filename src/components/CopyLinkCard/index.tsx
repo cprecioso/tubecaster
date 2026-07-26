@@ -9,6 +9,7 @@ import {
   Text,
   TextField,
 } from "@radix-ui/themes";
+import { Route } from "next";
 import { useMemo, useSyncExternalStore } from "react";
 import { useTimeout } from "./hooks";
 
@@ -19,7 +20,7 @@ const useClientBaseUrl = () =>
     () => null,
   );
 
-export const CopyLinkCard = ({ url }: { url: string }) => {
+export const CopyLinkCard = <T extends string>({ url }: { url: Route<T> }) => {
   const clientBaseUrl = useClientBaseUrl();
 
   const fullUrl = useMemo(

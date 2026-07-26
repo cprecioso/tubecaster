@@ -1,6 +1,6 @@
-// export type Route<T extends string> = import("next").Route<T>;
+import type { Route } from "next";
 
-export const route = <T extends string>(route: T) => route;
+export const route = <T extends string>(route: Route<T>) => route;
 
 // plain template string fn
 const str = (

@@ -1,5 +1,4 @@
 import { PlaylistReference } from "@/lib/types";
-import { route } from "@/lib/util";
 import { Locale } from "@/locale";
 import { Card, Flex, Grid, Link, Text } from "@radix-ui/themes";
 import NextLink from "next/link";
@@ -11,19 +10,15 @@ const OptionButton = ({
   locale: Locale;
   option: PlaylistReference;
 }) => (
-  <NextLink
-    href={route(`/${locale}/playlist/${option.id}`)}
-    passHref
-    legacyBehavior
-  >
-    <Link>
+  <Link asChild>
+    <NextLink href={`/${locale}/playlist/${option.id}`}>
       <Card>
         <Text align="center" as="div">
           {option.name}
         </Text>
       </Card>
-    </Link>
-  </NextLink>
+    </NextLink>
+  </Link>
 );
 
 export const PlaylistChooseCard = ({

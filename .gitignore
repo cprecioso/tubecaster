@@ -10,3 +10,4 @@
 .pnp.*
 
 .env*.local
+*.tsbuildinfo
