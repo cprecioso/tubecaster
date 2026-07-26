@@ -3,8 +3,7 @@ import assert from "node:assert/strict";
 import "urlpattern-polyfill";
 
 type ExtractorResult =
-  | { type: VideoCollectionType; id: string }
-  | { type: "username"; id: string };
+  { type: VideoCollectionType; id: string } | { type: "username"; id: string };
 
 const EXTRACTORS: ((url: string) => ExtractorResult)[] = [
   (() => {
