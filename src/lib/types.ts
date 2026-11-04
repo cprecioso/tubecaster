@@ -1,13 +1,9 @@
-import createDOMPurify from "dompurify";
-import { JSDOM } from "jsdom";
 import * as z from "zod";
-
-const window = new JSDOM("").window;
-const DOMPurify = createDOMPurify(window);
+import sanitizeHtml from "sanitize-html";
 
 export const safeHtml = z
   .string()
-  .transform((s) => DOMPurify.sanitize(s))
+  .transform((s) => sanitizeHtml(s))
   .brand<"safe_html">();
 export type SafeHTML = z.infer<typeof safeHtml>;
 
