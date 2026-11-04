@@ -1,5 +1,4 @@
 import { Locale } from "@/locale";
-import assert from "node:assert/strict";
 import {
   ChannelReference,
   PlaylistReference,
@@ -7,7 +6,7 @@ import {
   VideoCollectionType,
 } from "../types";
 import { route } from "../util";
-import { fetchCanonicalYoutubeUrl } from "./canonical";
+import { fetchYoutubeChannelId } from "./canonical";
 import { extractParamsFromYoutubeUrl } from "./extract-params";
 
 const videoCollectionReferenceToTubecasterUrl = (
@@ -22,10 +21,11 @@ export const youtubeUrlToTubecasterUrl = async (
   let ref = extractParamsFromYoutubeUrl(url);
 
   if (ref.type === "username") {
-    ref = extractParamsFromYoutubeUrl(await fetchCanonicalYoutubeUrl(url));
+    ref = {
+      type: VideoCollectionType.Channel,
+      id: await fetchYoutubeChannelId(url),
+    };
   }
-
-  assert(ref.type !== "username", "Couldn't get a channel reference");
 
   return videoCollectionReferenceToTubecasterUrl(locale, ref);
 };
