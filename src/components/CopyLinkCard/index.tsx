@@ -13,9 +13,10 @@ import { Route } from "next";
 import { useMemo, useSyncExternalStore } from "react";
 import { useTimeout } from "./hooks";
 
+const subscribeBaseUrl = () => () => {};
 const useClientBaseUrl = () =>
   useSyncExternalStore(
-    () => () => {},
+    subscribeBaseUrl,
     () => document.baseURI,
     () => null,
   );
