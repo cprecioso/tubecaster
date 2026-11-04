@@ -1,6 +1,8 @@
 import { parse as parseDate } from "date-fns";
 import { enUS } from "date-fns/locale/en-US";
-import { Misc, YTNodes } from "youtubei.js";
+import { Helpers, Misc, YTNodes } from "youtubei.js";
+
+type YTNode = Helpers.YTNode;
 import * as z from "zod";
 import { PlaylistData, PlaylistItemData, safeHtml } from "./types";
 import { findMax } from "./util";
@@ -14,6 +16,18 @@ const fromYTDate = z
   .transform((str) =>
     parseDate(str, "MMM d, yyyy", new Date(), { locale: enUS }),
   );
+
+// YouTube returns either legacy PlaylistVideo nodes or newer LockupView nodes
+const getVideoId = (node: YTNode): string[] => {
+  if (node.is(YTNodes.PlaylistVideo)) return [node.id];
+  if (
+    node.is(YTNodes.LockupView) &&
+    node.content_type === "VIDEO" &&
+    node.content_id
+  )
+    return [node.content_id];
+  return [];
+};
 
 export default async function requestPlaylistData(
   playlistId: string,
@@ -37,27 +51,29 @@ export default async function requestPlaylistData(
 
       items: await Promise.all(
         videos
-          .filter((video) => video.is(YTNodes.PlaylistVideo))
-          .map(async (video): Promise<PlaylistItemData> => {
-            const videoInfo = await yt.getInfo(video.endpoint);
+          .flatMap(getVideoId)
+          .map(async (videoId): Promise<PlaylistItemData> => {
+            const videoInfo = await yt.getInfo(videoId);
+            const { basic_info } = videoInfo;
 
             const publishedAt = fromYTDate
               .optional()
               .safeParse(videoInfo.primary_info?.published.toString()).data;
 
             return {
-              channelTitle: video.author.name,
+              channelTitle: basic_info.author ?? info.author.name,
               description: safeHtml
                 .optional()
                 .parse(
                   videoInfo.secondary_info?.description.toHTML() ??
-                    videoInfo.basic_info.short_description,
+                    basic_info.short_description,
                 ),
+              duration: basic_info.duration,
               publishedAt,
-              thumbnail: findBestThumbnail(video.thumbnails)?.url,
-              title: video.title.toString(),
-              videoId: video.id,
-              videoLink: `https://www.youtube.com/watch?v=${video.id}`,
+              thumbnail: findBestThumbnail(basic_info.thumbnail ?? [])?.url,
+              title: basic_info.title ?? videoId,
+              videoId,
+              videoLink: `https://www.youtube.com/watch?v=${videoId}`,
             };
           }),
       ),
