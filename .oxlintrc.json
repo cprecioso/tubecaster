@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "react",
+    "react-perf",
+    "nextjs",
+    "import",
+    "node",
+    "promise",
+    "vitest"
+  ],
+  "env": {
+    "builtin": true,
+    "node": true,
+    "browser": true
+  },
+  "ignorePatterns": [".next/**", "out/**", "build/**", "next-env.d.ts"],
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
+  }
+}
